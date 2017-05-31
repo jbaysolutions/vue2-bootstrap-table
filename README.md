@@ -48,18 +48,18 @@ TODO UPDATE CHANGELOG
 
 ## Requirements
 
-* Vue 1.* (tested with 1.0.26)
+* Vue 2.* (tested with 2.3.3)
 * Bootstrap 3 css
 
 
 ## Installation
 
-Install the vue-bootstrap-table [package](https://www.npmjs.org/package/vue-bootstrap-table2) package using [npm](https://www.npmjs.com/):
+Install the vue-bootstrap-table [package](https://www.npmjs.org/package/vue2-bootstrap-table2) package using [npm](https://www.npmjs.com/):
 
-	npm install vue-bootstrap-table2
+	npm install vue2-bootstrap-table2
 
 
-Or add the js script to your html (download from [releases](https://github.com/jbaysolutions/vue-bootstrap-table/releases)):
+Or add the js script to your html (download from [releases](https://github.com/jbaysolutions/vue2-bootstrap-table/releases)):
  
     <script src="vue-bootstrap-table.js"></script>
 
@@ -330,20 +330,31 @@ Example:
 ## Events
 
 * `cellDataModifiedEvent` - When a cell is edited, an `cellDataModifiedEvent` event is dispatched.
+* `ajaxLoadedEvent` - When ajax call is executed successfully an `ajaxLoadedEvent` event is dispatched.
+* `ajaxLoadingError` -When ajax call is executed unsuccessfully an  `ajaxLoadingError` event is dispatched.
 
-### Handling `cellDataModifiedEvent`
+### Handling Events
 
 ```javascript
-
-    events: {
-        cellDataModifiedEvent: function( originalValue, newValue, columnTitle, entry) {
-
-            this.logging.push("Original Value : " + originalValue +
-                         " | New Value : " + newValue +
-                         " | Column : " + columnTitle +
-                         " | Complete Entry : " +  entry );
-
-        },
+    created: function () {
+        this.$on('cellDataModifiedEvent',
+            function( originalValue, newValue, columnTitle, entry) {
+                console.log("cellDataModifiedEvent - Original Value : " + originalValue +
+                                         " | New Value : " + newValue +
+                                         " | Column : " + columnTitle +
+                                         " | Complete Entry : " +  entry );
+            }
+        );
+        this.$on('ajaxLoadedEvent',
+            function( data ) {
+                console.log("ajaxLoadedEvent - data : " + data );
+            }
+        );
+        this.$on('ajaxLoadingError',
+            function( error ) {
+                console.log("ajaxLoadingError - error : " + error );
+            }
+        );
     },
 ```
 
