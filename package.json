@@ -1,6 +1,6 @@
 {
   "name": "vue2-bootstrap-table2",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A sortable and searchable vue table, as a Vue component, using bootstrap styling.",
   "keywords": [
     "table",
@@ -20,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jbaysolutions/vue-bootstrap-table.git"
+    "url": "https://github.com/jbaysolutions/vue2-bootstrap-table.git"
   },
   "author": "Gustavo Santos (JBay Solutions) <gustavo.santos@jbaysolutions.com> (http://www.jbaysolutions.com)",
   "dependencies": {
