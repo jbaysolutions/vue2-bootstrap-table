@@ -25,17 +25,18 @@
                         :show-filter="showFilter"
                         :show-column-picker="showPicker"
                         :paginated="paginated"
+                        :ajax="ajax"
                 >
                 </vue-bootstrap-table>
             </div>
             <h2>Events Received</h2>
             <div>
-                {{ logging | json}}
+                {{ logging }}
             </div>
         </div>
 
     </div>
-    <script src="vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.3/vue.js"></script>
     <script src="../dist/vue-bootstrap-table.js"></script>
     <script src="01-basic.js"></script>
 </body>

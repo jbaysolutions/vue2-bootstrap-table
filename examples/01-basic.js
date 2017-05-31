@@ -1,5 +1,5 @@
-Vue.config.debug = true;
-Vue.config.devtools = true;
+//Vue.config.debug = true;
+//Vue.config.devtools = true;
 
 new Vue({
     el: '#app',
@@ -11,6 +11,12 @@ new Vue({
         showFilter: true,
         showPicker: true,
         paginated: true,
+        ajax: {
+            enabled: false,
+            url: "http://localhost:9430/data/test",
+            method: "POST",
+            delegate: true,
+        },
         columns: [
             {
                 title:"id",
@@ -18,17 +24,20 @@ new Vue({
                 editable: false,
             },
             {
-                title:"name",
+                title:"Name",
+                name: "name",
                 visible: true,
                 editable: true,
             },
             {
-                title:"age",
+                title:"Age",
+                name: "age",
                 visible: true,
                 editable: true,
             },
             {
-                title:"country",
+                title:"Country",
+                name: "country",
                 visible: true,
                 editable: true,
             }
@@ -54,7 +63,26 @@ new Vue({
             }
         ]
     },
-    ready: function () {
+    created: function () {
+        var self = this;
+        this.$on('cellDataModifiedEvent',
+            function( originalValue, newValue, columnTitle, entry) {
+                self.logging.push("cellDataModifiedEvent - Original Value : " + originalValue +
+                                         " | New Value : " + newValue +
+                                         " | Column : " + columnTitle +
+                                         " | Complete Entry : " +  entry );
+            }
+        );
+        this.$on('ajaxLoadedEvent',
+            function( data ) {
+                this.logging.push("ajaxLoadedEvent - data : " + data );
+            }
+        );
+        this.$on('ajaxLoadingError',
+            function( error ) {
+                this.logging.push("ajaxLoadingError - error : " + error );
+            }
+        );
     },
     methods: {
         addItem: function() {
@@ -76,13 +104,5 @@ new Vue({
         togglePagination: function () {
             this.paginated = !this.paginated;
         }
-    },
-    events: {
-        cellDataModifiedEvent: function( originalValue, newValue, columnTitle, entry) {
-            this.logging.push("Original Value : " + originalValue +
-                         " | New Value : " + newValue +
-                         " | Column : " + columnTitle +
-                         " | Complete Entry : " +  entry );
-        },
     },
 });
