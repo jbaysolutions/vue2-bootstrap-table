@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Vue Bootstrap Table Demo</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="app.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <h1>Vue Bootstrap Table Demo</h1>
+        <div id="app">
+            <div class="row">
+                <div class="col-sm-12">
+                    <button @click="addItem" class="btn btn-primary"><i class="glyphicon glyphicon-plus-sign"></i> Add an item</button>
+                    <button @click="toggleFilter" class="btn btn-default">Toggle Filter</button>
+                    <button @click="togglePicker" class="btn btn-default">Toggle Column Picker</button>
+                    <button @click="togglePagination" class="btn btn-default">Toggle Pagination</button>
+                </div>
+                <br/><br/>
+                <vue-bootstrap-table
+                        :columns="columns"
+                        :values="values"
+                        :show-filter="showFilter"
+                        :show-column-picker="showPicker"
+                        :paginated="paginated"
+                >
+                </vue-bootstrap-table>
+            </div>
+            <h2>Events Received</h2>
+            <div>
+                {{ logging | json}}
+            </div>
+        </div>
+
+    </div>
+    <script src="vue.js"></script>
+    <script src="../dist/vue-bootstrap-table.js"></script>
+    <script src="01-basic.js"></script>
+</body>
+</html>
