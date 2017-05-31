@@ -10,7 +10,7 @@ Use current release : 1.1.0
 
 Not yet available. Being Developed
 
-### [Demo](https://jbaysolutions.github.io/vue-bootstrap-table/examples/01-basic.html)
+### [Demo](https://jbaysolutions.github.io/vue2-bootstrap-table/examples/01-basic.html)
 
 <!--
 ## Table of Contents
