@@ -1,14 +1,10 @@
-# vue-bootstrap-table
+# vue2-bootstrap-table
 
 vue-bootstrap-table is a sortable and searchable table, with Bootstrap styling, for Vue.js.
 
-### VUE 2
-
-Use current release : 1.1.0
+### VUE 2 : 1.1.1
 
 ### Vue 1 : [jbaysolutions/vue-bootstrap-table](https://github.com/jbaysolutions/vue-bootstrap-table)
-
-Not yet available. Being Developed
 
 ### [Demo](https://jbaysolutions.github.io/vue2-bootstrap-table/examples/01-basic.html)
 
@@ -378,6 +374,10 @@ If you have a feature request, please add it as an issue or make a pull request.
 
 
 ## Changelog
+
+### 1.1.1
+
+* Added more Events
 
 ### 1.1.0
 
