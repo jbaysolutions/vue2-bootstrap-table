@@ -48,11 +48,11 @@
                     <tr v-for="entry in filteredValuesSorted " track-by="entry">
                         <td v-for="column in displayColsVisible" track-by="column"
                             v-show="column.visible">
+
                             <span v-if="!column.editable"> {{ entry[column.name] }} </span>
                             <value-field-section v-else
                                 :entry="entry"
-                                :columnname="column.name"
-                                :value="entry[column.name]"></value-field-section>
+                                :columnname="column.name"></value-field-section>
                         </td>
                     </tr>
                 </tbody>
@@ -187,7 +187,7 @@
 
     /* Field Section used for displaying and editing value of cell */
     var valueFieldSection = {
-      template: '<span v-if="!enabled" @dblclick="toggleInput" class="editableField"> {{ datavalue }} </span>'+
+      template: '<span v-if="!enabled" @dblclick="toggleInput" class="editableField">{{this.entry[this.columnname]}}</span>'+
           '<div v-else-if="enabled" class="input-group">'+
           '  <input type="text" class="form-control" v-model="datavalue" @keyup.enter="saveThis" @keyup.esc="cancelThis">'+
           '  <span class="input-group-btn">'+
@@ -195,11 +195,11 @@
           '    <button class="btn btn-primary" type="button" @click="saveThis" ><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>'+
           '  </span>'+
           '</div>',
-      props: ['entry','value','columnname'],
+      props: ['entry','columnname'],
       data: function () {
           return {
             enabled: false,
-            datavalue: this.value
+            datavalue: "",
           }
       },
       methods: {
@@ -214,6 +214,7 @@
             this.enabled = !this.enabled;
         },
         toggleInput: function () {
+            this.datavalue= this.entry[this.columnname];
             this.enabled=!this.enabled;
         },
       }
@@ -395,7 +396,7 @@
             },
             filteredValuesSorted: function () {
                 //  orderBy sortKey sortOrders[sortKey]
-                return  _.orderBy(this.filteredValues, this.sortKey , this.sortDir.toLowerCase());
+                return _.orderBy(this.filteredValues, this.sortKey , this.sortDir.toLowerCase());
             },
             validPageNumbers: function () {
                 // 5 page max
