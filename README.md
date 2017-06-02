@@ -223,9 +223,13 @@ The `columns` array takes object of type:
 
 ```javascript
 {
-    title:"country",  // Mandatory: Title to be presented on the Table
-    visible: true,    // Optional: column visible? (Default: true)
-    editable: false,  // Optional: column cells editable? (Default: false)
+    title: String,              // Mandatory: Title to be presented on the Table
+    name: String,               // Optional: The name of the "data" property. If nothing, title is used.
+    visible: Boolean,              // Optional: column visible? (Default: true)
+    editable: Boolean,            // Optional: column cells editable? (Default: false)
+    columnstyle: String         // Optional: styles to be applied to the Column Header
+    cellstyle: String           // Optional: styles to be applied to the Cells of this column
+    renderfunction: Function    // Optional: Function that receives as input the entry, and returns an HTML String for drawing cell
 }
 ```
 
@@ -247,6 +251,34 @@ Column with Title "Name" , which is visible and editable:
     editable: true,
 }
 ```
+
+#### Render Function Example
+
+For a Column definition like so:
+
+```javascript
+columns: [
+    {
+        title: "Test",
+        visible: true,
+        renderfunction: renderfu
+    }
+],
+```
+
+There must be a javascript function called `renderfu`  :
+
+```javascript
+<script>
+    var renderfu = function (entry) {
+        return '<div class="btn-group" role="group" >'+
+            '  <button type="button" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>'+
+            '  <button type="button" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>'+
+            '</div><span>'+JSON.stringify(entry)+'</span>';
+    };
+</script>
+```
+
 
 ### AJAX Configuration
 

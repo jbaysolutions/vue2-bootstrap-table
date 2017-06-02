@@ -1,5 +1,12 @@
 import VueBootstrapTable from './VueBootstrapTable.vue';
 
+var renderfu = function (entry) {
+    return '<div class="btn-group" role="group" >'+
+        '  <button type="button" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>'+
+        '  <button type="button" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>'+
+        '</div><span>'+JSON.stringify(entry)+'</span>';
+};
+
 new Vue({
     el: '#app',
     components: {
@@ -21,12 +28,19 @@ new Vue({
             {
                 title: "Id",
                 name: "id",
+                columnstyle: "colstyletest",
+                cellstyle: "cellstyletest"
             },
             {
                 title: "Name",
                 name: "title",
                 visible: true,
                 editable: true,
+            },
+            {
+                title: "Test",
+                visible: true,
+                renderfunction: renderfu
             }
         ],
         values: [

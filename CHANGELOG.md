@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.3  RC
+
+* Define a Render Function support by column
+* Define Column Styles by column
+* Define Cell Styles by column
+
 ## 1.1.2 (June 2, 2017)
 
 * Fix to Sorting

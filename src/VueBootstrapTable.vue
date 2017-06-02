@@ -39,7 +39,7 @@
                     <tr>
                         <th v-for="column in displayColsVisible" @click="sortBy($event, column.name)"
                             track-by="column"
-                            :class="getClasses(column.name)">
+                            :class="getClasses(column)">
                             {{ column.title }}
                         </th>
                     </tr>
@@ -47,9 +47,9 @@
                 <tbody>
                     <tr v-for="entry in filteredValuesSorted " track-by="entry">
                         <td v-for="column in displayColsVisible" track-by="column"
-                            v-show="column.visible">
-
-                            <span v-if="!column.editable"> {{ entry[column.name] }} </span>
+                            v-show="column.visible" :class="column.cellstyle">
+                            <span v-if="column.renderfunction!==false" v-html="column.renderfunction( entry )"></span>
+                            <span v-else-if="!column.editable"> {{ entry[column.name] }} </span>
                             <value-field-section v-else
                                 :entry="entry"
                                 :columnname="column.name"></value-field-section>
@@ -562,6 +562,19 @@
                     obj.editable = column.editable;
                 else
                     obj.editable = false;
+                if ( typeof column.renderfunction !== "undefined")
+                    obj.renderfunction = column.renderfunction;
+                else
+                    obj.renderfunction = false;
+                if ( typeof column.columnstyle !== "undefined")
+                    obj.columnstyle = column.columnstyle;
+                else
+                    obj.columnstyle = "";
+                if ( typeof column.cellstyle !== "undefined")
+                    obj.cellstyle = column.cellstyle;
+                else
+                    obj.cellstyle = "";
+
                 return obj;
             },
             setSortOrders: function () {
@@ -600,8 +613,9 @@
                     this.sortChanged = this.sortChanged * -1;
                 }
             },
-            getClasses: function (key) {
-                var classes = [];
+            getClasses: function (column) {
+                var classes = [column.columnstyle];
+                var key = column.name;
                 if (this.sortable) {
                     classes.push("arrow");
                     /*if (this.sortKey === key) {
