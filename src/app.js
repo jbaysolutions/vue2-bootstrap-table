@@ -12,7 +12,7 @@ new Vue({
         paginated: true,
         multiColumnSortable: true,
         ajax: {
-            enabled: true,
+            enabled: false,
             url: "http://localhost:9430/data/test",
             method: "POST",
             delegate: true,
