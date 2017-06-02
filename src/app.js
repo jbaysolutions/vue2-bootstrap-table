@@ -10,8 +10,9 @@ new Vue({
         showFilter: true,
         showPicker: true,
         paginated: true,
+        multiColumnSortable: true,
         ajax: {
-            enabled: false,
+            enabled: true,
             url: "http://localhost:9430/data/test",
             method: "POST",
             delegate: true,
@@ -34,43 +35,43 @@ new Vue({
                 "title": "john",
             },
             {
-                "id": 2,
+                "id": 1,
                 "title": "mary",
             },
             {
-                "id": 3,
+                "id": 1,
                 "title": "jack",
             },
             {
-                "id": 4,
+                "id": 1,
                 "title": "joe",
             },
             {
-                "id": 5,
+                "id": 2,
                 "title": "ana",
             },
             {
-                "id": 6,
+                "id": 2,
                 "title": "rita",
             },
             {
-                "id": 7,
+                "id": 2,
                 "title": "mario",
             },
             {
-                "id": 8,
+                "id": 2,
                 "title": "luigi",
             },
             {
-                "id": 9,
+                "id": 2,
                 "title": "mickey",
             },
             {
-                "id": 10,
+                "id": 3,
                 "title": "donald",
             },
             {
-                "id": 11,
+                "id": 3,
                 "title": "juliet",
             }
 

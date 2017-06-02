@@ -37,7 +37,7 @@
             <table class="table table-bordered table-hover table-condensed table-striped vue-table">
                 <thead>
                     <tr>
-                        <th v-for="column in displayColsVisible" @click="sortBy(column.name)"
+                        <th v-for="column in displayColsVisible" @click="sortBy($event, column.name)"
                             track-by="column"
                             :class="getClasses(column.name)">
                             {{ column.title }}
@@ -249,6 +249,15 @@
                 default: true,
             },
             /**
+             * Enable/disable table multicolumn sorting, optional, default false.
+             * Also sortable must be enabled for this function to work.
+             */
+            multiColumnSortable: {
+                type: Boolean,
+                required: false,
+                default: false,
+            },
+            /**
              * Enable/disable input filter, optional, default false
              */
             showFilter: {
@@ -300,9 +309,9 @@
             return {
                 filteredSize: 0,
                 filterKey: "",
-                sortKey: "",
-                sortDir: "",
+                sortKey: [],
                 sortOrders: {},
+                sortChanged: 1,
                 columnMenuOpen: false,
                 displayCols: [],
                 filteredValues: [],
@@ -343,6 +352,7 @@
         },
         watch: {
             values: function () {
+                this.processFilter();
             },
             columns: function () {
                 this.displayCols = [];
@@ -371,7 +381,7 @@
             sortKey: function () {
                 this.processFilter();
             },
-            sortDir: function () {
+            sortChanged: function () {
                 this.processFilter();
             },
             page: function () {
@@ -395,8 +405,11 @@
                 return displayColsVisible;
             },
             filteredValuesSorted: function () {
-                //  orderBy sortKey sortOrders[sortKey]
-                return _.orderBy(this.filteredValues, this.sortKey , this.sortDir.toLowerCase());
+                var tColsDir = [];
+                for(var i=0, len=this.sortKey.length; i < len; i++){
+                    tColsDir.push(this.sortOrders[this.sortKey[i]].toLowerCase());
+                }
+                return _.orderBy(this.filteredValues, this.sortKey , tColsDir);
             },
             validPageNumbers: function () {
                 // 5 page max
@@ -444,7 +457,12 @@
                                 return good;
                     });
 
-                    result = _.orderBy(result, this.sortKey, this.sortDir.toLowerCase());
+                    var tColsDir = [];
+                    for(var i=0, len=this.sortKey.length; i < len; i++){
+                        tColsDir.push(this.sortOrders[this.sortKey[i]].toLowerCase());
+                    }
+
+                    result = _.orderBy(result, this.sortKey, tColsDir);
 
                     this.filteredSize = result.length;
                     if (this.paginated) {
@@ -465,13 +483,17 @@
             fetchData: function ( dataCallBackFunction ) {
                 var self = this;
                 var ajaxParameters = {
-
+                    params: {}
                 };
                 this.echo++;
                 if (this.ajax.enabled && this.ajax.delegate) {
+                    var tColsDir = [];
+                    for(var i=0, len=this.sortKey.length; i < len; i++){
+                        tColsDir.push(this.sortOrders[this.sortKey[i]].toLowerCase());
+                    }
                     if ( this.ajax.method=== "GET" ) {
                         ajaxParameters.params.sortcol = this.sortKey;
-                        ajaxParameters.params.sortdir = this.sortDir;
+                        ajaxParameters.params.sortdir = tColsDir;
                         ajaxParameters.params.filter = this.filterKey;
                         if (self.paginated ) {
                             ajaxParameters.params.page = this.page;
@@ -484,7 +506,7 @@
                     }
                     if ( this.ajax.method=== "POST" ) {
                         ajaxParameters.sortcol = this.sortKey;
-                        ajaxParameters.sortdir = this.sortDir;
+                        ajaxParameters.sortdir = tColsDir;
                         ajaxParameters.filter = this.filterKey;
                         if (self.paginated ) {
                             ajaxParameters.page = this.page;
@@ -540,45 +562,55 @@
                 return obj;
             },
             setSortOrders: function () {
-                this.sortKey = "";
+                this.sortKey = [];
                 var sortOrders = {};
                 this.columns.forEach(function (column) {
-                    sortOrders[column.name] = 0;
+                    sortOrders[column.name] = "";
                 });
                 this.sortOrders = sortOrders;
 
             },
-            sortBy: function (key) {
+            sortBy: function (event, key) {
                 if (this.sortable) {
                     var self = this;
-                    this.sortKey = key;
-                    this.columns.forEach(function (column) {
-                        if (column.name !== key) {
-                            self.sortOrders[column.name] = 0;
-                        }
-                    });
-                    if (this.sortOrders[key] === 0) {
-                        this.sortOrders[key] = 1;
+
+                    if (!this.multiColumnSortable || ( this.multiColumnSortable && !event.shiftKey)) {
+                        this.sortKey = [key];
+                        this.columns.forEach(function (column) {
+                            if (column.name !== key) {
+                                self.sortOrders[column.name] = "";
+                            }
+                        });
                     } else {
-                        this.sortOrders[key] = this.sortOrders[key] * -1;
+                        if (_.findIndex(this.sortKey, function(o) { return o === key; }) === -1) {
+                            this.sortKey.push(key);
+                        }
+                    }
+                    if (this.sortOrders[key] === "") {
+                        this.sortOrders[key] = "ASC";
+                    } else if (this.sortOrders[key] === "ASC") {
+                        this.sortOrders[key] = "DESC";
+                    } else {
+                        this.sortOrders[key] = "ASC";
                     }
 
-                    if (this.sortOrders[key] === 1)
-                        this.sortDir = "ASC";
-                    if (this.sortOrders[key] === -1)
-                        this.sortDir = "DESC";
+                    this.sortChanged = this.sortChanged * -1;
                 }
             },
             getClasses: function (key) {
                 var classes = [];
                 if (this.sortable) {
                     classes.push("arrow");
-                    if (this.sortKey === key) {
+                    /*if (this.sortKey === key) {
+                        classes.push("active");
+                    }*/
+                    if (_.findIndex(this.sortKey, function(o) { return o === key; }) !== -1) {
                         classes.push("active");
                     }
-                    if (this.sortOrders[key] === 1) {
+
+                    if (this.sortOrders[key] === "ASC") {
                         classes.push("asc");
-                    } else if (this.sortOrders[key] === -1) {
+                    } else if (this.sortOrders[key] === "DESC") {
                         classes.push("dsc");
                     }
                 }

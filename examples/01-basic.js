@@ -11,6 +11,7 @@ new Vue({
         showFilter: true,
         showPicker: true,
         paginated: true,
+        multiColumnSortable: true,
         ajax: {
             enabled: false,
             url: "http://localhost:9430/data/test",

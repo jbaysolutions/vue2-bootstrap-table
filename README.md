@@ -2,7 +2,7 @@
 
 vue-bootstrap-table is a sortable and searchable table, with Bootstrap styling, for Vue.js.
 
-### VUE 2 : 1.1.1
+### VUE 2 : 1.1.2
 
 ### Vue 1 : [jbaysolutions/vue-bootstrap-table](https://github.com/jbaysolutions/vue-bootstrap-table)
 
@@ -34,6 +34,7 @@ TODO UPDATE CHANGELOG
 ## Features
 
 * Sortable
+* Multicolumn Sorting
 * Searchable
 * Select display columns
 * Pagination
@@ -124,6 +125,7 @@ Or add the js script to your html (download from [releases](https://github.com/j
             :show-column-picker="true"
             :sortable="true"
             :paginated="true"
+            :multi-column-sortable=true
     >
     </vue-bootstrap-table>
 ```` 
@@ -154,6 +156,15 @@ Or add the js script to your html (download from [releases](https://github.com/j
             type: Boolean,
             required: false,
             default: true,
+        },
+        /**
+         * Enable/disable table multicolumn sorting, optional, default false.
+         * Also sortable must be enabled for this function to work.
+         */
+        multiColumnSortable: {
+            type: Boolean,
+            required: false,
+            default: false,
         },
         /**
          * Enable/disable input filter, optional, default false
@@ -279,12 +290,26 @@ ajax: {
 
 When Ajax is enabled, the following parameters are sent with each request for the URL specified:
 
- - `sortcol` : The name of the column to sort by (only sent when `delegate` is true, otherwise will be null)
- - `sortdir` : The sorting direction "ASC" or "DESC" (only sent when `delegate` is true, otherwise will be null)
+ - `sortcol` : Array of String columns to sort (only sent when `delegate` is true, otherwise will be null)
+ - `sortdir` : Array of sorting directions for each column on sortcol, "ASC" or "DESC" (only sent when `delegate` is true, otherwise will be null)
  - `filter` : The filter to be used  (only sent when `delegate` is true, otherwise will be null)
  - `page` : The number of the page being requested ( when delegate is false, it will always be 1 )
  - `pagesize` : The number of records being requested.
  - `echo` : A unique number for the request.
+
+##### When using GET
+
+ - `sortcol` : is sent in the following format  `sortcol[]=COLNAME&sortcol[]=COLNAME`
+ - `sortdir` : is sent in the following format  `sortdir[]=ASC&sortdir[]=DESC`
+
+This is performed automatically by AXIOS
+
+##### When using POST
+
+ - `sortcol` : is sent in the following format  `sortcol[0]=COLNAME ; sortcol[1]=COLNAME; `
+ - `sortdir` : is sent in the following format  `sortdir[0]=ASC ; sortdir[1]=DESC`
+
+This is performed automatically by AXIOS
 
 #### Ajax Expected Response
 
@@ -363,6 +388,7 @@ If you have a feature request, please add it as an issue or make a pull request.
 
 - [x] Basic table
 - [x] Sorting
+- [x] Multicolumn Sorting
 - [x] Filter
 - [x] Column picker
 - [x] Pagination
@@ -374,6 +400,13 @@ If you have a feature request, please add it as an issue or make a pull request.
 
 
 ## Changelog
+
+### 1.1.2
+
+* Fix to Sorting
+* Added Multicolumn Sorting
+* Fix dynamic adding rows with update to interface
+* Ajax with multicolumn sorting
 
 ### 1.1.1
 
