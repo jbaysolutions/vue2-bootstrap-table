@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.1.3  RC
+## 1.1.3  (June 5, 2017)
 
 * Define a Render Function support by column
 * Define Column Styles by column
