@@ -229,7 +229,7 @@ The `columns` array takes object of type:
     editable: Boolean,            // Optional: column cells editable? (Default: false)
     columnstyle: String         // Optional: styles to be applied to the Column Header
     cellstyle: String           // Optional: styles to be applied to the Cells of this column
-    renderfunction: Function    // Optional: Function that receives as input the entry, and returns an HTML String for drawing cell
+    renderfunction: Function    // Optional: Function that receives as input the column name and entry, and returns an HTML String for drawing cell
 }
 ```
 
@@ -261,16 +261,16 @@ columns: [
     {
         title: "Test",
         visible: true,
-        renderfunction: renderfu
+        renderfunction: renderTestColumn
     }
 ],
 ```
 
-There must be a javascript function called `renderfu`  :
+There must be a javascript function called `renderTestColumn`  :
 
 ```javascript
 <script>
-    var renderfu = function (entry) {
+    var renderTestColumn = function (colname, entry) {
         return '<div class="btn-group" role="group" >'+
             '  <button type="button" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>'+
             '  <button type="button" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>'+
