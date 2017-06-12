@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.1.4 (June 12, 2017)
+
+* Fix- delegate now doesn't use echo
+
 ## 1.1.3  (June 5, 2017)
 
 * Define a Render Function support by column

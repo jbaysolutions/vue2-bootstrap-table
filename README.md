@@ -2,7 +2,7 @@
 
 vue-bootstrap-table is a sortable and searchable table, with Bootstrap styling, for Vue.js.
 
-### VUE 2 : 1.1.3
+### VUE 2 : 1.1.4
 
 ### Vue 1 : [jbaysolutions/vue-bootstrap-table](https://github.com/jbaysolutions/vue-bootstrap-table)
 
@@ -432,6 +432,16 @@ If you have a feature request, please add it as an issue or make a pull request.
 
 
 ## Changelog
+
+### 1.1.4
+
+* Fix- delegate now doesn't use echo
+
+### 1.1.3
+
+* Define a Render Function support by column
+* Define Column Styles by column
+* Define Cell Styles by column
 
 ### 1.1.2
 
