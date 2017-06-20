@@ -7,6 +7,10 @@ var renderfu = function (colname, entry) {
         '</div><span>'+JSON.stringify(entry)+'</span>';
 };
 
+var renderRow = function (event, entry) {
+    console.log("CLICK ROW: " + JSON.stringify(entry));
+};
+
 new Vue({
     el: '#app',
     components: {
@@ -18,6 +22,7 @@ new Vue({
         showPicker: true,
         paginated: true,
         multiColumnSortable: true,
+        renderRowFunction: renderRow,
         ajax: {
             enabled: false,
             url: "http://localhost:9430/data/test",

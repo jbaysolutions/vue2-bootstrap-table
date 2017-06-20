@@ -17,6 +17,7 @@
         background-color: #a94442;
     }
 </style>
+
 <div class="container-fluid">
     <h1>Vue Bootstrap Table</h1>
     <div id="app">
@@ -36,6 +37,7 @@
                     :paginated="paginated"
                     :multi-column-sortable="multiColumnSortable"
                     :ajax="ajax"
+                    :row-click-handler=renderRowFunction
             >
             </vue-bootstrap-table>
         </div>

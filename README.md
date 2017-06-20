@@ -213,6 +213,14 @@ Or add the js script to your html (download from [releases](https://github.com/j
                 }
             }
         },
+        /**
+         * Function to handle row clicks
+         */
+        rowClickHandler: {
+            type: Function,
+            required: false,
+            default: function () {}
+        },
     },
 
 ```
@@ -279,6 +287,36 @@ There must be a javascript function called `renderTestColumn`  :
 </script>
 ```
 
+### ROW Click Handler
+
+To add a Row click handler function:
+
+````html
+
+    <vue-bootstrap-table
+            [...]
+            :row-click-handler=renderRowFunction
+    >
+    </vue-bootstrap-table>
+````
+
+On your Vue instance :
+
+````javascript
+data: {
+        renderRowFunction: renderRow,
+}
+````
+
+And have the javascript function declared like so:
+
+````javascript
+var renderRow = function (event, entry) {
+    console.log("CLICK ROW: " + JSON.stringify(entry));
+};
+````
+
+Where event in the `MouseEvent` and `entry` e the complete entry corresponding to the row.
 
 ### AJAX Configuration
 
@@ -432,6 +470,10 @@ If you have a feature request, please add it as an issue or make a pull request.
 
 
 ## Changelog
+
+### 1.1.5 - UNRELEASED
+
+* Row Click Handler added
 
 ### 1.1.4
 

@@ -45,7 +45,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="entry in filteredValuesSorted " track-by="entry">
+                    <tr v-for="entry in filteredValuesSorted " track-by="entry" @click="rowClickHandler($event, entry)">
                         <td v-for="column in displayColsVisible" track-by="column"
                             v-show="column.visible" :class="column.cellstyle">
                             <span v-if="column.renderfunction!==false" v-html="column.renderfunction( column.name, entry )"></span>
@@ -306,6 +306,14 @@
                         delegate: false,
                     }
                 }
+            },
+            /**
+             * Function to handle row clicks
+             */
+            rowClickHandler: {
+                type: Function,
+                required: false,
+                default: function () {}
             },
         },
         data: function () {
