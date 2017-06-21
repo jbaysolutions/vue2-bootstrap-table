@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.1.5 (June 21, 2017)
+
+* Row Click Handler added
+
 ### 1.1.4 (June 12, 2017)
 
 * Fix- delegate now doesn't use echo
