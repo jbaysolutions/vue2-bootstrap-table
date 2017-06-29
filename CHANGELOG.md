@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.1.6 (June 29, 2017)
+
+* Search case sensitivity configurable
+
 ### 1.1.5 (June 21, 2017)
 
 * Row Click Handler added

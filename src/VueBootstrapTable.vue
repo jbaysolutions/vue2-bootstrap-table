@@ -269,6 +269,14 @@
                 default: false,
             },
             /**
+             * Define if Filter search field is to work in a case Sensitive way. Default: true
+             */
+            filterCaseSensitive: {
+                type: Boolean,
+                required: false,
+                default: true,
+            },
+            /**
              * Enable/disable column picker to show/hide table columns, optional, default false
              */
             showColumnPicker: {
@@ -461,9 +469,16 @@
                     var result = this.values.filter(item => {
                                 var good = false;
                                 for (var col in self.displayColsVisible) {
-                                    if ( lodashincludes(item[self.displayColsVisible[col].name]+"" , self.filterKey+"")){
-                                        good = true;
+                                    if (self.filterCaseSensitive) {
+                                        if (lodashincludes(item[self.displayColsVisible[col].name] + "", self.filterKey + "")) {
+                                            good = true;
+                                        }
+                                    } else {
+                                        if (lodashincludes((item[self.displayColsVisible[col].name] + "").toLowerCase(), (self.filterKey + "").toLowerCase())) {
+                                            good = true;
+                                        }
                                     }
+
                                 }
                                 return good;
                     });

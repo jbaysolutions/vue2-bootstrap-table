@@ -2,7 +2,7 @@
 
 vue-bootstrap-table is a sortable and searchable table, with Bootstrap styling, for Vue.js.
 
-### VUE 2 : 1.1.5
+### VUE 2 : 1.1.6
 
 ### Vue 1 : [jbaysolutions/vue-bootstrap-table](https://github.com/jbaysolutions/vue-bootstrap-table)
 
@@ -126,6 +126,8 @@ Or add the js script to your html (download from [releases](https://github.com/j
             :sortable="true"
             :paginated="true"
             :multi-column-sortable=true
+            :filter-case-sensitive=false
+
     >
     </vue-bootstrap-table>
 ```` 
@@ -173,6 +175,14 @@ Or add the js script to your html (download from [releases](https://github.com/j
             type: Boolean,
             required: false,
             default: false,
+        },
+        /**
+         * Define if Filter search field is to work in a case Sensitive way. Default: true
+         */
+        filterCaseSensitive: {
+            type: Boolean,
+            required: false,
+            default: true,
         },
         /**
          * Enable/disable column picker to show/hide table columns, optional, default false
@@ -470,6 +480,10 @@ If you have a feature request, please add it as an issue or make a pull request.
 
 
 ## Changelog
+
+### 1.1.6
+
+* Search case sensitivity configurable
 
 ### 1.1.5
 
