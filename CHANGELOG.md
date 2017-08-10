@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.1.7 (August 10, 2017)
+
+* Allowing Axios configuration to be passed for the requests
+
 ### 1.1.6 (June 29, 2017)
 
 * Search case sensitivity configurable

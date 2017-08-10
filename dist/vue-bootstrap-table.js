@@ -74,7 +74,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	__vue_script__ = __webpack_require__(6)
 	if (Object.keys(__vue_script__).some(function (key) { return key !== "default" && key !== "__esModule" })) {
 	  console.warn("[vue-loader] src/VueBootstrapTable.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(46)
+	__vue_template__ = __webpack_require__(49)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
@@ -133,7 +133,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	
 	// module
-	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    .vue-table {\n\n    }\n\n    /*#maindiv {\n        content: \" \";\n        box-sizing: border-box;\n        display:\n        table; width: 100%;\n    }\n*/\n    .spinner {\n        border: 16px solid #f3f3f3; /* Light grey */\n        border-top: 16px solid #3498db; /* Blue */\n        border-radius: 50%;\n        width: 120px;\n        height: 120px;\n        -webkit-animation: spin 2s linear infinite;\n                animation: spin 2s linear infinite;\n        position: absolute;\n        left: 50%;\n        top: 50%;\n        margin: -60px 0 0 -60px;\n    }\n\n    @-webkit-keyframes spin {\n        0% { -webkit-transform: rotate(0deg); transform: rotate(0deg); }\n        100% { -webkit-transform: rotate(360deg); transform: rotate(360deg); }\n    }\n\n    @keyframes spin {\n        0% { -webkit-transform: rotate(0deg); transform: rotate(0deg); }\n        100% { -webkit-transform: rotate(360deg); transform: rotate(360deg); }\n    }\n\n\n    .vue-table-loading{\n        position: absolute;\n        z-index: 99;\n        background-color: #ddd;\n        opacity: 0.5;\n        width: 100%;\n        height: 100%;\n    }\n\n    .vue-table-loading-hidden {\n        display: none;\n    }\n\n    table.vue-table thead > tr > th {\n        cursor: pointer;\n        padding-right: 30px !important;\n    }\n\n    /*.vue-table th.active {\n        color: red;\n    }*/\n\n    .vue-table .arrow {\n        opacity: 1;\n        position: relative;\n    }\n\n    .vue-table .arrow:after {\n        position: absolute;\n        bottom: 8px;\n        right: 8px;\n        display: block;\n        font-family: 'Glyphicons Halflings';\n        content: \"\\E150\";\n        /*\n        display: inline-block;\n        vertical-align: middle;\n        width: 0;\n        height: 0;\n        margin-left: 5px;\n        opacity: 0.66;*/\n    }\n\n    .vue-table .arrow.asc:after {\n        content: \"\\E155\";\n        /*\n        border-left: 4px solid transparent;\n        border-right: 4px solid transparent;\n        border-bottom: 4px solid #000;\n        */\n    }\n\n    .vue-table .arrow.dsc:after {\n        content: \"\\E156\";\n    }\n\n\n    .vue-table .editableField {\n        cursor:pointer;\n    }\n\n    /*.vue-table .selected-cell {\n        background-color: #F7C072;\n    }\n\n    .vue-table .selected-row {\n        background-color: #FAE1BE !important;\n    }*/\n", "", {"version":3,"sources":["/./src/VueBootstrapTable.vue?272a4001"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;IAkFA;;KAEA;;IAEA;;;;;;EAMA;IACA;QACA,2BAAA,CAAA,gBAAA;QACA,+BAAA,CAAA,UAAA;QACA,mBAAA;QACA,aAAA;QACA,cAAA;QACA,2CAAA;gBAAA,mCAAA;QACA,mBAAA;QACA,UAAA;QACA,SAAA;QACA,wBAAA;KACA;;IAEA;QACA,KAAA,gCAAA,CAAA,wBAAA,EAAA;QACA,OAAA,kCAAA,CAAA,0BAAA,EAAA;KACA;;IAHA;QACA,KAAA,gCAAA,CAAA,wBAAA,EAAA;QACA,OAAA,kCAAA,CAAA,0BAAA,EAAA;KACA;;;IAGA;QACA,mBAAA;QACA,YAAA;QACA,uBAAA;QACA,aAAA;QACA,YAAA;QACA,aAAA;KACA;;IAEA;QACA,cAAA;KACA;;IAEA;QACA,gBAAA;QACA,+BAAA;KACA;;IAEA;;OAEA;;IAEA;QACA,WAAA;QACA,mBAAA;KACA;;IAEA;QACA,mBAAA;QACA,YAAA;QACA,WAAA;QACA,eAAA;QACA,oCAAA;QACA,iBAAA;QACA;;;;;;wBAMA;KACA;;IAEA;QACA,iBAAA;QACA;;;;UAIA;KACA;;IAEA;QACA,iBAAA;KACA;;;IAGA;QACA,eAAA;KACA;;IAEA;;;;;;OAMA","file":"VueBootstrapTable.vue","sourcesContent":["<template>\n    <div id=\"maindiv\" @click=\"closeDropdown\" @keyup.esc=\"closeDropdown\">\n        <!--<pre>{{columns}}</pre>-->\n        <!--<pre>{{$data}}</pre>-->\n        <div class=\"col-sm-6\">\n            <div v-if=\"showFilter\" style=\"padding-top: 10px;padding-bottom: 10px;\">\n                <div class=\"input-group\">\n                    <input type=\"text\" class=\"form-control\" placeholder=\"Filter\" v-model=\"filterKey\">\n                    <div class=\"input-group-addon\">\n                        <i class=\"glyphicon glyphicon-search\"></i>\n                    </div>\n                </div>\n            </div>\n        </div>\n        <div class=\"col-sm-6\">\n            <div v-if=\"showColumnPicker\" style=\"padding-top: 10px;padding-bottom: 10px;float:right;\">\n                <div class=\"btn-group\" :class=\"{'open' : columnMenuOpen}\">\n                    <button @click.stop.prevent=\"columnMenuOpen = !columnMenuOpen\" @keyup.esc=\"columnMenuOpen = false\"\n                            type=\"button\" class=\"btn btn-default dropdown-toggle\" data-toggle=\"dropdown\"\n                            aria-haspopup=\"true\">\n                        Columns <span class=\"caret\"></span>\n                    </button>\n                    <ul class=\"dropdown-menu\">\n                        <li v-for=\"column in displayCols\">\n                            <a href=\"#\" @click.stop.prevent=\"toggleColumn(column)\">\n                                <i v-if=\"column.visible\" class=\"glyphicon glyphicon-ok\"></i> {{column.title}}\n                            </a>\n                        </li>\n                    </ul>\n                </div>\n            </div>\n        </div>\n        <div class=\"col-sm-12\">\n            <div id=\"loadingdiv\" :class=\"{'vue-table-loading': this.loading , 'vue-table-loading-hidden': !this.loading}\">\n                <div class=\"spinner\"></div>\n            </div>\n            <table class=\"table table-bordered table-hover table-condensed table-striped vue-table\">\n                <thead>\n                    <tr>\n                        <th v-for=\"column in displayColsVisible\" @click=\"sortBy($event, column.name)\"\n                            track-by=\"column\"\n                            :class=\"getClasses(column)\">\n                            {{ column.title }}\n                        </th>\n                    </tr>\n                </thead>\n                <tbody>\n                    <tr v-for=\"entry in filteredValuesSorted \" track-by=\"entry\" @click=\"rowClickHandler($event, entry)\">\n                        <td v-for=\"column in displayColsVisible\" track-by=\"column\"\n                            v-show=\"column.visible\" :class=\"column.cellstyle\">\n                            <span v-if=\"column.renderfunction!==false\" v-html=\"column.renderfunction( column.name, entry )\"></span>\n                            <span v-else-if=\"!column.editable\"> {{ entry[column.name] }} </span>\n                            <value-field-section v-else\n                                :entry=\"entry\"\n                                :columnname=\"column.name\"></value-field-section>\n                        </td>\n                    </tr>\n                </tbody>\n            </table>\n        </div>\n        <div v-if=\"paginated\" class=\"col-sm-12\">\n            <div class=\"btn-toolbar\" role=\"toolbar\" aria-label=\"pagination bar\">\n              <div class=\"btn-group\" role=\"group\" aria-label=\"first page\">\n                <button type=\"button\" class=\"btn btn-default\" @click=\"page=1\">&laquo;</button>\n              </div>\n              <div class=\"btn-group\" role=\"group\" aria-label=\"pages\">\n                <button v-for=\"index in validPageNumbers\"\n                    type=\"button\" class=\"btn btn-default\"\n                    :class=\"{ active: page===index }\"\n                    @click=\"page=index\">\n                        {{index}}\n                </button>\n              </div>\n              <div class=\"btn-group\" v-if=\"showPaginationEtc\">...</div>\n              <div class=\"btn-group\" role=\"group\" aria-label=\"last page\">\n                <button type=\"button\" class=\"btn btn-default\" @click=\"page=maxPage\">&raquo;</button>\n              </div>\n            </div>\n        </div>\n    </div>\n</template>\n<style>\n    .vue-table {\n\n    }\n\n    /*#maindiv {\n        content: \" \";\n        box-sizing: border-box;\n        display:\n        table; width: 100%;\n    }\n*/\n    .spinner {\n        border: 16px solid #f3f3f3; /* Light grey */\n        border-top: 16px solid #3498db; /* Blue */\n        border-radius: 50%;\n        width: 120px;\n        height: 120px;\n        animation: spin 2s linear infinite;\n        position: absolute;\n        left: 50%;\n        top: 50%;\n        margin: -60px 0 0 -60px;\n    }\n\n    @keyframes spin {\n        0% { transform: rotate(0deg); }\n        100% { transform: rotate(360deg); }\n    }\n\n\n    .vue-table-loading{\n        position: absolute;\n        z-index: 99;\n        background-color: #ddd;\n        opacity: 0.5;\n        width: 100%;\n        height: 100%;\n    }\n\n    .vue-table-loading-hidden {\n        display: none;\n    }\n\n    table.vue-table thead > tr > th {\n        cursor: pointer;\n        padding-right: 30px !important;\n    }\n\n    /*.vue-table th.active {\n        color: red;\n    }*/\n\n    .vue-table .arrow {\n        opacity: 1;\n        position: relative;\n    }\n\n    .vue-table .arrow:after {\n        position: absolute;\n        bottom: 8px;\n        right: 8px;\n        display: block;\n        font-family: 'Glyphicons Halflings';\n        content: \"\\e150\";\n        /*\n        display: inline-block;\n        vertical-align: middle;\n        width: 0;\n        height: 0;\n        margin-left: 5px;\n        opacity: 0.66;*/\n    }\n\n    .vue-table .arrow.asc:after {\n        content: \"\\e155\";\n        /*\n        border-left: 4px solid transparent;\n        border-right: 4px solid transparent;\n        border-bottom: 4px solid #000;\n        */\n    }\n\n    .vue-table .arrow.dsc:after {\n        content: \"\\e156\";\n    }\n\n\n    .vue-table .editableField {\n        cursor:pointer;\n    }\n\n    /*.vue-table .selected-cell {\n        background-color: #F7C072;\n    }\n\n    .vue-table .selected-row {\n        background-color: #FAE1BE !important;\n    }*/\n</style>\n<script>\n\n    import axios from 'axios';\n    import qs from 'qs';\n    import lodashorderby from 'lodash.orderby';\n    import lodashincludes from 'lodash.includes';\n    import lodashfindindex from 'lodash.findindex';\n\n\n    /* Field Section used for displaying and editing value of cell */\n    var valueFieldSection = {\n      template: '<span v-if=\"!enabled\" @dblclick=\"toggleInput\" class=\"editableField\">{{this.entry[this.columnname]}}</span>'+\n          '<div v-else-if=\"enabled\" class=\"input-group\">'+\n          '  <input type=\"text\" class=\"form-control\" v-model=\"datavalue\" @keyup.enter=\"saveThis\" @keyup.esc=\"cancelThis\">'+\n          '  <span class=\"input-group-btn\">'+\n          '    <button class=\"btn btn-danger\" type=\"button\" @click=\"cancelThis\" ><span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span></button>'+\n          '    <button class=\"btn btn-primary\" type=\"button\" @click=\"saveThis\" ><span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span></button>'+\n          '  </span>'+\n          '</div>',\n      props: ['entry','columnname'],\n      data: function () {\n          return {\n            enabled: false,\n            datavalue: \"\",\n          }\n      },\n      methods: {\n        saveThis: function () {\n            var originalValue = this.entry[this.columnname];\n            this.entry[this.columnname] = this.datavalue;\n            this.$parent.$emit('cellDataModifiedEvent', originalValue, this.datavalue, this.columnname,  this.entry);\n            this.enabled = !this.enabled;\n        },\n        cancelThis: function () {\n            this.datavalue = this.entry[this.columnname];\n            this.enabled = !this.enabled;\n        },\n        toggleInput: function () {\n            this.datavalue= this.entry[this.columnname];\n            this.enabled=!this.enabled;\n        },\n      }\n    };\n\n    export default {\n        name: \"VueBootstrapTable\",\n        components: {\n            'value-field-section': valueFieldSection,\n        },\n        props: {\n            /**\n             * The column titles, required\n             */\n            columns: {\n                type: Array,\n                required: true,\n            },\n            /**\n             * The rows, an Array of objects\n             */\n            values: {\n                type: Array,\n                required: false,\n            },\n            /**\n             * Enable/disable table sorting, optional, default true\n             */\n            sortable: {\n                type: Boolean,\n                required: false,\n                default: true,\n            },\n            /**\n             * Enable/disable table multicolumn sorting, optional, default false.\n             * Also sortable must be enabled for this function to work.\n             */\n            multiColumnSortable: {\n                type: Boolean,\n                required: false,\n                default: false,\n            },\n            /**\n             * Enable/disable input filter, optional, default false\n             */\n            showFilter: {\n                type: Boolean,\n                required: false,\n                default: false,\n            },\n            /**\n             * Define if Filter search field is to work in a case Sensitive way. Default: true\n             */\n            filterCaseSensitive: {\n                type: Boolean,\n                required: false,\n                default: true,\n            },\n            /**\n             * Enable/disable column picker to show/hide table columns, optional, default false\n             */\n            showColumnPicker: {\n                type: Boolean,\n                required: false,\n                default: false,\n            },\n            /**\n             * Enable/disable pagination for the table, optional, default false\n             */\n            paginated: {\n                type: Boolean,\n                required: false,\n                default: false,\n            },\n            /**\n             * If pagination is enabled defining the page size, optional, default 10\n             */\n            pageSize: {\n                type: Number,\n                required: false,\n                default: 10,\n            },\n            /**\n             * If loading of table is to be done through ajax, then this object must be set\n             */\n            ajax: {\n                type: Object,\n                required: false,\n                default: function () {\n                    return {\n                        enabled: false,\n                        url: \"\",\n                        method: \"GET\",\n                        delegate: false,\n                    }\n                }\n            },\n            /**\n             * Function to handle row clicks\n             */\n            rowClickHandler: {\n                type: Function,\n                required: false,\n                default: function () {}\n            },\n        },\n        data: function () {\n            return {\n                filteredSize: 0,\n                filterKey: \"\",\n                sortKey: [],\n                sortOrders: {},\n                sortChanged: 1,\n                columnMenuOpen: false,\n                displayCols: [],\n                filteredValues: [],\n                page: 1,\n                echo: 0,\n                loading: false,\n            };\n        },\n        mounted: function () {\n          this.$nextTick(function () {\n              this.loading= true;\n              this.setSortOrders();\n              var self = this;\n              this.columns.forEach(function (column) {\n                  var obj = self.buildColumnObject(column);\n                  self.displayCols.push(obj);\n              });\n              if (this.ajax.enabled) {\n                  if (!this.ajax.delegate) {\n                      this.loading= true;\n                      this.fetchData(function (data) {\n                          self.values = data.data;\n                          self.processFilter();\n                      });\n                  }else\n                      this.processFilter();\n              }else\n                  this.processFilter();\n          })\n        },\n        created: function () {\n            var self = this ;\n            this.$on('cellDataModifiedEvent', self.fireCellDataModifiedEvent);\n        },\n        beforeDestroy: function(){\n            var self = this ;\n            this.$off('cellDataModifiedEvent', self.fireCellDataModifiedEvent);\n        },\n        watch: {\n            values: function () {\n                this.processFilter();\n            },\n            columns: function () {\n                this.displayCols = [];\n                var self = this;\n                this.columns.forEach(function (column) {\n                    var obj = self.buildColumnObject(column);\n                    self.displayCols.push(obj);\n                });\n                this.setSortOrders();\n            },\n            showFilter: function () {\n                this.filterKey = \"\";\n            },\n            showColumnPicker: function () {\n                this.columnMenuOpen = false;\n\n                this.displayCols.forEach(function (column) {\n                    column.visible = true;\n                });\n            },\n            filterKey: function () {\n                // filter was updated, so resetting to page 1\n                this.page = 1;\n                this.processFilter();\n            },\n            sortKey: function () {\n                this.processFilter();\n            },\n            sortChanged: function () {\n                this.processFilter();\n            },\n            page: function () {\n                this.processFilter();\n            },\n            paginated: function () {\n                this.processFilter();\n            },\n            loading: function () {\n                /*document.getElementById(\"loadingdiv\").style.width = document.getElementById(\"maindiv\").getBoundingClientRect().width + \"px\";\n                document.getElementById(\"loadingdiv\").style.height = document.getElementById(\"maindiv\").getBoundingClientRect().height+\"px\";*/\n            }\n        },\n        computed: {\n            displayColsVisible: function () {\n                var displayColsVisible = [];\n                for (var a in this.displayCols) {\n                    if (this.displayCols[a].visible)\n                        displayColsVisible.push(this.displayCols[a]);\n                }\n                return displayColsVisible;\n            },\n            filteredValuesSorted: function () {\n                var tColsDir = [];\n                for(var i=0, len=this.sortKey.length; i < len; i++){\n                    tColsDir.push(this.sortOrders[this.sortKey[i]].toLowerCase());\n                }\n                return lodashorderby(this.filteredValues, this.sortKey , tColsDir);\n            },\n            validPageNumbers: function () {\n                // 5 page max\n                var result = [];\n                var start = 1;\n                if (this.page > 3)\n                    start = this.page-2;\n                for ( var i = 0 ; start <= this.maxPage && i<5; start++ ) {\n                    result.push(start);\n                    i++;\n                }\n                return result;\n            },\n            maxPage: function () {\n                return Math.ceil(this.filteredSize / this.pageSize);\n            },\n            showPaginationEtc: function () {\n                var temp = 1;\n                if (this.page > 3)\n                    temp = this.page-2;\n                return ( (temp+4) < this.maxPage  );\n            },\n        },\n        methods: {\n            fireCellDataModifiedEvent:function ( originalValue, newValue, columnTitle, entry) {\n                this.$parent.$emit('cellDataModifiedEvent',originalValue, newValue, columnTitle, entry);\n            },\n            processFilter: function () {\n                var self = this;\n                this.loading = true;\n                if ( this.ajax.enabled && this.ajax.delegate ) {\n                   this.fetchData(function (data) {\n                       self.filteredSize = data.filtered;\n                       self.filteredValues = data.data;\n                       self.loading = false;\n                   });\n                } else {\n                    var result = this.values.filter(item => {\n                                var good = false;\n                                for (var col in self.displayColsVisible) {\n                                    if (self.filterCaseSensitive) {\n                                        if (lodashincludes(item[self.displayColsVisible[col].name] + \"\", self.filterKey + \"\")) {\n                                            good = true;\n                                        }\n                                    } else {\n                                        if (lodashincludes((item[self.displayColsVisible[col].name] + \"\").toLowerCase(), (self.filterKey + \"\").toLowerCase())) {\n                                            good = true;\n                                        }\n                                    }\n\n                                }\n                                return good;\n                    });\n\n                    var tColsDir = [];\n                    for(var i=0, len=this.sortKey.length; i < len; i++){\n                        tColsDir.push(this.sortOrders[this.sortKey[i]].toLowerCase());\n                    }\n\n                    result = lodashorderby(result, this.sortKey, tColsDir);\n\n                    this.filteredSize = result.length;\n                    if (this.paginated) {\n                        var startIndex = (this.page - 1) * this.pageSize;\n                        var tIndex = 0;\n                        var tempResult = [];\n                        while (tIndex < this.pageSize) {\n                            if (typeof result[startIndex + tIndex] !== \"undefined\")\n                                tempResult.push(result[startIndex + tIndex]);\n                            tIndex++;\n                        }\n                        self.filteredValues = tempResult;\n                    } else\n                        self.filteredValues = result;\n                    self.loading = false;\n                }\n            },\n            fetchData: function ( dataCallBackFunction ) {\n                var self = this;\n                var ajaxParameters = {\n                    params: {}\n                };\n                this.echo++;\n                if (this.ajax.enabled && this.ajax.delegate) {\n                    var tColsDir = [];\n                    for(var i=0, len=this.sortKey.length; i < len; i++){\n                        tColsDir.push(this.sortOrders[this.sortKey[i]].toLowerCase());\n                    }\n                    if ( this.ajax.method=== \"GET\" ) {\n                        ajaxParameters.params.sortcol = this.sortKey;\n                        ajaxParameters.params.sortdir = tColsDir;\n                        ajaxParameters.params.filter = this.filterKey;\n                        if (self.paginated ) {\n                            ajaxParameters.params.page = this.page;\n                            ajaxParameters.params.pagesize = this.pageSize;\n                        } else {\n                            ajaxParameters.params.page = 1;\n                            ajaxParameters.params.pagesize = null;\n                        }\n                        ajaxParameters.params.echo = this.echo;\n                    }\n                    if ( this.ajax.method=== \"POST\" ) {\n                        ajaxParameters.sortcol = this.sortKey;\n                        ajaxParameters.sortdir = tColsDir;\n                        ajaxParameters.filter = this.filterKey;\n                        if (self.paginated ) {\n                            ajaxParameters.page = this.page;\n                            ajaxParameters.pagesize = this.pageSize;\n                        } else {\n                            ajaxParameters.page = 1;\n                            ajaxParameters.pagesize = null;\n                        }\n                        ajaxParameters.echo = this.echo;\n                    }\n                    //console.log(JSON.stringify(ajaxParameters));\n                }\n                if (this.ajax.enabled && this.ajax.method === \"GET\") {\n                    axios.get(self.ajax.url, ajaxParameters )\n                        .then(response => {\n                            if (this.ajax.delegate) {\n                                if (response.data.echo !== self.echo) {\n                                    return;\n                                }\n                            }\n                            dataCallBackFunction(response.data);\n                            this.$parent.$emit('ajaxLoadedEvent', response.data);\n                        })\n                        .catch(e => {\n                            this.$parent.$emit('ajaxLoadingError', e);\n                        });\n                }\n                if (this.ajax.enabled && this.ajax.method === \"POST\") {\n                    axios.post(self.ajax.url, qs.stringify(ajaxParameters) )\n                        .then(response => {\n                            if (this.ajax.delegate) {\n                                if (response.data.echo !== self.echo) {\n                                    return;\n                                }\n                            }\n\n                            dataCallBackFunction(response.data);\n                            this.$parent.$emit('ajaxLoadedEvent', response.data);\n\n                        })\n                        .catch(e => {\n                            this.$parent.$emit('ajaxLoadingError', e);\n                        });\n                }\n            },\n            buildColumnObject: function (column) {\n                var obj = {};\n                obj.title = column.title;\n                if ( typeof column.name !== \"undefined\")\n                    obj.name = column.name;\n                else\n                    obj.name = column.title;\n                if ( typeof column.visible !== \"undefined\")\n                    obj.visible = column.visible;\n                else\n                    obj.visible = true;\n                if ( typeof column.editable !== \"undefined\")\n                    obj.editable = column.editable;\n                else\n                    obj.editable = false;\n                if ( typeof column.renderfunction !== \"undefined\")\n                    obj.renderfunction = column.renderfunction;\n                else\n                    obj.renderfunction = false;\n                if ( typeof column.columnstyle !== \"undefined\")\n                    obj.columnstyle = column.columnstyle;\n                else\n                    obj.columnstyle = \"\";\n                if ( typeof column.cellstyle !== \"undefined\")\n                    obj.cellstyle = column.cellstyle;\n                else\n                    obj.cellstyle = \"\";\n\n                return obj;\n            },\n            setSortOrders: function () {\n                this.sortKey = [];\n                var sortOrders = {};\n                this.columns.forEach(function (column) {\n                    sortOrders[column.name] = \"\";\n                });\n                this.sortOrders = sortOrders;\n\n            },\n            sortBy: function (event, key) {\n                if (this.sortable) {\n                    var self = this;\n\n                    if (!this.multiColumnSortable || ( this.multiColumnSortable && !event.shiftKey)) {\n                        this.sortKey = [key];\n                        this.columns.forEach(function (column) {\n                            if (column.name !== key) {\n                                self.sortOrders[column.name] = \"\";\n                            }\n                        });\n                    } else {\n                        if (lodashfindindex(this.sortKey, function(o) { return o === key; }) === -1) {\n                            this.sortKey.push(key);\n                        }\n                    }\n                    if (this.sortOrders[key] === \"\") {\n                        this.sortOrders[key] = \"ASC\";\n                    } else if (this.sortOrders[key] === \"ASC\") {\n                        this.sortOrders[key] = \"DESC\";\n                    } else {\n                        this.sortOrders[key] = \"ASC\";\n                    }\n\n                    this.sortChanged = this.sortChanged * -1;\n                }\n            },\n            getClasses: function (column) {\n                var classes = [column.columnstyle];\n                var key = column.name;\n                if (this.sortable) {\n                    classes.push(\"arrow\");\n                    /*if (this.sortKey === key) {\n                        classes.push(\"active\");\n                    }*/\n                    if (lodashfindindex(this.sortKey, function(o) { return o === key; }) !== -1) {\n                        classes.push(\"active\");\n                    }\n\n                    if (this.sortOrders[key] === \"ASC\") {\n                        classes.push(\"asc\");\n                    } else if (this.sortOrders[key] === \"DESC\") {\n                        classes.push(\"dsc\");\n                    }\n                }\n                return classes;\n            },\n            toggleColumn: function (column) {\n                column.visible = !column.visible;\n            },\n            closeDropdown: function () {\n                this.columnMenuOpen = false;\n            },\n        },\n        events: {\n        }\n    }\n</script>"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    .vue-table {\n\n    }\n\n    /*#maindiv {\n        content: \" \";\n        box-sizing: border-box;\n        display:\n        table; width: 100%;\n    }\n*/\n    .spinner {\n        border: 16px solid #f3f3f3; /* Light grey */\n        border-top: 16px solid #3498db; /* Blue */\n        border-radius: 50%;\n        width: 120px;\n        height: 120px;\n        -webkit-animation: spin 2s linear infinite;\n                animation: spin 2s linear infinite;\n        position: absolute;\n        left: 50%;\n        top: 50%;\n        margin: -60px 0 0 -60px;\n    }\n\n    @-webkit-keyframes spin {\n        0% { -webkit-transform: rotate(0deg); transform: rotate(0deg); }\n        100% { -webkit-transform: rotate(360deg); transform: rotate(360deg); }\n    }\n\n    @keyframes spin {\n        0% { -webkit-transform: rotate(0deg); transform: rotate(0deg); }\n        100% { -webkit-transform: rotate(360deg); transform: rotate(360deg); }\n    }\n\n\n    .vue-table-loading{\n        position: absolute;\n        z-index: 99;\n        background-color: #ddd;\n        opacity: 0.5;\n        width: 100%;\n        height: 100%;\n    }\n\n    .vue-table-loading-hidden {\n        display: none;\n    }\n\n    table.vue-table thead > tr > th {\n        cursor: pointer;\n        padding-right: 30px !important;\n    }\n\n    /*.vue-table th.active {\n        color: red;\n    }*/\n\n    .vue-table .arrow {\n        opacity: 1;\n        position: relative;\n    }\n\n    .vue-table .arrow:after {\n        position: absolute;\n        bottom: 8px;\n        right: 8px;\n        display: block;\n        font-family: 'Glyphicons Halflings';\n        content: \"\\E150\";\n        /*\n        display: inline-block;\n        vertical-align: middle;\n        width: 0;\n        height: 0;\n        margin-left: 5px;\n        opacity: 0.66;*/\n    }\n\n    .vue-table .arrow.asc:after {\n        content: \"\\E155\";\n        /*\n        border-left: 4px solid transparent;\n        border-right: 4px solid transparent;\n        border-bottom: 4px solid #000;\n        */\n    }\n\n    .vue-table .arrow.dsc:after {\n        content: \"\\E156\";\n    }\n\n\n    .vue-table .editableField {\n        cursor:pointer;\n    }\n\n    /*.vue-table .selected-cell {\n        background-color: #F7C072;\n    }\n\n    .vue-table .selected-row {\n        background-color: #FAE1BE !important;\n    }*/\n", "", {"version":3,"sources":["/./src/VueBootstrapTable.vue?16e0d40a"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;IAkFA;;KAEA;;IAEA;;;;;;EAMA;IACA;QACA,2BAAA,CAAA,gBAAA;QACA,+BAAA,CAAA,UAAA;QACA,mBAAA;QACA,aAAA;QACA,cAAA;QACA,2CAAA;gBAAA,mCAAA;QACA,mBAAA;QACA,UAAA;QACA,SAAA;QACA,wBAAA;KACA;;IAEA;QACA,KAAA,gCAAA,CAAA,wBAAA,EAAA;QACA,OAAA,kCAAA,CAAA,0BAAA,EAAA;KACA;;IAHA;QACA,KAAA,gCAAA,CAAA,wBAAA,EAAA;QACA,OAAA,kCAAA,CAAA,0BAAA,EAAA;KACA;;;IAGA;QACA,mBAAA;QACA,YAAA;QACA,uBAAA;QACA,aAAA;QACA,YAAA;QACA,aAAA;KACA;;IAEA;QACA,cAAA;KACA;;IAEA;QACA,gBAAA;QACA,+BAAA;KACA;;IAEA;;OAEA;;IAEA;QACA,WAAA;QACA,mBAAA;KACA;;IAEA;QACA,mBAAA;QACA,YAAA;QACA,WAAA;QACA,eAAA;QACA,oCAAA;QACA,iBAAA;QACA;;;;;;wBAMA;KACA;;IAEA;QACA,iBAAA;QACA;;;;UAIA;KACA;;IAEA;QACA,iBAAA;KACA;;;IAGA;QACA,eAAA;KACA;;IAEA;;;;;;OAMA","file":"VueBootstrapTable.vue","sourcesContent":["<template>\n    <div id=\"maindiv\" @click=\"closeDropdown\" @keyup.esc=\"closeDropdown\">\n        <!--<pre>{{columns}}</pre>-->\n        <!--<pre>{{$data}}</pre>-->\n        <div class=\"col-sm-6\">\n            <div v-if=\"showFilter\" style=\"padding-top: 10px;padding-bottom: 10px;\">\n                <div class=\"input-group\">\n                    <input type=\"text\" class=\"form-control\" placeholder=\"Filter\" v-model=\"filterKey\">\n                    <div class=\"input-group-addon\">\n                        <i class=\"glyphicon glyphicon-search\"></i>\n                    </div>\n                </div>\n            </div>\n        </div>\n        <div class=\"col-sm-6\">\n            <div v-if=\"showColumnPicker\" style=\"padding-top: 10px;padding-bottom: 10px;float:right;\">\n                <div class=\"btn-group\" :class=\"{'open' : columnMenuOpen}\">\n                    <button @click.stop.prevent=\"columnMenuOpen = !columnMenuOpen\" @keyup.esc=\"columnMenuOpen = false\"\n                            type=\"button\" class=\"btn btn-default dropdown-toggle\" data-toggle=\"dropdown\"\n                            aria-haspopup=\"true\">\n                        Columns <span class=\"caret\"></span>\n                    </button>\n                    <ul class=\"dropdown-menu\">\n                        <li v-for=\"column in displayCols\">\n                            <a href=\"#\" @click.stop.prevent=\"toggleColumn(column)\">\n                                <i v-if=\"column.visible\" class=\"glyphicon glyphicon-ok\"></i> {{column.title}}\n                            </a>\n                        </li>\n                    </ul>\n                </div>\n            </div>\n        </div>\n        <div class=\"col-sm-12\">\n            <div id=\"loadingdiv\" :class=\"{'vue-table-loading': this.loading , 'vue-table-loading-hidden': !this.loading}\">\n                <div class=\"spinner\"></div>\n            </div>\n            <table class=\"table table-bordered table-hover table-condensed table-striped vue-table\">\n                <thead>\n                    <tr>\n                        <th v-for=\"column in displayColsVisible\" @click=\"sortBy($event, column.name)\"\n                            track-by=\"column\"\n                            :class=\"getClasses(column)\">\n                            {{ column.title }}\n                        </th>\n                    </tr>\n                </thead>\n                <tbody>\n                    <tr v-for=\"entry in filteredValuesSorted \" track-by=\"entry\" @click=\"rowClickHandler($event, entry)\">\n                        <td v-for=\"column in displayColsVisible\" track-by=\"column\"\n                            v-show=\"column.visible\" :class=\"column.cellstyle\">\n                            <span v-if=\"column.renderfunction!==false\" v-html=\"column.renderfunction( column.name, entry )\"></span>\n                            <span v-else-if=\"!column.editable\"> {{ entry[column.name] }} </span>\n                            <value-field-section v-else\n                                :entry=\"entry\"\n                                :columnname=\"column.name\"></value-field-section>\n                        </td>\n                    </tr>\n                </tbody>\n            </table>\n        </div>\n        <div v-if=\"paginated\" class=\"col-sm-12\">\n            <div class=\"btn-toolbar\" role=\"toolbar\" aria-label=\"pagination bar\">\n              <div class=\"btn-group\" role=\"group\" aria-label=\"first page\">\n                <button type=\"button\" class=\"btn btn-default\" @click=\"page=1\">&laquo;</button>\n              </div>\n              <div class=\"btn-group\" role=\"group\" aria-label=\"pages\">\n                <button v-for=\"index in validPageNumbers\"\n                    type=\"button\" class=\"btn btn-default\"\n                    :class=\"{ active: page===index }\"\n                    @click=\"page=index\">\n                        {{index}}\n                </button>\n              </div>\n              <div class=\"btn-group\" v-if=\"showPaginationEtc\">...</div>\n              <div class=\"btn-group\" role=\"group\" aria-label=\"last page\">\n                <button type=\"button\" class=\"btn btn-default\" @click=\"page=maxPage\">&raquo;</button>\n              </div>\n            </div>\n        </div>\n    </div>\n</template>\n<style>\n    .vue-table {\n\n    }\n\n    /*#maindiv {\n        content: \" \";\n        box-sizing: border-box;\n        display:\n        table; width: 100%;\n    }\n*/\n    .spinner {\n        border: 16px solid #f3f3f3; /* Light grey */\n        border-top: 16px solid #3498db; /* Blue */\n        border-radius: 50%;\n        width: 120px;\n        height: 120px;\n        animation: spin 2s linear infinite;\n        position: absolute;\n        left: 50%;\n        top: 50%;\n        margin: -60px 0 0 -60px;\n    }\n\n    @keyframes spin {\n        0% { transform: rotate(0deg); }\n        100% { transform: rotate(360deg); }\n    }\n\n\n    .vue-table-loading{\n        position: absolute;\n        z-index: 99;\n        background-color: #ddd;\n        opacity: 0.5;\n        width: 100%;\n        height: 100%;\n    }\n\n    .vue-table-loading-hidden {\n        display: none;\n    }\n\n    table.vue-table thead > tr > th {\n        cursor: pointer;\n        padding-right: 30px !important;\n    }\n\n    /*.vue-table th.active {\n        color: red;\n    }*/\n\n    .vue-table .arrow {\n        opacity: 1;\n        position: relative;\n    }\n\n    .vue-table .arrow:after {\n        position: absolute;\n        bottom: 8px;\n        right: 8px;\n        display: block;\n        font-family: 'Glyphicons Halflings';\n        content: \"\\e150\";\n        /*\n        display: inline-block;\n        vertical-align: middle;\n        width: 0;\n        height: 0;\n        margin-left: 5px;\n        opacity: 0.66;*/\n    }\n\n    .vue-table .arrow.asc:after {\n        content: \"\\e155\";\n        /*\n        border-left: 4px solid transparent;\n        border-right: 4px solid transparent;\n        border-bottom: 4px solid #000;\n        */\n    }\n\n    .vue-table .arrow.dsc:after {\n        content: \"\\e156\";\n    }\n\n\n    .vue-table .editableField {\n        cursor:pointer;\n    }\n\n    /*.vue-table .selected-cell {\n        background-color: #F7C072;\n    }\n\n    .vue-table .selected-row {\n        background-color: #FAE1BE !important;\n    }*/\n</style>\n<script>\n\n    import axios from 'axios';\n    import qs from 'qs';\n    import lodashorderby from 'lodash.orderby';\n    import lodashincludes from 'lodash.includes';\n    import lodashfindindex from 'lodash.findindex';\n\n\n    /* Field Section used for displaying and editing value of cell */\n    var valueFieldSection = {\n      template: '<span v-if=\"!enabled\" @dblclick=\"toggleInput\" class=\"editableField\">{{this.entry[this.columnname]}}</span>'+\n          '<div v-else-if=\"enabled\" class=\"input-group\">'+\n          '  <input type=\"text\" class=\"form-control\" v-model=\"datavalue\" @keyup.enter=\"saveThis\" @keyup.esc=\"cancelThis\">'+\n          '  <span class=\"input-group-btn\">'+\n          '    <button class=\"btn btn-danger\" type=\"button\" @click=\"cancelThis\" ><span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span></button>'+\n          '    <button class=\"btn btn-primary\" type=\"button\" @click=\"saveThis\" ><span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span></button>'+\n          '  </span>'+\n          '</div>',\n      props: ['entry','columnname'],\n      data: function () {\n          return {\n            enabled: false,\n            datavalue: \"\",\n          }\n      },\n      methods: {\n        saveThis: function () {\n            var originalValue = this.entry[this.columnname];\n            this.entry[this.columnname] = this.datavalue;\n            this.$parent.$emit('cellDataModifiedEvent', originalValue, this.datavalue, this.columnname,  this.entry);\n            this.enabled = !this.enabled;\n        },\n        cancelThis: function () {\n            this.datavalue = this.entry[this.columnname];\n            this.enabled = !this.enabled;\n        },\n        toggleInput: function () {\n            this.datavalue= this.entry[this.columnname];\n            this.enabled=!this.enabled;\n        },\n      }\n    };\n\n    export default {\n        name: \"VueBootstrapTable\",\n        components: {\n            'value-field-section': valueFieldSection,\n        },\n        props: {\n            /**\n             * The column titles, required\n             */\n            columns: {\n                type: Array,\n                required: true,\n            },\n            /**\n             * The rows, an Array of objects\n             */\n            values: {\n                type: Array,\n                required: false,\n            },\n            /**\n             * Enable/disable table sorting, optional, default true\n             */\n            sortable: {\n                type: Boolean,\n                required: false,\n                default: true,\n            },\n            /**\n             * Enable/disable table multicolumn sorting, optional, default false.\n             * Also sortable must be enabled for this function to work.\n             */\n            multiColumnSortable: {\n                type: Boolean,\n                required: false,\n                default: false,\n            },\n            /**\n             * Enable/disable input filter, optional, default false\n             */\n            showFilter: {\n                type: Boolean,\n                required: false,\n                default: false,\n            },\n            /**\n             * Define if Filter search field is to work in a case Sensitive way. Default: true\n             */\n            filterCaseSensitive: {\n                type: Boolean,\n                required: false,\n                default: true,\n            },\n            /**\n             * Enable/disable column picker to show/hide table columns, optional, default false\n             */\n            showColumnPicker: {\n                type: Boolean,\n                required: false,\n                default: false,\n            },\n            /**\n             * Enable/disable pagination for the table, optional, default false\n             */\n            paginated: {\n                type: Boolean,\n                required: false,\n                default: false,\n            },\n            /**\n             * If pagination is enabled defining the page size, optional, default 10\n             */\n            pageSize: {\n                type: Number,\n                required: false,\n                default: 10,\n            },\n            /**\n             * If loading of table is to be done through ajax, then this object must be set\n             */\n            ajax: {\n                type: Object,\n                required: false,\n                default: function () {\n                    return {\n                        enabled: false,\n                        url: \"\",\n                        method: \"GET\",\n                        delegate: false,\n                        axiosConfig: {}\n                    }\n                }\n            },\n            /**\n             * Function to handle row clicks\n             */\n            rowClickHandler: {\n                type: Function,\n                required: false,\n                default: function () {}\n            },\n        },\n        data: function () {\n            return {\n                filteredSize: 0,\n                filterKey: \"\",\n                sortKey: [],\n                sortOrders: {},\n                sortChanged: 1,\n                columnMenuOpen: false,\n                displayCols: [],\n                filteredValues: [],\n                page: 1,\n                echo: 0,\n                loading: false,\n            };\n        },\n        mounted: function () {\n          this.$nextTick(function () {\n              this.loading= true;\n              this.setSortOrders();\n              var self = this;\n              this.columns.forEach(function (column) {\n                  var obj = self.buildColumnObject(column);\n                  self.displayCols.push(obj);\n              });\n              if (this.ajax.enabled) {\n                  if (!this.ajax.delegate) {\n                      this.loading= true;\n                      this.fetchData(function (data) {\n                          self.values = data.data;\n                          self.processFilter();\n                      });\n                  }else\n                      this.processFilter();\n              }else\n                  this.processFilter();\n          })\n        },\n        created: function () {\n            var self = this ;\n            this.$on('cellDataModifiedEvent', self.fireCellDataModifiedEvent);\n        },\n        beforeDestroy: function(){\n            var self = this ;\n            this.$off('cellDataModifiedEvent', self.fireCellDataModifiedEvent);\n        },\n        watch: {\n            values: function () {\n                this.processFilter();\n            },\n            columns: function () {\n                this.displayCols = [];\n                var self = this;\n                this.columns.forEach(function (column) {\n                    var obj = self.buildColumnObject(column);\n                    self.displayCols.push(obj);\n                });\n                this.setSortOrders();\n            },\n            showFilter: function () {\n                this.filterKey = \"\";\n            },\n            showColumnPicker: function () {\n                this.columnMenuOpen = false;\n\n                this.displayCols.forEach(function (column) {\n                    column.visible = true;\n                });\n            },\n            filterKey: function () {\n                // filter was updated, so resetting to page 1\n                this.page = 1;\n                this.processFilter();\n            },\n            sortKey: function () {\n                this.processFilter();\n            },\n            sortChanged: function () {\n                this.processFilter();\n            },\n            page: function () {\n                this.processFilter();\n            },\n            paginated: function () {\n                this.processFilter();\n            },\n            loading: function () {\n                /*document.getElementById(\"loadingdiv\").style.width = document.getElementById(\"maindiv\").getBoundingClientRect().width + \"px\";\n                document.getElementById(\"loadingdiv\").style.height = document.getElementById(\"maindiv\").getBoundingClientRect().height+\"px\";*/\n            }\n        },\n        computed: {\n            displayColsVisible: function () {\n                var displayColsVisible = [];\n                for (var a in this.displayCols) {\n                    if (this.displayCols[a].visible)\n                        displayColsVisible.push(this.displayCols[a]);\n                }\n                return displayColsVisible;\n            },\n            filteredValuesSorted: function () {\n                var tColsDir = [];\n                for(var i=0, len=this.sortKey.length; i < len; i++){\n                    tColsDir.push(this.sortOrders[this.sortKey[i]].toLowerCase());\n                }\n                return lodashorderby(this.filteredValues, this.sortKey , tColsDir);\n            },\n            validPageNumbers: function () {\n                // 5 page max\n                var result = [];\n                var start = 1;\n                if (this.page > 3)\n                    start = this.page-2;\n                for ( var i = 0 ; start <= this.maxPage && i<5; start++ ) {\n                    result.push(start);\n                    i++;\n                }\n                return result;\n            },\n            maxPage: function () {\n                return Math.ceil(this.filteredSize / this.pageSize);\n            },\n            showPaginationEtc: function () {\n                var temp = 1;\n                if (this.page > 3)\n                    temp = this.page-2;\n                return ( (temp+4) < this.maxPage  );\n            },\n        },\n        methods: {\n            fireCellDataModifiedEvent:function ( originalValue, newValue, columnTitle, entry) {\n                this.$parent.$emit('cellDataModifiedEvent',originalValue, newValue, columnTitle, entry);\n            },\n            processFilter: function () {\n                var self = this;\n                this.loading = true;\n                if ( this.ajax.enabled && this.ajax.delegate ) {\n                   this.fetchData(function (data) {\n                       self.filteredSize = data.filtered;\n                       self.filteredValues = data.data;\n                       self.loading = false;\n                   });\n                } else {\n                    var result = this.values.filter(item => {\n                                var good = false;\n                                for (var col in self.displayColsVisible) {\n                                    if (self.filterCaseSensitive) {\n                                        if (lodashincludes(item[self.displayColsVisible[col].name] + \"\", self.filterKey + \"\")) {\n                                            good = true;\n                                        }\n                                    } else {\n                                        if (lodashincludes((item[self.displayColsVisible[col].name] + \"\").toLowerCase(), (self.filterKey + \"\").toLowerCase())) {\n                                            good = true;\n                                        }\n                                    }\n\n                                }\n                                return good;\n                    });\n\n                    var tColsDir = [];\n                    for(var i=0, len=this.sortKey.length; i < len; i++){\n                        tColsDir.push(this.sortOrders[this.sortKey[i]].toLowerCase());\n                    }\n\n                    result = lodashorderby(result, this.sortKey, tColsDir);\n\n                    this.filteredSize = result.length;\n                    if (this.paginated) {\n                        var startIndex = (this.page - 1) * this.pageSize;\n                        var tIndex = 0;\n                        var tempResult = [];\n                        while (tIndex < this.pageSize) {\n                            if (typeof result[startIndex + tIndex] !== \"undefined\")\n                                tempResult.push(result[startIndex + tIndex]);\n                            tIndex++;\n                        }\n                        self.filteredValues = tempResult;\n                    } else\n                        self.filteredValues = result;\n                    self.loading = false;\n                }\n            },\n            fetchData: function ( dataCallBackFunction ) {\n                var self = this;\n                var ajaxParameters = {\n                    params: {}\n                };\n                this.echo++;\n                if (this.ajax.enabled && this.ajax.delegate) {\n                    var tColsDir = [];\n                    for(var i=0, len=this.sortKey.length; i < len; i++){\n                        tColsDir.push(this.sortOrders[this.sortKey[i]].toLowerCase());\n                    }\n                    if ( this.ajax.method=== \"GET\" ) {\n                        //COPY\n                        ajaxParameters = JSON.parse(JSON.stringify(this.ajax.axiosConfig));\n                        ajaxParameters.params = {};\n                        ajaxParameters.params.sortcol = this.sortKey;\n                        ajaxParameters.params.sortdir = tColsDir;\n                        ajaxParameters.params.filter = this.filterKey;\n                        if (self.paginated ) {\n                            ajaxParameters.params.page = this.page;\n                            ajaxParameters.params.pagesize = this.pageSize;\n                        } else {\n                            ajaxParameters.params.page = 1;\n                            ajaxParameters.params.pagesize = null;\n                        }\n                        ajaxParameters.params.echo = this.echo;\n                    }\n                    if ( this.ajax.method=== \"POST\" ) {\n                        ajaxParameters.sortcol = this.sortKey;\n                        ajaxParameters.sortdir = tColsDir;\n                        ajaxParameters.filter = this.filterKey;\n                        if (self.paginated ) {\n                            ajaxParameters.page = this.page;\n                            ajaxParameters.pagesize = this.pageSize;\n                        } else {\n                            ajaxParameters.page = 1;\n                            ajaxParameters.pagesize = null;\n                        }\n                        ajaxParameters.echo = this.echo;\n                    }\n                    //console.log(JSON.stringify(ajaxParameters));\n                }\n                if (this.ajax.enabled && this.ajax.method === \"GET\") {\n                    axios.get(self.ajax.url, ajaxParameters )\n                        .then(response => {\n                            if (this.ajax.delegate) {\n                                if (response.data.echo !== self.echo) {\n                                    return;\n                                }\n                            }\n                            dataCallBackFunction(response.data);\n                            this.$parent.$emit('ajaxLoadedEvent', response.data);\n                        })\n                        .catch(e => {\n                            this.$parent.$emit('ajaxLoadingError', e);\n                        });\n                }\n                if (this.ajax.enabled && this.ajax.method === \"POST\") {\n                    axios.post(self.ajax.url, qs.stringify(ajaxParameters) , this.ajax.axiosConfig )\n                        .then(response => {\n                            if (this.ajax.delegate) {\n                                if (response.data.echo !== self.echo) {\n                                    return;\n                                }\n                            }\n\n                            dataCallBackFunction(response.data);\n                            this.$parent.$emit('ajaxLoadedEvent', response.data);\n\n                        })\n                        .catch(e => {\n                            this.$parent.$emit('ajaxLoadingError', e);\n                        });\n                }\n            },\n            buildColumnObject: function (column) {\n                var obj = {};\n                obj.title = column.title;\n                if ( typeof column.name !== \"undefined\")\n                    obj.name = column.name;\n                else\n                    obj.name = column.title;\n                if ( typeof column.visible !== \"undefined\")\n                    obj.visible = column.visible;\n                else\n                    obj.visible = true;\n                if ( typeof column.editable !== \"undefined\")\n                    obj.editable = column.editable;\n                else\n                    obj.editable = false;\n                if ( typeof column.renderfunction !== \"undefined\")\n                    obj.renderfunction = column.renderfunction;\n                else\n                    obj.renderfunction = false;\n                if ( typeof column.columnstyle !== \"undefined\")\n                    obj.columnstyle = column.columnstyle;\n                else\n                    obj.columnstyle = \"\";\n                if ( typeof column.cellstyle !== \"undefined\")\n                    obj.cellstyle = column.cellstyle;\n                else\n                    obj.cellstyle = \"\";\n\n                return obj;\n            },\n            setSortOrders: function () {\n                this.sortKey = [];\n                var sortOrders = {};\n                this.columns.forEach(function (column) {\n                    sortOrders[column.name] = \"\";\n                });\n                this.sortOrders = sortOrders;\n\n            },\n            sortBy: function (event, key) {\n                if (this.sortable) {\n                    var self = this;\n\n                    if (!this.multiColumnSortable || ( this.multiColumnSortable && !event.shiftKey)) {\n                        this.sortKey = [key];\n                        this.columns.forEach(function (column) {\n                            if (column.name !== key) {\n                                self.sortOrders[column.name] = \"\";\n                            }\n                        });\n                    } else {\n                        if (lodashfindindex(this.sortKey, function(o) { return o === key; }) === -1) {\n                            this.sortKey.push(key);\n                        }\n                    }\n                    if (this.sortOrders[key] === \"\") {\n                        this.sortOrders[key] = \"ASC\";\n                    } else if (this.sortOrders[key] === \"ASC\") {\n                        this.sortOrders[key] = \"DESC\";\n                    } else {\n                        this.sortOrders[key] = \"ASC\";\n                    }\n\n                    this.sortChanged = this.sortChanged * -1;\n                }\n            },\n            getClasses: function (column) {\n                var classes = [column.columnstyle];\n                var key = column.name;\n                if (this.sortable) {\n                    classes.push(\"arrow\");\n                    /*if (this.sortKey === key) {\n                        classes.push(\"active\");\n                    }*/\n                    if (lodashfindindex(this.sortKey, function(o) { return o === key; }) !== -1) {\n                        classes.push(\"active\");\n                    }\n\n                    if (this.sortOrders[key] === \"ASC\") {\n                        classes.push(\"asc\");\n                    } else if (this.sortOrders[key] === \"DESC\") {\n                        classes.push(\"dsc\");\n                    }\n                }\n                return classes;\n            },\n            toggleColumn: function (column) {\n                column.visible = !column.visible;\n            },\n            closeDropdown: function () {\n                this.columnMenuOpen = false;\n            },\n        },\n        events: {\n        }\n    }\n</script>"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 
@@ -426,23 +426,27 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: true
 	});
 	
-	var _axios = __webpack_require__(7);
+	var _stringify = __webpack_require__(7);
+	
+	var _stringify2 = _interopRequireDefault(_stringify);
+	
+	var _axios = __webpack_require__(10);
 	
 	var _axios2 = _interopRequireDefault(_axios);
 	
-	var _qs = __webpack_require__(37);
+	var _qs = __webpack_require__(40);
 	
 	var _qs2 = _interopRequireDefault(_qs);
 	
-	var _lodash = __webpack_require__(42);
+	var _lodash = __webpack_require__(45);
 	
 	var _lodash2 = _interopRequireDefault(_lodash);
 	
-	var _lodash3 = __webpack_require__(44);
+	var _lodash3 = __webpack_require__(47);
 	
 	var _lodash4 = _interopRequireDefault(_lodash3);
 	
-	var _lodash5 = __webpack_require__(45);
+	var _lodash5 = __webpack_require__(48);
 	
 	var _lodash6 = _interopRequireDefault(_lodash5);
 	
@@ -745,7 +749,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    enabled: false,
 	                    url: "",
 	                    method: "GET",
-	                    delegate: false
+	                    delegate: false,
+	                    axiosConfig: {}
 	                };
 	            }
 	        },
@@ -946,6 +951,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    tColsDir.push(this.sortOrders[this.sortKey[i]].toLowerCase());
 	                }
 	                if (this.ajax.method === "GET") {
+	                    //COPY
+	                    ajaxParameters = JSON.parse((0, _stringify2.default)(this.ajax.axiosConfig));
+	                    ajaxParameters.params = {};
 	                    ajaxParameters.params.sortcol = this.sortKey;
 	                    ajaxParameters.params.sortdir = tColsDir;
 	                    ajaxParameters.params.filter = this.filterKey;
@@ -987,7 +995,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                });
 	            }
 	            if (this.ajax.enabled && this.ajax.method === "POST") {
-	                _axios2.default.post(self.ajax.url, _qs2.default.stringify(ajaxParameters)).then(function (response) {
+	                _axios2.default.post(self.ajax.url, _qs2.default.stringify(ajaxParameters), this.ajax.axiosConfig).then(function (response) {
 	                    if (_this.ajax.delegate) {
 	                        if (response.data.echo !== self.echo) {
 	                            return;
@@ -1089,18 +1097,41 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(8);
+	module.exports = { "default": __webpack_require__(8), __esModule: true };
 
 /***/ }),
 /* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	var core  = __webpack_require__(9)
+	  , $JSON = core.JSON || (core.JSON = {stringify: JSON.stringify});
+	module.exports = function stringify(it){ // eslint-disable-line no-unused-vars
+	  return $JSON.stringify.apply($JSON, arguments);
+	};
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports) {
+
+	var core = module.exports = {version: '2.4.0'};
+	if(typeof __e == 'number')__e = core; // eslint-disable-line no-undef
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(11);
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
 	'use strict';
 	
-	var utils = __webpack_require__(9);
-	var bind = __webpack_require__(14);
-	var Axios = __webpack_require__(15);
-	var defaults = __webpack_require__(16);
+	var utils = __webpack_require__(12);
+	var bind = __webpack_require__(17);
+	var Axios = __webpack_require__(18);
+	var defaults = __webpack_require__(19);
 	
 	/**
 	 * Create an instance of Axios
@@ -1133,15 +1164,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	
 	// Expose Cancel & CancelToken
-	axios.Cancel = __webpack_require__(34);
-	axios.CancelToken = __webpack_require__(35);
-	axios.isCancel = __webpack_require__(31);
+	axios.Cancel = __webpack_require__(37);
+	axios.CancelToken = __webpack_require__(38);
+	axios.isCancel = __webpack_require__(34);
 	
 	// Expose all/spread
 	axios.all = function all(promises) {
 	  return Promise.all(promises);
 	};
-	axios.spread = __webpack_require__(36);
+	axios.spread = __webpack_require__(39);
 	
 	module.exports = axios;
 	
@@ -1150,12 +1181,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 9 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(Buffer) {'use strict';
 	
-	var bind = __webpack_require__(14);
+	var bind = __webpack_require__(17);
 	
 	/*global toString:true*/
 	
@@ -1466,10 +1497,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  trim: trim
 	};
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10).Buffer))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(13).Buffer))
 
 /***/ }),
-/* 10 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/*!
@@ -1482,9 +1513,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	'use strict'
 	
-	var base64 = __webpack_require__(11)
-	var ieee754 = __webpack_require__(12)
-	var isArray = __webpack_require__(13)
+	var base64 = __webpack_require__(14)
+	var ieee754 = __webpack_require__(15)
+	var isArray = __webpack_require__(16)
 	
 	exports.Buffer = Buffer
 	exports.SlowBuffer = SlowBuffer
@@ -3265,7 +3296,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ }),
-/* 11 */
+/* 14 */
 /***/ (function(module, exports) {
 
 	'use strict'
@@ -3385,7 +3416,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 12 */
+/* 15 */
 /***/ (function(module, exports) {
 
 	exports.read = function (buffer, offset, isLE, mLen, nBytes) {
@@ -3475,7 +3506,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 13 */
+/* 16 */
 /***/ (function(module, exports) {
 
 	var toString = {}.toString;
@@ -3486,7 +3517,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 14 */
+/* 17 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -3503,17 +3534,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 15 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var defaults = __webpack_require__(16);
-	var utils = __webpack_require__(9);
-	var InterceptorManager = __webpack_require__(28);
-	var dispatchRequest = __webpack_require__(29);
-	var isAbsoluteURL = __webpack_require__(32);
-	var combineURLs = __webpack_require__(33);
+	var defaults = __webpack_require__(19);
+	var utils = __webpack_require__(12);
+	var InterceptorManager = __webpack_require__(31);
+	var dispatchRequest = __webpack_require__(32);
+	var isAbsoluteURL = __webpack_require__(35);
+	var combineURLs = __webpack_require__(36);
 	
 	/**
 	 * Create a new instance of Axios
@@ -3594,13 +3625,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 16 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 	
-	var utils = __webpack_require__(9);
-	var normalizeHeaderName = __webpack_require__(18);
+	var utils = __webpack_require__(12);
+	var normalizeHeaderName = __webpack_require__(21);
 	
 	var DEFAULT_CONTENT_TYPE = {
 	  'Content-Type': 'application/x-www-form-urlencoded'
@@ -3616,10 +3647,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var adapter;
 	  if (typeof XMLHttpRequest !== 'undefined') {
 	    // For browsers use XHR adapter
-	    adapter = __webpack_require__(19);
+	    adapter = __webpack_require__(22);
 	  } else if (typeof process !== 'undefined') {
 	    // For node use HTTP adapter
-	    adapter = __webpack_require__(19);
+	    adapter = __webpack_require__(22);
 	  }
 	  return adapter;
 	}
@@ -3690,10 +3721,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	module.exports = defaults;
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(17)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(20)))
 
 /***/ }),
-/* 17 */
+/* 20 */
 /***/ (function(module, exports) {
 
 	// shim for using process in browser
@@ -3883,12 +3914,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 18 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(9);
+	var utils = __webpack_require__(12);
 	
 	module.exports = function normalizeHeaderName(headers, normalizedName) {
 	  utils.forEach(headers, function processHeader(value, name) {
@@ -3901,18 +3932,18 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 19 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 	
-	var utils = __webpack_require__(9);
-	var settle = __webpack_require__(20);
-	var buildURL = __webpack_require__(23);
-	var parseHeaders = __webpack_require__(24);
-	var isURLSameOrigin = __webpack_require__(25);
-	var createError = __webpack_require__(21);
-	var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(26);
+	var utils = __webpack_require__(12);
+	var settle = __webpack_require__(23);
+	var buildURL = __webpack_require__(26);
+	var parseHeaders = __webpack_require__(27);
+	var isURLSameOrigin = __webpack_require__(28);
+	var createError = __webpack_require__(24);
+	var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(29);
 	
 	module.exports = function xhrAdapter(config) {
 	  return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -4008,7 +4039,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    // This is only done if running in a standard browser environment.
 	    // Specifically not if we're in a web worker, or react-native.
 	    if (utils.isStandardBrowserEnv()) {
-	      var cookies = __webpack_require__(27);
+	      var cookies = __webpack_require__(30);
 	
 	      // Add xsrf header
 	      var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -4084,15 +4115,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	  });
 	};
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(17)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(20)))
 
 /***/ }),
-/* 20 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var createError = __webpack_require__(21);
+	var createError = __webpack_require__(24);
 	
 	/**
 	 * Resolve or reject a Promise based on response status.
@@ -4118,12 +4149,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 21 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var enhanceError = __webpack_require__(22);
+	var enhanceError = __webpack_require__(25);
 	
 	/**
 	 * Create an Error with the specified message, config, error code, and response.
@@ -4141,7 +4172,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 22 */
+/* 25 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -4166,12 +4197,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 23 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(9);
+	var utils = __webpack_require__(12);
 	
 	function encode(val) {
 	  return encodeURIComponent(val).
@@ -4240,12 +4271,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 24 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(9);
+	var utils = __webpack_require__(12);
 	
 	/**
 	 * Parse headers into an object
@@ -4283,12 +4314,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 25 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(9);
+	var utils = __webpack_require__(12);
 	
 	module.exports = (
 	  utils.isStandardBrowserEnv() ?
@@ -4357,7 +4388,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 26 */
+/* 29 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -4399,12 +4430,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 27 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(9);
+	var utils = __webpack_require__(12);
 	
 	module.exports = (
 	  utils.isStandardBrowserEnv() ?
@@ -4458,12 +4489,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 28 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(9);
+	var utils = __webpack_require__(12);
 	
 	function InterceptorManager() {
 	  this.handlers = [];
@@ -4516,15 +4547,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 29 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(9);
-	var transformData = __webpack_require__(30);
-	var isCancel = __webpack_require__(31);
-	var defaults = __webpack_require__(16);
+	var utils = __webpack_require__(12);
+	var transformData = __webpack_require__(33);
+	var isCancel = __webpack_require__(34);
+	var defaults = __webpack_require__(19);
 	
 	/**
 	 * Throws a `Cancel` if cancellation has been requested.
@@ -4601,12 +4632,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 30 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(9);
+	var utils = __webpack_require__(12);
 	
 	/**
 	 * Transform the data for a request or a response
@@ -4627,7 +4658,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 31 */
+/* 34 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -4638,7 +4669,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 32 */
+/* 35 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -4658,7 +4689,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 33 */
+/* 36 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -4678,7 +4709,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 34 */
+/* 37 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -4703,12 +4734,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 35 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var Cancel = __webpack_require__(34);
+	var Cancel = __webpack_require__(37);
 	
 	/**
 	 * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -4766,7 +4797,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 36 */
+/* 39 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -4799,14 +4830,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 37 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var stringify = __webpack_require__(38);
-	var parse = __webpack_require__(41);
-	var formats = __webpack_require__(40);
+	var stringify = __webpack_require__(41);
+	var parse = __webpack_require__(44);
+	var formats = __webpack_require__(43);
 	
 	module.exports = {
 	    formats: formats,
@@ -4816,13 +4847,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 38 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(39);
-	var formats = __webpack_require__(40);
+	var utils = __webpack_require__(42);
+	var formats = __webpack_require__(43);
 	
 	var arrayPrefixGenerators = {
 	    brackets: function brackets(prefix) { // eslint-disable-line func-name-matching
@@ -5029,7 +5060,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 39 */
+/* 42 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -5217,7 +5248,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 40 */
+/* 43 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -5241,12 +5272,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 41 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(39);
+	var utils = __webpack_require__(42);
 	
 	var has = Object.prototype.hasOwnProperty;
 	
@@ -5414,7 +5445,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 42 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global, module) {/**
@@ -7904,10 +7935,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	module.exports = orderBy;
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(43)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(46)(module)))
 
 /***/ }),
-/* 43 */
+/* 46 */
 /***/ (function(module, exports) {
 
 	module.exports = function(module) {
@@ -7923,7 +7954,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 44 */
+/* 47 */
 /***/ (function(module, exports) {
 
 	/**
@@ -8674,7 +8705,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 45 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global, module) {/**
@@ -11072,10 +11103,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	module.exports = findIndex;
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(43)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(46)(module)))
 
 /***/ }),
-/* 46 */
+/* 49 */
 /***/ (function(module, exports) {
 
 	module.exports = "\n<div id=\"maindiv\" @click=\"closeDropdown\" @keyup.esc=\"closeDropdown\">\n    <!--<pre>{{columns}}</pre>-->\n    <!--<pre>{{$data}}</pre>-->\n    <div class=\"col-sm-6\">\n        <div v-if=\"showFilter\" style=\"padding-top: 10px;padding-bottom: 10px;\">\n            <div class=\"input-group\">\n                <input type=\"text\" class=\"form-control\" placeholder=\"Filter\" v-model=\"filterKey\">\n                <div class=\"input-group-addon\">\n                    <i class=\"glyphicon glyphicon-search\"></i>\n                </div>\n            </div>\n        </div>\n    </div>\n    <div class=\"col-sm-6\">\n        <div v-if=\"showColumnPicker\" style=\"padding-top: 10px;padding-bottom: 10px;float:right;\">\n            <div class=\"btn-group\" :class=\"{'open' : columnMenuOpen}\">\n                <button @click.stop.prevent=\"columnMenuOpen = !columnMenuOpen\" @keyup.esc=\"columnMenuOpen = false\"\n                        type=\"button\" class=\"btn btn-default dropdown-toggle\" data-toggle=\"dropdown\"\n                        aria-haspopup=\"true\">\n                    Columns <span class=\"caret\"></span>\n                </button>\n                <ul class=\"dropdown-menu\">\n                    <li v-for=\"column in displayCols\">\n                        <a href=\"#\" @click.stop.prevent=\"toggleColumn(column)\">\n                            <i v-if=\"column.visible\" class=\"glyphicon glyphicon-ok\"></i> {{column.title}}\n                        </a>\n                    </li>\n                </ul>\n            </div>\n        </div>\n    </div>\n    <div class=\"col-sm-12\">\n        <div id=\"loadingdiv\" :class=\"{'vue-table-loading': this.loading , 'vue-table-loading-hidden': !this.loading}\">\n            <div class=\"spinner\"></div>\n        </div>\n        <table class=\"table table-bordered table-hover table-condensed table-striped vue-table\">\n            <thead>\n                <tr>\n                    <th v-for=\"column in displayColsVisible\" @click=\"sortBy($event, column.name)\"\n                        track-by=\"column\"\n                        :class=\"getClasses(column)\">\n                        {{ column.title }}\n                    </th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr v-for=\"entry in filteredValuesSorted \" track-by=\"entry\" @click=\"rowClickHandler($event, entry)\">\n                    <td v-for=\"column in displayColsVisible\" track-by=\"column\"\n                        v-show=\"column.visible\" :class=\"column.cellstyle\">\n                        <span v-if=\"column.renderfunction!==false\" v-html=\"column.renderfunction( column.name, entry )\"></span>\n                        <span v-else-if=\"!column.editable\"> {{ entry[column.name] }} </span>\n                        <value-field-section v-else\n                            :entry=\"entry\"\n                            :columnname=\"column.name\"></value-field-section>\n                    </td>\n                </tr>\n            </tbody>\n        </table>\n    </div>\n    <div v-if=\"paginated\" class=\"col-sm-12\">\n        <div class=\"btn-toolbar\" role=\"toolbar\" aria-label=\"pagination bar\">\n          <div class=\"btn-group\" role=\"group\" aria-label=\"first page\">\n            <button type=\"button\" class=\"btn btn-default\" @click=\"page=1\">&laquo;</button>\n          </div>\n          <div class=\"btn-group\" role=\"group\" aria-label=\"pages\">\n            <button v-for=\"index in validPageNumbers\"\n                type=\"button\" class=\"btn btn-default\"\n                :class=\"{ active: page===index }\"\n                @click=\"page=index\">\n                    {{index}}\n            </button>\n          </div>\n          <div class=\"btn-group\" v-if=\"showPaginationEtc\">...</div>\n          <div class=\"btn-group\" role=\"group\" aria-label=\"last page\">\n            <button type=\"button\" class=\"btn btn-default\" @click=\"page=maxPage\">&raquo;</button>\n          </div>\n        </div>\n    </div>\n</div>\n";

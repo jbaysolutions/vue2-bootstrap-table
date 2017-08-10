@@ -312,6 +312,7 @@
                         url: "",
                         method: "GET",
                         delegate: false,
+                        axiosConfig: {}
                     }
                 }
             },
@@ -518,6 +519,9 @@
                         tColsDir.push(this.sortOrders[this.sortKey[i]].toLowerCase());
                     }
                     if ( this.ajax.method=== "GET" ) {
+                        //COPY
+                        ajaxParameters = JSON.parse(JSON.stringify(this.ajax.axiosConfig));
+                        ajaxParameters.params = {};
                         ajaxParameters.params.sortcol = this.sortKey;
                         ajaxParameters.params.sortdir = tColsDir;
                         ajaxParameters.params.filter = this.filterKey;
@@ -561,7 +565,7 @@
                         });
                 }
                 if (this.ajax.enabled && this.ajax.method === "POST") {
-                    axios.post(self.ajax.url, qs.stringify(ajaxParameters) )
+                    axios.post(self.ajax.url, qs.stringify(ajaxParameters) , this.ajax.axiosConfig )
                         .then(response => {
                             if (this.ajax.delegate) {
                                 if (response.data.echo !== self.echo) {
