@@ -549,6 +549,16 @@
                     }
                     //console.log(JSON.stringify(ajaxParameters));
                 }
+                if( this.ajax.enabled && !this.ajax.delegate ) {
+                    if ( this.ajax.method=== "GET" ) {
+                        //COPY
+                        ajaxParameters = JSON.parse(JSON.stringify(this.ajax.axiosConfig));
+                        ajaxParameters.params = {};
+                    }
+                    if ( this.ajax.method=== "POST" ) {
+                        // Do nothing at this point !
+                    }
+                }
                 if (this.ajax.enabled && this.ajax.method === "GET") {
                     axios.get(self.ajax.url, ajaxParameters )
                         .then(response => {

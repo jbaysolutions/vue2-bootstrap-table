@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.1.8 (August 11, 2017)
+
+* Bug fix - Issue 5 - Axios config not being loaded with GET method and Delegate false.
+
 ### 1.1.7 (August 10, 2017)
 
 * Allowing Axios configuration to be passed for the requests
