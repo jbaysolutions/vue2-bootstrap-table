@@ -91,7 +91,7 @@
         table; width: 100%;
     }
 */
-    .spinner {
+    .vue-table-loading .spinner {
         border: 16px solid #f3f3f3; /* Light grey */
         border-top: 16px solid #3498db; /* Blue */
         border-radius: 50%;
