@@ -1,5 +1,12 @@
 # Changelog
 
+### 1.1.10 (July 19, 2018)
+
+* Bug fix - Delegate true and false behaviours leading to not loading data
+* Bug fix - Ajax redundant fetch when not needed
+* Enhancement - #14 - Adding support for default ordering
+* Enhancement - Documentation of code
+
 ### 1.1.9 (July 19, 2018)
 
 * Bug fix - Support for IE11 (maybe fixed for IE10 aswell)
