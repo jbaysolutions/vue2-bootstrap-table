@@ -1,6 +1,6 @@
 {
   "name": "vue2-bootstrap-table2",
-  "version": "1.1.8",
+  "version": "1.1.9",
   "description": "A sortable and searchable vue table, as a Vue component, using bootstrap styling.",
   "keywords": [
     "table",
@@ -15,7 +15,7 @@
   ],
   "main": "dist/vue-bootstrap-table.min.js",
   "scripts": {
-    "dev": "webpack-dev-server --host 0.0.0.0 --inline --hot",
+    "dev": "webpack-dev-server --host 0.0.0.0 --public 172.16.213.1:8080 --inline --hot",
     "build": "cross-env NODE_ENV=production && webpack --progress --hide-modules",
     "dist": "webpack --progress --hide-modules --config webpack.build.js && cross-env NODE_ENV=production webpack --progress --hide-modules --config  webpack.build.min.js"
   },
@@ -26,6 +26,7 @@
   "author": "Gustavo Santos (JBay Solutions) <gustavo.santos@jbaysolutions.com> (http://www.jbaysolutions.com)",
   "dependencies": {
     "babel-runtime": "^6.0.0",
+    "es6-promise-promise" : "1.0.0",
     "axios": "^0.16.1",
     "qs": "^6.0.0",
     "lodash.orderby": "^4.6.0",

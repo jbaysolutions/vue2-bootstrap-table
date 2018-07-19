@@ -24,9 +24,9 @@ new Vue({
         multiColumnSortable: true,
         handleRowFunction: handleRow,
         ajax: {
-            enabled: false,
-            url: "http://localhost:9430/data/test",
-            method: "GET",
+            enabled: true,
+            url: "http://172.16.213.1:9430/data/test",
+            method: "POST",
             delegate: true,
             axiosConfig:{
                 headers: {
@@ -36,70 +36,35 @@ new Vue({
         },
         columns: [
             {
-                title: "Id",
-                name: "id",
-                columnstyle: "colstyletest",
-                cellstyle: "cellstyletest"
+              title: 'Id',
+              name: 'id'
             },
             {
-                title: "Name",
-                name: "title",
-                visible: true,
-                editable: true,
+              title: 'Name',
+              name: 'name'
             },
             {
-                title: "Test",
-                visible: true,
-                renderfunction: renderfu
+              title: 'Description',
+              name: 'description'
+            },
+            {
+              title: 'Street Address',
+              name: 'street_address'
+            },
+            {
+              title: 'City',
+              name: 'city'
+            },
+            {
+              title: 'State',
+              name: 'state_province'
+            },
+            {
+              title: 'Postal Code',
+              name: 'postal_code'
             }
-        ],
-        values: [
-            {
-                "id": 1,
-                "title": "john",
-            },
-            {
-                "id": 1,
-                "title": "mary",
-            },
-            {
-                "id": 1,
-                "title": "jack",
-            },
-            {
-                "id": 1,
-                "title": "joe",
-            },
-            {
-                "id": 2,
-                "title": "ana",
-            },
-            {
-                "id": 2,
-                "title": "rita",
-            },
-            {
-                "id": 2,
-                "title": "mario",
-            },
-            {
-                "id": 2,
-                "title": "luigi",
-            },
-            {
-                "id": 2,
-                "title": "mickey",
-            },
-            {
-                "id": 3,
-                "title": "donald",
-            },
-            {
-                "id": 3,
-                "title": "juliet",
-            }
-
-        ]
+          ],
+        values: []
     },
     created: function () {
         var self = this;

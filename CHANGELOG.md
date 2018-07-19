@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.1.9 (July 19, 2018)
+
+* Bug fix - Support for IE11 (maybe fixed for IE10 aswell)
+
 ### 1.1.8 (August 11, 2017)
 
 * Bug fix - Issue 5 - Axios config not being loaded with GET method and Delegate false.

@@ -181,6 +181,7 @@
 </style>
 <script>
 
+    import { polyfill } from 'es6-promise'; polyfill();
     import axios from 'axios';
     import qs from 'qs';
     import lodashorderby from 'lodash.orderby';
@@ -364,6 +365,7 @@
         },
         created: function () {
             var self = this ;
+            console.log("created");
             this.$on('cellDataModifiedEvent', self.fireCellDataModifiedEvent);
         },
         beforeDestroy: function(){
