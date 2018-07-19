@@ -74,7 +74,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	__vue_script__ = __webpack_require__(6)
 	if (Object.keys(__vue_script__).some(function (key) { return key !== "default" && key !== "__esModule" })) {
 	  console.warn("[vue-loader] src/VueBootstrapTable.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(49)
+	__vue_template__ = __webpack_require__(51)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
@@ -133,7 +133,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	
 	// module
-	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    .vue-table {\n\n    }\n\n    /*#maindiv {\n        content: \" \";\n        box-sizing: border-box;\n        display:\n        table; width: 100%;\n    }\n*/\n    .spinner {\n        border: 16px solid #f3f3f3; /* Light grey */\n        border-top: 16px solid #3498db; /* Blue */\n        border-radius: 50%;\n        width: 120px;\n        height: 120px;\n        -webkit-animation: spin 2s linear infinite;\n                animation: spin 2s linear infinite;\n        position: absolute;\n        left: 50%;\n        top: 50%;\n        margin: -60px 0 0 -60px;\n    }\n\n    @-webkit-keyframes spin {\n        0% { -webkit-transform: rotate(0deg); transform: rotate(0deg); }\n        100% { -webkit-transform: rotate(360deg); transform: rotate(360deg); }\n    }\n\n    @keyframes spin {\n        0% { -webkit-transform: rotate(0deg); transform: rotate(0deg); }\n        100% { -webkit-transform: rotate(360deg); transform: rotate(360deg); }\n    }\n\n\n    .vue-table-loading{\n        position: absolute;\n        z-index: 99;\n        background-color: #ddd;\n        opacity: 0.5;\n        width: 100%;\n        height: 100%;\n    }\n\n    .vue-table-loading-hidden {\n        display: none;\n    }\n\n    table.vue-table thead > tr > th {\n        cursor: pointer;\n        padding-right: 30px !important;\n    }\n\n    /*.vue-table th.active {\n        color: red;\n    }*/\n\n    .vue-table .arrow {\n        opacity: 1;\n        position: relative;\n    }\n\n    .vue-table .arrow:after {\n        position: absolute;\n        bottom: 8px;\n        right: 8px;\n        display: block;\n        font-family: 'Glyphicons Halflings';\n        content: \"\\E150\";\n        /*\n        display: inline-block;\n        vertical-align: middle;\n        width: 0;\n        height: 0;\n        margin-left: 5px;\n        opacity: 0.66;*/\n    }\n\n    .vue-table .arrow.asc:after {\n        content: \"\\E155\";\n        /*\n        border-left: 4px solid transparent;\n        border-right: 4px solid transparent;\n        border-bottom: 4px solid #000;\n        */\n    }\n\n    .vue-table .arrow.dsc:after {\n        content: \"\\E156\";\n    }\n\n\n    .vue-table .editableField {\n        cursor:pointer;\n    }\n\n    /*.vue-table .selected-cell {\n        background-color: #F7C072;\n    }\n\n    .vue-table .selected-row {\n        background-color: #FAE1BE !important;\n    }*/\n", "", {"version":3,"sources":["/./src/VueBootstrapTable.vue?385089d8"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;IAkFA;;KAEA;;IAEA;;;;;;EAMA;IACA;QACA,2BAAA,CAAA,gBAAA;QACA,+BAAA,CAAA,UAAA;QACA,mBAAA;QACA,aAAA;QACA,cAAA;QACA,2CAAA;gBAAA,mCAAA;QACA,mBAAA;QACA,UAAA;QACA,SAAA;QACA,wBAAA;KACA;;IAEA;QACA,KAAA,gCAAA,CAAA,wBAAA,EAAA;QACA,OAAA,kCAAA,CAAA,0BAAA,EAAA;KACA;;IAHA;QACA,KAAA,gCAAA,CAAA,wBAAA,EAAA;QACA,OAAA,kCAAA,CAAA,0BAAA,EAAA;KACA;;;IAGA;QACA,mBAAA;QACA,YAAA;QACA,uBAAA;QACA,aAAA;QACA,YAAA;QACA,aAAA;KACA;;IAEA;QACA,cAAA;KACA;;IAEA;QACA,gBAAA;QACA,+BAAA;KACA;;IAEA;;OAEA;;IAEA;QACA,WAAA;QACA,mBAAA;KACA;;IAEA;QACA,mBAAA;QACA,YAAA;QACA,WAAA;QACA,eAAA;QACA,oCAAA;QACA,iBAAA;QACA;;;;;;wBAMA;KACA;;IAEA;QACA,iBAAA;QACA;;;;UAIA;KACA;;IAEA;QACA,iBAAA;KACA;;;IAGA;QACA,eAAA;KACA;;IAEA;;;;;;OAMA","file":"VueBootstrapTable.vue","sourcesContent":["<template>\n    <div id=\"maindiv\" @click=\"closeDropdown\" @keyup.esc=\"closeDropdown\">\n        <!--<pre>{{columns}}</pre>-->\n        <!--<pre>{{$data}}</pre>-->\n        <div class=\"col-sm-6\">\n            <div v-if=\"showFilter\" style=\"padding-top: 10px;padding-bottom: 10px;\">\n                <div class=\"input-group\">\n                    <input type=\"text\" class=\"form-control\" placeholder=\"Filter\" v-model=\"filterKey\">\n                    <div class=\"input-group-addon\">\n                        <i class=\"glyphicon glyphicon-search\"></i>\n                    </div>\n                </div>\n            </div>\n        </div>\n        <div class=\"col-sm-6\">\n            <div v-if=\"showColumnPicker\" style=\"padding-top: 10px;padding-bottom: 10px;float:right;\">\n                <div class=\"btn-group\" :class=\"{'open' : columnMenuOpen}\">\n                    <button @click.stop.prevent=\"columnMenuOpen = !columnMenuOpen\" @keyup.esc=\"columnMenuOpen = false\"\n                            type=\"button\" class=\"btn btn-default dropdown-toggle\" data-toggle=\"dropdown\"\n                            aria-haspopup=\"true\">\n                        Columns <span class=\"caret\"></span>\n                    </button>\n                    <ul class=\"dropdown-menu\">\n                        <li v-for=\"column in displayCols\">\n                            <a href=\"#\" @click.stop.prevent=\"toggleColumn(column)\">\n                                <i v-if=\"column.visible\" class=\"glyphicon glyphicon-ok\"></i> {{column.title}}\n                            </a>\n                        </li>\n                    </ul>\n                </div>\n            </div>\n        </div>\n        <div class=\"col-sm-12\">\n            <div id=\"loadingdiv\" :class=\"{'vue-table-loading': this.loading , 'vue-table-loading-hidden': !this.loading}\">\n                <div class=\"spinner\"></div>\n            </div>\n            <table class=\"table table-bordered table-hover table-condensed table-striped vue-table\">\n                <thead>\n                    <tr>\n                        <th v-for=\"column in displayColsVisible\" @click=\"sortBy($event, column.name)\"\n                            track-by=\"column\"\n                            :class=\"getClasses(column)\">\n                            {{ column.title }}\n                        </th>\n                    </tr>\n                </thead>\n                <tbody>\n                    <tr v-for=\"entry in filteredValuesSorted \" track-by=\"entry\" @click=\"rowClickHandler($event, entry)\">\n                        <td v-for=\"column in displayColsVisible\" track-by=\"column\"\n                            v-show=\"column.visible\" :class=\"column.cellstyle\">\n                            <span v-if=\"column.renderfunction!==false\" v-html=\"column.renderfunction( column.name, entry )\"></span>\n                            <span v-else-if=\"!column.editable\"> {{ entry[column.name] }} </span>\n                            <value-field-section v-else\n                                :entry=\"entry\"\n                                :columnname=\"column.name\"></value-field-section>\n                        </td>\n                    </tr>\n                </tbody>\n            </table>\n        </div>\n        <div v-if=\"paginated\" class=\"col-sm-12\">\n            <div class=\"btn-toolbar\" role=\"toolbar\" aria-label=\"pagination bar\">\n              <div class=\"btn-group\" role=\"group\" aria-label=\"first page\">\n                <button type=\"button\" class=\"btn btn-default\" @click=\"page=1\">&laquo;</button>\n              </div>\n              <div class=\"btn-group\" role=\"group\" aria-label=\"pages\">\n                <button v-for=\"index in validPageNumbers\"\n                    type=\"button\" class=\"btn btn-default\"\n                    :class=\"{ active: page===index }\"\n                    @click=\"page=index\">\n                        {{index}}\n                </button>\n              </div>\n              <div class=\"btn-group\" v-if=\"showPaginationEtc\">...</div>\n              <div class=\"btn-group\" role=\"group\" aria-label=\"last page\">\n                <button type=\"button\" class=\"btn btn-default\" @click=\"page=maxPage\">&raquo;</button>\n              </div>\n            </div>\n        </div>\n    </div>\n</template>\n<style>\n    .vue-table {\n\n    }\n\n    /*#maindiv {\n        content: \" \";\n        box-sizing: border-box;\n        display:\n        table; width: 100%;\n    }\n*/\n    .spinner {\n        border: 16px solid #f3f3f3; /* Light grey */\n        border-top: 16px solid #3498db; /* Blue */\n        border-radius: 50%;\n        width: 120px;\n        height: 120px;\n        animation: spin 2s linear infinite;\n        position: absolute;\n        left: 50%;\n        top: 50%;\n        margin: -60px 0 0 -60px;\n    }\n\n    @keyframes spin {\n        0% { transform: rotate(0deg); }\n        100% { transform: rotate(360deg); }\n    }\n\n\n    .vue-table-loading{\n        position: absolute;\n        z-index: 99;\n        background-color: #ddd;\n        opacity: 0.5;\n        width: 100%;\n        height: 100%;\n    }\n\n    .vue-table-loading-hidden {\n        display: none;\n    }\n\n    table.vue-table thead > tr > th {\n        cursor: pointer;\n        padding-right: 30px !important;\n    }\n\n    /*.vue-table th.active {\n        color: red;\n    }*/\n\n    .vue-table .arrow {\n        opacity: 1;\n        position: relative;\n    }\n\n    .vue-table .arrow:after {\n        position: absolute;\n        bottom: 8px;\n        right: 8px;\n        display: block;\n        font-family: 'Glyphicons Halflings';\n        content: \"\\e150\";\n        /*\n        display: inline-block;\n        vertical-align: middle;\n        width: 0;\n        height: 0;\n        margin-left: 5px;\n        opacity: 0.66;*/\n    }\n\n    .vue-table .arrow.asc:after {\n        content: \"\\e155\";\n        /*\n        border-left: 4px solid transparent;\n        border-right: 4px solid transparent;\n        border-bottom: 4px solid #000;\n        */\n    }\n\n    .vue-table .arrow.dsc:after {\n        content: \"\\e156\";\n    }\n\n\n    .vue-table .editableField {\n        cursor:pointer;\n    }\n\n    /*.vue-table .selected-cell {\n        background-color: #F7C072;\n    }\n\n    .vue-table .selected-row {\n        background-color: #FAE1BE !important;\n    }*/\n</style>\n<script>\n\n    import axios from 'axios';\n    import qs from 'qs';\n    import lodashorderby from 'lodash.orderby';\n    import lodashincludes from 'lodash.includes';\n    import lodashfindindex from 'lodash.findindex';\n\n\n    /* Field Section used for displaying and editing value of cell */\n    var valueFieldSection = {\n      template: '<span v-if=\"!enabled\" @dblclick=\"toggleInput\" class=\"editableField\">{{this.entry[this.columnname]}}</span>'+\n          '<div v-else-if=\"enabled\" class=\"input-group\">'+\n          '  <input type=\"text\" class=\"form-control\" v-model=\"datavalue\" @keyup.enter=\"saveThis\" @keyup.esc=\"cancelThis\">'+\n          '  <span class=\"input-group-btn\">'+\n          '    <button class=\"btn btn-danger\" type=\"button\" @click=\"cancelThis\" ><span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span></button>'+\n          '    <button class=\"btn btn-primary\" type=\"button\" @click=\"saveThis\" ><span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span></button>'+\n          '  </span>'+\n          '</div>',\n      props: ['entry','columnname'],\n      data: function () {\n          return {\n            enabled: false,\n            datavalue: \"\",\n          }\n      },\n      methods: {\n        saveThis: function () {\n            var originalValue = this.entry[this.columnname];\n            this.entry[this.columnname] = this.datavalue;\n            this.$parent.$emit('cellDataModifiedEvent', originalValue, this.datavalue, this.columnname,  this.entry);\n            this.enabled = !this.enabled;\n        },\n        cancelThis: function () {\n            this.datavalue = this.entry[this.columnname];\n            this.enabled = !this.enabled;\n        },\n        toggleInput: function () {\n            this.datavalue= this.entry[this.columnname];\n            this.enabled=!this.enabled;\n        },\n      }\n    };\n\n    export default {\n        name: \"VueBootstrapTable\",\n        components: {\n            'value-field-section': valueFieldSection,\n        },\n        props: {\n            /**\n             * The column titles, required\n             */\n            columns: {\n                type: Array,\n                required: true,\n            },\n            /**\n             * The rows, an Array of objects\n             */\n            values: {\n                type: Array,\n                required: false,\n            },\n            /**\n             * Enable/disable table sorting, optional, default true\n             */\n            sortable: {\n                type: Boolean,\n                required: false,\n                default: true,\n            },\n            /**\n             * Enable/disable table multicolumn sorting, optional, default false.\n             * Also sortable must be enabled for this function to work.\n             */\n            multiColumnSortable: {\n                type: Boolean,\n                required: false,\n                default: false,\n            },\n            /**\n             * Enable/disable input filter, optional, default false\n             */\n            showFilter: {\n                type: Boolean,\n                required: false,\n                default: false,\n            },\n            /**\n             * Define if Filter search field is to work in a case Sensitive way. Default: true\n             */\n            filterCaseSensitive: {\n                type: Boolean,\n                required: false,\n                default: true,\n            },\n            /**\n             * Enable/disable column picker to show/hide table columns, optional, default false\n             */\n            showColumnPicker: {\n                type: Boolean,\n                required: false,\n                default: false,\n            },\n            /**\n             * Enable/disable pagination for the table, optional, default false\n             */\n            paginated: {\n                type: Boolean,\n                required: false,\n                default: false,\n            },\n            /**\n             * If pagination is enabled defining the page size, optional, default 10\n             */\n            pageSize: {\n                type: Number,\n                required: false,\n                default: 10,\n            },\n            /**\n             * If loading of table is to be done through ajax, then this object must be set\n             */\n            ajax: {\n                type: Object,\n                required: false,\n                default: function () {\n                    return {\n                        enabled: false,\n                        url: \"\",\n                        method: \"GET\",\n                        delegate: false,\n                        axiosConfig: {}\n                    }\n                }\n            },\n            /**\n             * Function to handle row clicks\n             */\n            rowClickHandler: {\n                type: Function,\n                required: false,\n                default: function () {}\n            },\n        },\n        data: function () {\n            return {\n                filteredSize: 0,\n                filterKey: \"\",\n                sortKey: [],\n                sortOrders: {},\n                sortChanged: 1,\n                columnMenuOpen: false,\n                displayCols: [],\n                filteredValues: [],\n                page: 1,\n                echo: 0,\n                loading: false,\n            };\n        },\n        mounted: function () {\n          this.$nextTick(function () {\n              this.loading= true;\n              this.setSortOrders();\n              var self = this;\n              this.columns.forEach(function (column) {\n                  var obj = self.buildColumnObject(column);\n                  self.displayCols.push(obj);\n              });\n              if (this.ajax.enabled) {\n                  if (!this.ajax.delegate) {\n                      this.loading= true;\n                      this.fetchData(function (data) {\n                          self.values = data.data;\n                          self.processFilter();\n                      });\n                  }else\n                      this.processFilter();\n              }else\n                  this.processFilter();\n          })\n        },\n        created: function () {\n            var self = this ;\n            this.$on('cellDataModifiedEvent', self.fireCellDataModifiedEvent);\n        },\n        beforeDestroy: function(){\n            var self = this ;\n            this.$off('cellDataModifiedEvent', self.fireCellDataModifiedEvent);\n        },\n        watch: {\n            values: function () {\n                this.processFilter();\n            },\n            columns: function () {\n                this.displayCols = [];\n                var self = this;\n                this.columns.forEach(function (column) {\n                    var obj = self.buildColumnObject(column);\n                    self.displayCols.push(obj);\n                });\n                this.setSortOrders();\n            },\n            showFilter: function () {\n                this.filterKey = \"\";\n            },\n            showColumnPicker: function () {\n                this.columnMenuOpen = false;\n\n                this.displayCols.forEach(function (column) {\n                    column.visible = true;\n                });\n            },\n            filterKey: function () {\n                // filter was updated, so resetting to page 1\n                this.page = 1;\n                this.processFilter();\n            },\n            sortKey: function () {\n                this.processFilter();\n            },\n            sortChanged: function () {\n                this.processFilter();\n            },\n            page: function () {\n                this.processFilter();\n            },\n            paginated: function () {\n                this.processFilter();\n            },\n            loading: function () {\n                /*document.getElementById(\"loadingdiv\").style.width = document.getElementById(\"maindiv\").getBoundingClientRect().width + \"px\";\n                document.getElementById(\"loadingdiv\").style.height = document.getElementById(\"maindiv\").getBoundingClientRect().height+\"px\";*/\n            }\n        },\n        computed: {\n            displayColsVisible: function () {\n                var displayColsVisible = [];\n                for (var a in this.displayCols) {\n                    if (this.displayCols[a].visible)\n                        displayColsVisible.push(this.displayCols[a]);\n                }\n                return displayColsVisible;\n            },\n            filteredValuesSorted: function () {\n                var tColsDir = [];\n                for(var i=0, len=this.sortKey.length; i < len; i++){\n                    tColsDir.push(this.sortOrders[this.sortKey[i]].toLowerCase());\n                }\n                return lodashorderby(this.filteredValues, this.sortKey , tColsDir);\n            },\n            validPageNumbers: function () {\n                // 5 page max\n                var result = [];\n                var start = 1;\n                if (this.page > 3)\n                    start = this.page-2;\n                for ( var i = 0 ; start <= this.maxPage && i<5; start++ ) {\n                    result.push(start);\n                    i++;\n                }\n                return result;\n            },\n            maxPage: function () {\n                return Math.ceil(this.filteredSize / this.pageSize);\n            },\n            showPaginationEtc: function () {\n                var temp = 1;\n                if (this.page > 3)\n                    temp = this.page-2;\n                return ( (temp+4) < this.maxPage  );\n            },\n        },\n        methods: {\n            fireCellDataModifiedEvent:function ( originalValue, newValue, columnTitle, entry) {\n                this.$parent.$emit('cellDataModifiedEvent',originalValue, newValue, columnTitle, entry);\n            },\n            processFilter: function () {\n                var self = this;\n                this.loading = true;\n                if ( this.ajax.enabled && this.ajax.delegate ) {\n                   this.fetchData(function (data) {\n                       self.filteredSize = data.filtered;\n                       self.filteredValues = data.data;\n                       self.loading = false;\n                   });\n                } else {\n                    var result = this.values.filter(item => {\n                                var good = false;\n                                for (var col in self.displayColsVisible) {\n                                    if (self.filterCaseSensitive) {\n                                        if (lodashincludes(item[self.displayColsVisible[col].name] + \"\", self.filterKey + \"\")) {\n                                            good = true;\n                                        }\n                                    } else {\n                                        if (lodashincludes((item[self.displayColsVisible[col].name] + \"\").toLowerCase(), (self.filterKey + \"\").toLowerCase())) {\n                                            good = true;\n                                        }\n                                    }\n\n                                }\n                                return good;\n                    });\n\n                    var tColsDir = [];\n                    for(var i=0, len=this.sortKey.length; i < len; i++){\n                        tColsDir.push(this.sortOrders[this.sortKey[i]].toLowerCase());\n                    }\n\n                    result = lodashorderby(result, this.sortKey, tColsDir);\n\n                    this.filteredSize = result.length;\n                    if (this.paginated) {\n                        var startIndex = (this.page - 1) * this.pageSize;\n                        var tIndex = 0;\n                        var tempResult = [];\n                        while (tIndex < this.pageSize) {\n                            if (typeof result[startIndex + tIndex] !== \"undefined\")\n                                tempResult.push(result[startIndex + tIndex]);\n                            tIndex++;\n                        }\n                        self.filteredValues = tempResult;\n                    } else\n                        self.filteredValues = result;\n                    self.loading = false;\n                }\n            },\n            fetchData: function ( dataCallBackFunction ) {\n                var self = this;\n                var ajaxParameters = {\n                    params: {}\n                };\n                this.echo++;\n                if (this.ajax.enabled && this.ajax.delegate) {\n                    var tColsDir = [];\n                    for(var i=0, len=this.sortKey.length; i < len; i++){\n                        tColsDir.push(this.sortOrders[this.sortKey[i]].toLowerCase());\n                    }\n                    if ( this.ajax.method=== \"GET\" ) {\n                        //COPY\n                        ajaxParameters = JSON.parse(JSON.stringify(this.ajax.axiosConfig));\n                        ajaxParameters.params = {};\n                        ajaxParameters.params.sortcol = this.sortKey;\n                        ajaxParameters.params.sortdir = tColsDir;\n                        ajaxParameters.params.filter = this.filterKey;\n                        if (self.paginated ) {\n                            ajaxParameters.params.page = this.page;\n                            ajaxParameters.params.pagesize = this.pageSize;\n                        } else {\n                            ajaxParameters.params.page = 1;\n                            ajaxParameters.params.pagesize = null;\n                        }\n                        ajaxParameters.params.echo = this.echo;\n                    }\n                    if ( this.ajax.method=== \"POST\" ) {\n                        ajaxParameters.sortcol = this.sortKey;\n                        ajaxParameters.sortdir = tColsDir;\n                        ajaxParameters.filter = this.filterKey;\n                        if (self.paginated ) {\n                            ajaxParameters.page = this.page;\n                            ajaxParameters.pagesize = this.pageSize;\n                        } else {\n                            ajaxParameters.page = 1;\n                            ajaxParameters.pagesize = null;\n                        }\n                        ajaxParameters.echo = this.echo;\n                    }\n                    //console.log(JSON.stringify(ajaxParameters));\n                }\n                if( this.ajax.enabled && !this.ajax.delegate ) {\n                    if ( this.ajax.method=== \"GET\" ) {\n                        //COPY\n                        ajaxParameters = JSON.parse(JSON.stringify(this.ajax.axiosConfig));\n                        ajaxParameters.params = {};\n                    }\n                    if ( this.ajax.method=== \"POST\" ) {\n                        // Do nothing at this point !\n                    }\n                }\n                if (this.ajax.enabled && this.ajax.method === \"GET\") {\n                    axios.get(self.ajax.url, ajaxParameters )\n                        .then(response => {\n                            if (this.ajax.delegate) {\n                                if (response.data.echo !== self.echo) {\n                                    return;\n                                }\n                            }\n                            dataCallBackFunction(response.data);\n                            this.$parent.$emit('ajaxLoadedEvent', response.data);\n                        })\n                        .catch(e => {\n                            this.$parent.$emit('ajaxLoadingError', e);\n                        });\n                }\n                if (this.ajax.enabled && this.ajax.method === \"POST\") {\n                    axios.post(self.ajax.url, qs.stringify(ajaxParameters) , this.ajax.axiosConfig )\n                        .then(response => {\n                            if (this.ajax.delegate) {\n                                if (response.data.echo !== self.echo) {\n                                    return;\n                                }\n                            }\n\n                            dataCallBackFunction(response.data);\n                            this.$parent.$emit('ajaxLoadedEvent', response.data);\n\n                        })\n                        .catch(e => {\n                            this.$parent.$emit('ajaxLoadingError', e);\n                        });\n                }\n            },\n            buildColumnObject: function (column) {\n                var obj = {};\n                obj.title = column.title;\n                if ( typeof column.name !== \"undefined\")\n                    obj.name = column.name;\n                else\n                    obj.name = column.title;\n                if ( typeof column.visible !== \"undefined\")\n                    obj.visible = column.visible;\n                else\n                    obj.visible = true;\n                if ( typeof column.editable !== \"undefined\")\n                    obj.editable = column.editable;\n                else\n                    obj.editable = false;\n                if ( typeof column.renderfunction !== \"undefined\")\n                    obj.renderfunction = column.renderfunction;\n                else\n                    obj.renderfunction = false;\n                if ( typeof column.columnstyle !== \"undefined\")\n                    obj.columnstyle = column.columnstyle;\n                else\n                    obj.columnstyle = \"\";\n                if ( typeof column.cellstyle !== \"undefined\")\n                    obj.cellstyle = column.cellstyle;\n                else\n                    obj.cellstyle = \"\";\n\n                return obj;\n            },\n            setSortOrders: function () {\n                this.sortKey = [];\n                var sortOrders = {};\n                this.columns.forEach(function (column) {\n                    sortOrders[column.name] = \"\";\n                });\n                this.sortOrders = sortOrders;\n\n            },\n            sortBy: function (event, key) {\n                if (this.sortable) {\n                    var self = this;\n\n                    if (!this.multiColumnSortable || ( this.multiColumnSortable && !event.shiftKey)) {\n                        this.sortKey = [key];\n                        this.columns.forEach(function (column) {\n                            if (column.name !== key) {\n                                self.sortOrders[column.name] = \"\";\n                            }\n                        });\n                    } else {\n                        if (lodashfindindex(this.sortKey, function(o) { return o === key; }) === -1) {\n                            this.sortKey.push(key);\n                        }\n                    }\n                    if (this.sortOrders[key] === \"\") {\n                        this.sortOrders[key] = \"ASC\";\n                    } else if (this.sortOrders[key] === \"ASC\") {\n                        this.sortOrders[key] = \"DESC\";\n                    } else {\n                        this.sortOrders[key] = \"ASC\";\n                    }\n\n                    this.sortChanged = this.sortChanged * -1;\n                }\n            },\n            getClasses: function (column) {\n                var classes = [column.columnstyle];\n                var key = column.name;\n                if (this.sortable) {\n                    classes.push(\"arrow\");\n                    /*if (this.sortKey === key) {\n                        classes.push(\"active\");\n                    }*/\n                    if (lodashfindindex(this.sortKey, function(o) { return o === key; }) !== -1) {\n                        classes.push(\"active\");\n                    }\n\n                    if (this.sortOrders[key] === \"ASC\") {\n                        classes.push(\"asc\");\n                    } else if (this.sortOrders[key] === \"DESC\") {\n                        classes.push(\"dsc\");\n                    }\n                }\n                return classes;\n            },\n            toggleColumn: function (column) {\n                column.visible = !column.visible;\n            },\n            closeDropdown: function () {\n                this.columnMenuOpen = false;\n            },\n        },\n        events: {\n        }\n    }\n</script>"],"sourceRoot":"webpack://"}]);
+	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    .vue-table {\n\n    }\n\n    /*#maindiv {\n        content: \" \";\n        box-sizing: border-box;\n        display:\n        table; width: 100%;\n    }\n*/\n    .vue-table-loading .spinner {\n        border: 16px solid #f3f3f3; /* Light grey */\n        border-top: 16px solid #3498db; /* Blue */\n        border-radius: 50%;\n        width: 120px;\n        height: 120px;\n        -webkit-animation: spin 2s linear infinite;\n                animation: spin 2s linear infinite;\n        position: absolute;\n        left: 50%;\n        top: 50%;\n        margin: -60px 0 0 -60px;\n    }\n\n    @-webkit-keyframes spin {\n        0% { -webkit-transform: rotate(0deg); transform: rotate(0deg); }\n        100% { -webkit-transform: rotate(360deg); transform: rotate(360deg); }\n    }\n\n    @keyframes spin {\n        0% { -webkit-transform: rotate(0deg); transform: rotate(0deg); }\n        100% { -webkit-transform: rotate(360deg); transform: rotate(360deg); }\n    }\n\n\n    .vue-table-loading{\n        position: absolute;\n        z-index: 99;\n        background-color: #ddd;\n        opacity: 0.5;\n        width: 100%;\n        height: 100%;\n    }\n\n    .vue-table-loading-hidden {\n        display: none;\n    }\n\n    table.vue-table thead > tr > th {\n        cursor: pointer;\n        padding-right: 30px !important;\n    }\n\n    /*.vue-table th.active {\n        color: red;\n    }*/\n\n    .vue-table .arrow {\n        opacity: 1;\n        position: relative;\n    }\n\n    .vue-table .arrow:after {\n        position: absolute;\n        bottom: 8px;\n        right: 8px;\n        display: block;\n        font-family: 'Glyphicons Halflings';\n        content: \"\\E150\";\n        /*\n        display: inline-block;\n        vertical-align: middle;\n        width: 0;\n        height: 0;\n        margin-left: 5px;\n        opacity: 0.66;*/\n    }\n\n    .vue-table .arrow.asc:after {\n        content: \"\\E155\";\n        /*\n        border-left: 4px solid transparent;\n        border-right: 4px solid transparent;\n        border-bottom: 4px solid #000;\n        */\n    }\n\n    .vue-table .arrow.dsc:after {\n        content: \"\\E156\";\n    }\n\n\n    .vue-table .editableField {\n        cursor:pointer;\n    }\n\n    /*.vue-table .selected-cell {\n        background-color: #F7C072;\n    }\n\n    .vue-table .selected-row {\n        background-color: #FAE1BE !important;\n    }*/\n", "", {"version":3,"sources":["/./src/VueBootstrapTable.vue?7097a982"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;IAkFA;;KAEA;;IAEA;;;;;;EAMA;IACA;QACA,2BAAA,CAAA,gBAAA;QACA,+BAAA,CAAA,UAAA;QACA,mBAAA;QACA,aAAA;QACA,cAAA;QACA,2CAAA;gBAAA,mCAAA;QACA,mBAAA;QACA,UAAA;QACA,SAAA;QACA,wBAAA;KACA;;IAEA;QACA,KAAA,gCAAA,CAAA,wBAAA,EAAA;QACA,OAAA,kCAAA,CAAA,0BAAA,EAAA;KACA;;IAHA;QACA,KAAA,gCAAA,CAAA,wBAAA,EAAA;QACA,OAAA,kCAAA,CAAA,0BAAA,EAAA;KACA;;;IAGA;QACA,mBAAA;QACA,YAAA;QACA,uBAAA;QACA,aAAA;QACA,YAAA;QACA,aAAA;KACA;;IAEA;QACA,cAAA;KACA;;IAEA;QACA,gBAAA;QACA,+BAAA;KACA;;IAEA;;OAEA;;IAEA;QACA,WAAA;QACA,mBAAA;KACA;;IAEA;QACA,mBAAA;QACA,YAAA;QACA,WAAA;QACA,eAAA;QACA,oCAAA;QACA,iBAAA;QACA;;;;;;wBAMA;KACA;;IAEA;QACA,iBAAA;QACA;;;;UAIA;KACA;;IAEA;QACA,iBAAA;KACA;;;IAGA;QACA,eAAA;KACA;;IAEA;;;;;;OAMA","file":"VueBootstrapTable.vue","sourcesContent":["<template>\n    <div id=\"maindiv\" @click=\"closeDropdown\" @keyup.esc=\"closeDropdown\">\n        <!--<pre>{{columns}}</pre>-->\n        <!--<pre>{{$data}}</pre>-->\n        <div class=\"col-sm-6\">\n            <div v-if=\"showFilter\" style=\"padding-top: 10px;padding-bottom: 10px;\">\n                <div class=\"input-group\">\n                    <input type=\"text\" class=\"form-control\" placeholder=\"Filter\" v-model=\"filterKey\">\n                    <div class=\"input-group-addon\">\n                        <i class=\"glyphicon glyphicon-search\"></i>\n                    </div>\n                </div>\n            </div>\n        </div>\n        <div class=\"col-sm-6\">\n            <div v-if=\"showColumnPicker\" style=\"padding-top: 10px;padding-bottom: 10px;float:right;\">\n                <div class=\"btn-group\" :class=\"{'open' : columnMenuOpen}\">\n                    <button @click.stop.prevent=\"columnMenuOpen = !columnMenuOpen\" @keyup.esc=\"columnMenuOpen = false\"\n                            type=\"button\" class=\"btn btn-default dropdown-toggle\" data-toggle=\"dropdown\"\n                            aria-haspopup=\"true\">\n                        Columns <span class=\"caret\"></span>\n                    </button>\n                    <ul class=\"dropdown-menu\">\n                        <li v-for=\"column in displayCols\">\n                            <a href=\"#\" @click.stop.prevent=\"toggleColumn(column)\">\n                                <i v-if=\"column.visible\" class=\"glyphicon glyphicon-ok\"></i> {{column.title}}\n                            </a>\n                        </li>\n                    </ul>\n                </div>\n            </div>\n        </div>\n        <div class=\"col-sm-12\">\n            <div id=\"loadingdiv\" :class=\"{'vue-table-loading': this.loading , 'vue-table-loading-hidden': !this.loading}\">\n                <div class=\"spinner\"></div>\n            </div>\n            <table class=\"table table-bordered table-hover table-condensed table-striped vue-table\">\n                <thead>\n                    <tr>\n                        <th v-for=\"column in displayColsVisible\" @click=\"sortBy($event, column.name)\"\n                            track-by=\"column\"\n                            :class=\"getClasses(column)\">\n                            {{ column.title }}\n                        </th>\n                    </tr>\n                </thead>\n                <tbody>\n                    <tr v-for=\"entry in filteredValuesSorted \" track-by=\"entry\" @click=\"rowClickHandler($event, entry)\">\n                        <td v-for=\"column in displayColsVisible\" track-by=\"column\"\n                            v-show=\"column.visible\" :class=\"column.cellstyle\">\n                            <span v-if=\"column.renderfunction!==false\" v-html=\"column.renderfunction( column.name, entry )\"></span>\n                            <span v-else-if=\"!column.editable\"> {{ entry[column.name] }} </span>\n                            <value-field-section v-else\n                                :entry=\"entry\"\n                                :columnname=\"column.name\"></value-field-section>\n                        </td>\n                    </tr>\n                </tbody>\n            </table>\n        </div>\n        <div v-if=\"paginated\" class=\"col-sm-12\">\n            <div class=\"btn-toolbar\" role=\"toolbar\" aria-label=\"pagination bar\">\n              <div class=\"btn-group\" role=\"group\" aria-label=\"first page\">\n                <button type=\"button\" class=\"btn btn-default\" @click=\"page=1\">&laquo;</button>\n              </div>\n              <div class=\"btn-group\" role=\"group\" aria-label=\"pages\">\n                <button v-for=\"index in validPageNumbers\"\n                    type=\"button\" class=\"btn btn-default\"\n                    :class=\"{ active: page===index }\"\n                    @click=\"page=index\">\n                        {{index}}\n                </button>\n              </div>\n              <div class=\"btn-group\" v-if=\"showPaginationEtc\">...</div>\n              <div class=\"btn-group\" role=\"group\" aria-label=\"last page\">\n                <button type=\"button\" class=\"btn btn-default\" @click=\"page=maxPage\">&raquo;</button>\n              </div>\n            </div>\n        </div>\n    </div>\n</template>\n<style>\n    .vue-table {\n\n    }\n\n    /*#maindiv {\n        content: \" \";\n        box-sizing: border-box;\n        display:\n        table; width: 100%;\n    }\n*/\n    .vue-table-loading .spinner {\n        border: 16px solid #f3f3f3; /* Light grey */\n        border-top: 16px solid #3498db; /* Blue */\n        border-radius: 50%;\n        width: 120px;\n        height: 120px;\n        animation: spin 2s linear infinite;\n        position: absolute;\n        left: 50%;\n        top: 50%;\n        margin: -60px 0 0 -60px;\n    }\n\n    @keyframes spin {\n        0% { transform: rotate(0deg); }\n        100% { transform: rotate(360deg); }\n    }\n\n\n    .vue-table-loading{\n        position: absolute;\n        z-index: 99;\n        background-color: #ddd;\n        opacity: 0.5;\n        width: 100%;\n        height: 100%;\n    }\n\n    .vue-table-loading-hidden {\n        display: none;\n    }\n\n    table.vue-table thead > tr > th {\n        cursor: pointer;\n        padding-right: 30px !important;\n    }\n\n    /*.vue-table th.active {\n        color: red;\n    }*/\n\n    .vue-table .arrow {\n        opacity: 1;\n        position: relative;\n    }\n\n    .vue-table .arrow:after {\n        position: absolute;\n        bottom: 8px;\n        right: 8px;\n        display: block;\n        font-family: 'Glyphicons Halflings';\n        content: \"\\e150\";\n        /*\n        display: inline-block;\n        vertical-align: middle;\n        width: 0;\n        height: 0;\n        margin-left: 5px;\n        opacity: 0.66;*/\n    }\n\n    .vue-table .arrow.asc:after {\n        content: \"\\e155\";\n        /*\n        border-left: 4px solid transparent;\n        border-right: 4px solid transparent;\n        border-bottom: 4px solid #000;\n        */\n    }\n\n    .vue-table .arrow.dsc:after {\n        content: \"\\e156\";\n    }\n\n\n    .vue-table .editableField {\n        cursor:pointer;\n    }\n\n    /*.vue-table .selected-cell {\n        background-color: #F7C072;\n    }\n\n    .vue-table .selected-row {\n        background-color: #FAE1BE !important;\n    }*/\n</style>\n<script>\n\n    import { polyfill } from 'es6-promise'; polyfill();\n    import axios from 'axios';\n    import qs from 'qs';\n    import lodashorderby from 'lodash.orderby';\n    import lodashincludes from 'lodash.includes';\n    import lodashfindindex from 'lodash.findindex';\n\n\n    /* Field Section used for displaying and editing value of cell */\n    var valueFieldSection = {\n      template: '<span v-if=\"!enabled\" @dblclick=\"toggleInput\" class=\"editableField\">{{this.entry[this.columnname]}}</span>'+\n          '<div v-else-if=\"enabled\" class=\"input-group\">'+\n          '  <input type=\"text\" class=\"form-control\" v-model=\"datavalue\" @keyup.enter=\"saveThis\" @keyup.esc=\"cancelThis\">'+\n          '  <span class=\"input-group-btn\">'+\n          '    <button class=\"btn btn-danger\" type=\"button\" @click=\"cancelThis\" ><span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span></button>'+\n          '    <button class=\"btn btn-primary\" type=\"button\" @click=\"saveThis\" ><span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span></button>'+\n          '  </span>'+\n          '</div>',\n      props: ['entry','columnname'],\n      data: function () {\n          return {\n            enabled: false,\n            datavalue: \"\",\n          }\n      },\n      methods: {\n        saveThis: function () {\n            var originalValue = this.entry[this.columnname];\n            this.entry[this.columnname] = this.datavalue;\n            this.$parent.$emit('cellDataModifiedEvent', originalValue, this.datavalue, this.columnname,  this.entry);\n            this.enabled = !this.enabled;\n        },\n        cancelThis: function () {\n            this.datavalue = this.entry[this.columnname];\n            this.enabled = !this.enabled;\n        },\n        toggleInput: function () {\n            this.datavalue= this.entry[this.columnname];\n            this.enabled=!this.enabled;\n        },\n      }\n    };\n\n    export default {\n        name: \"VueBootstrapTable\",\n        components: {\n            'value-field-section': valueFieldSection,\n        },\n        props: {\n            /**\n             * The column titles, required\n             */\n            columns: {\n                type: Array,\n                required: true,\n            },\n            /**\n             * The rows, an Array of objects\n             */\n            values: {\n                type: Array,\n                required: false,\n            },\n            /**\n             * Enable/disable table sorting, optional, default true\n             */\n            sortable: {\n                type: Boolean,\n                required: false,\n                default: true,\n            },\n            /**\n             * Enable/disable table multicolumn sorting, optional, default false.\n             * Also sortable must be enabled for this function to work.\n             */\n            multiColumnSortable: {\n                type: Boolean,\n                required: false,\n                default: false,\n            },\n            /**\n             * Enable/disable input filter, optional, default false\n             */\n            showFilter: {\n                type: Boolean,\n                required: false,\n                default: false,\n            },\n            /**\n             * Define if Filter search field is to work in a case Sensitive way. Default: true\n             */\n            filterCaseSensitive: {\n                type: Boolean,\n                required: false,\n                default: true,\n            },\n            /**\n             * Enable/disable column picker to show/hide table columns, optional, default false\n             */\n            showColumnPicker: {\n                type: Boolean,\n                required: false,\n                default: false,\n            },\n            /**\n             * Enable/disable pagination for the table, optional, default false\n             */\n            paginated: {\n                type: Boolean,\n                required: false,\n                default: false,\n            },\n            /**\n             * If pagination is enabled defining the page size, optional, default 10\n             */\n            pageSize: {\n                type: Number,\n                required: false,\n                default: 10,\n            },\n            /**\n             * If loading of table is to be done through ajax, then this object must be set\n             */\n            ajax: {\n                type: Object,\n                required: false,\n                default: function () {\n                    return {\n                        enabled: false,\n                        url: \"\",\n                        method: \"GET\",\n                        delegate: false,\n                        axiosConfig: {}\n                    }\n                }\n            },\n            /**\n             * Function to handle row clicks\n             */\n            rowClickHandler: {\n                type: Function,\n                required: false,\n                default: function () {}\n            },\n        },\n        data: function () {\n            return {\n                filteredSize: 0,\n                filterKey: \"\",\n                sortKey: [],\n                sortOrders: {},\n                sortChanged: 1,\n                columnMenuOpen: false,\n                displayCols: [],\n                filteredValues: [],\n                page: 1,\n                echo: 0,\n                loading: false,\n            };\n        },\n        mounted: function () {\n          this.$nextTick(function () {\n              this.loading= true;\n              this.setSortOrders();\n              var self = this;\n              this.columns.forEach(function (column) {\n                  var obj = self.buildColumnObject(column);\n                  self.displayCols.push(obj);\n              });\n              if (this.ajax.enabled) {\n                  if (!this.ajax.delegate) {\n                      this.loading= true;\n                      this.fetchData(function (data) {\n                          self.values = data.data;\n                          self.processFilter();\n                      });\n                  }else\n                      this.processFilter();\n              }else\n                  this.processFilter();\n          })\n        },\n        created: function () {\n            var self = this ;\n            console.log(\"created\");\n            this.$on('cellDataModifiedEvent', self.fireCellDataModifiedEvent);\n        },\n        beforeDestroy: function(){\n            var self = this ;\n            this.$off('cellDataModifiedEvent', self.fireCellDataModifiedEvent);\n        },\n        watch: {\n            values: function () {\n                this.processFilter();\n            },\n            columns: function () {\n                this.displayCols = [];\n                var self = this;\n                this.columns.forEach(function (column) {\n                    var obj = self.buildColumnObject(column);\n                    self.displayCols.push(obj);\n                });\n                this.setSortOrders();\n            },\n            showFilter: function () {\n                this.filterKey = \"\";\n            },\n            showColumnPicker: function () {\n                this.columnMenuOpen = false;\n\n                this.displayCols.forEach(function (column) {\n                    column.visible = true;\n                });\n            },\n            filterKey: function () {\n                // filter was updated, so resetting to page 1\n                this.page = 1;\n                this.processFilter();\n            },\n            sortKey: function () {\n                this.processFilter();\n            },\n            sortChanged: function () {\n                this.processFilter();\n            },\n            page: function () {\n                this.processFilter();\n            },\n            paginated: function () {\n                this.processFilter();\n            },\n            loading: function () {\n                /*document.getElementById(\"loadingdiv\").style.width = document.getElementById(\"maindiv\").getBoundingClientRect().width + \"px\";\n                document.getElementById(\"loadingdiv\").style.height = document.getElementById(\"maindiv\").getBoundingClientRect().height+\"px\";*/\n            }\n        },\n        computed: {\n            displayColsVisible: function () {\n                var displayColsVisible = [];\n                for (var a in this.displayCols) {\n                    if (this.displayCols[a].visible)\n                        displayColsVisible.push(this.displayCols[a]);\n                }\n                return displayColsVisible;\n            },\n            filteredValuesSorted: function () {\n                var tColsDir = [];\n                for(var i=0, len=this.sortKey.length; i < len; i++){\n                    tColsDir.push(this.sortOrders[this.sortKey[i]].toLowerCase());\n                }\n                return lodashorderby(this.filteredValues, this.sortKey , tColsDir);\n            },\n            validPageNumbers: function () {\n                // 5 page max\n                var result = [];\n                var start = 1;\n                if (this.page > 3)\n                    start = this.page-2;\n                for ( var i = 0 ; start <= this.maxPage && i<5; start++ ) {\n                    result.push(start);\n                    i++;\n                }\n                return result;\n            },\n            maxPage: function () {\n                return Math.ceil(this.filteredSize / this.pageSize);\n            },\n            showPaginationEtc: function () {\n                var temp = 1;\n                if (this.page > 3)\n                    temp = this.page-2;\n                return ( (temp+4) < this.maxPage  );\n            },\n        },\n        methods: {\n            fireCellDataModifiedEvent:function ( originalValue, newValue, columnTitle, entry) {\n                this.$parent.$emit('cellDataModifiedEvent',originalValue, newValue, columnTitle, entry);\n            },\n            processFilter: function () {\n                var self = this;\n                this.loading = true;\n                if ( this.ajax.enabled && this.ajax.delegate ) {\n                   this.fetchData(function (data) {\n                       self.filteredSize = data.filtered;\n                       self.filteredValues = data.data;\n                       self.loading = false;\n                   });\n                } else {\n                    var result = this.values.filter(item => {\n                                var good = false;\n                                for (var col in self.displayColsVisible) {\n                                    if (self.filterCaseSensitive) {\n                                        if (lodashincludes(item[self.displayColsVisible[col].name] + \"\", self.filterKey + \"\")) {\n                                            good = true;\n                                        }\n                                    } else {\n                                        if (lodashincludes((item[self.displayColsVisible[col].name] + \"\").toLowerCase(), (self.filterKey + \"\").toLowerCase())) {\n                                            good = true;\n                                        }\n                                    }\n\n                                }\n                                return good;\n                    });\n\n                    var tColsDir = [];\n                    for(var i=0, len=this.sortKey.length; i < len; i++){\n                        tColsDir.push(this.sortOrders[this.sortKey[i]].toLowerCase());\n                    }\n\n                    result = lodashorderby(result, this.sortKey, tColsDir);\n\n                    this.filteredSize = result.length;\n                    if (this.paginated) {\n                        var startIndex = (this.page - 1) * this.pageSize;\n                        var tIndex = 0;\n                        var tempResult = [];\n                        while (tIndex < this.pageSize) {\n                            if (typeof result[startIndex + tIndex] !== \"undefined\")\n                                tempResult.push(result[startIndex + tIndex]);\n                            tIndex++;\n                        }\n                        self.filteredValues = tempResult;\n                    } else\n                        self.filteredValues = result;\n                    self.loading = false;\n                }\n            },\n            fetchData: function ( dataCallBackFunction ) {\n                var self = this;\n                var ajaxParameters = {\n                    params: {}\n                };\n                this.echo++;\n                if (this.ajax.enabled && this.ajax.delegate) {\n                    var tColsDir = [];\n                    for(var i=0, len=this.sortKey.length; i < len; i++){\n                        tColsDir.push(this.sortOrders[this.sortKey[i]].toLowerCase());\n                    }\n                    if ( this.ajax.method=== \"GET\" ) {\n                        //COPY\n                        ajaxParameters = JSON.parse(JSON.stringify(this.ajax.axiosConfig));\n                        ajaxParameters.params = {};\n                        ajaxParameters.params.sortcol = this.sortKey;\n                        ajaxParameters.params.sortdir = tColsDir;\n                        ajaxParameters.params.filter = this.filterKey;\n                        if (self.paginated ) {\n                            ajaxParameters.params.page = this.page;\n                            ajaxParameters.params.pagesize = this.pageSize;\n                        } else {\n                            ajaxParameters.params.page = 1;\n                            ajaxParameters.params.pagesize = null;\n                        }\n                        ajaxParameters.params.echo = this.echo;\n                    }\n                    if ( this.ajax.method=== \"POST\" ) {\n                        ajaxParameters.sortcol = this.sortKey;\n                        ajaxParameters.sortdir = tColsDir;\n                        ajaxParameters.filter = this.filterKey;\n                        if (self.paginated ) {\n                            ajaxParameters.page = this.page;\n                            ajaxParameters.pagesize = this.pageSize;\n                        } else {\n                            ajaxParameters.page = 1;\n                            ajaxParameters.pagesize = null;\n                        }\n                        ajaxParameters.echo = this.echo;\n                    }\n                    //console.log(JSON.stringify(ajaxParameters));\n                }\n                if( this.ajax.enabled && !this.ajax.delegate ) {\n                    if ( this.ajax.method=== \"GET\" ) {\n                        //COPY\n                        ajaxParameters = JSON.parse(JSON.stringify(this.ajax.axiosConfig));\n                        ajaxParameters.params = {};\n                    }\n                    if ( this.ajax.method=== \"POST\" ) {\n                        // Do nothing at this point !\n                    }\n                }\n                if (this.ajax.enabled && this.ajax.method === \"GET\") {\n                    axios.get(self.ajax.url, ajaxParameters )\n                        .then(response => {\n                            if (this.ajax.delegate) {\n                                if (response.data.echo !== self.echo) {\n                                    return;\n                                }\n                            }\n                            dataCallBackFunction(response.data);\n                            this.$parent.$emit('ajaxLoadedEvent', response.data);\n                        })\n                        .catch(e => {\n                            this.$parent.$emit('ajaxLoadingError', e);\n                        });\n                }\n                if (this.ajax.enabled && this.ajax.method === \"POST\") {\n                    axios.post(self.ajax.url, qs.stringify(ajaxParameters) , this.ajax.axiosConfig )\n                        .then(response => {\n                            if (this.ajax.delegate) {\n                                if (response.data.echo !== self.echo) {\n                                    return;\n                                }\n                            }\n\n                            dataCallBackFunction(response.data);\n                            this.$parent.$emit('ajaxLoadedEvent', response.data);\n\n                        })\n                        .catch(e => {\n                            this.$parent.$emit('ajaxLoadingError', e);\n                        });\n                }\n            },\n            buildColumnObject: function (column) {\n                var obj = {};\n                obj.title = column.title;\n                if ( typeof column.name !== \"undefined\")\n                    obj.name = column.name;\n                else\n                    obj.name = column.title;\n                if ( typeof column.visible !== \"undefined\")\n                    obj.visible = column.visible;\n                else\n                    obj.visible = true;\n                if ( typeof column.editable !== \"undefined\")\n                    obj.editable = column.editable;\n                else\n                    obj.editable = false;\n                if ( typeof column.renderfunction !== \"undefined\")\n                    obj.renderfunction = column.renderfunction;\n                else\n                    obj.renderfunction = false;\n                if ( typeof column.columnstyle !== \"undefined\")\n                    obj.columnstyle = column.columnstyle;\n                else\n                    obj.columnstyle = \"\";\n                if ( typeof column.cellstyle !== \"undefined\")\n                    obj.cellstyle = column.cellstyle;\n                else\n                    obj.cellstyle = \"\";\n\n                return obj;\n            },\n            setSortOrders: function () {\n                this.sortKey = [];\n                var sortOrders = {};\n                this.columns.forEach(function (column) {\n                    sortOrders[column.name] = \"\";\n                });\n                this.sortOrders = sortOrders;\n\n            },\n            sortBy: function (event, key) {\n                if (this.sortable) {\n                    var self = this;\n\n                    if (!this.multiColumnSortable || ( this.multiColumnSortable && !event.shiftKey)) {\n                        this.sortKey = [key];\n                        this.columns.forEach(function (column) {\n                            if (column.name !== key) {\n                                self.sortOrders[column.name] = \"\";\n                            }\n                        });\n                    } else {\n                        if (lodashfindindex(this.sortKey, function(o) { return o === key; }) === -1) {\n                            this.sortKey.push(key);\n                        }\n                    }\n                    if (this.sortOrders[key] === \"\") {\n                        this.sortOrders[key] = \"ASC\";\n                    } else if (this.sortOrders[key] === \"ASC\") {\n                        this.sortOrders[key] = \"DESC\";\n                    } else {\n                        this.sortOrders[key] = \"ASC\";\n                    }\n\n                    this.sortChanged = this.sortChanged * -1;\n                }\n            },\n            getClasses: function (column) {\n                var classes = [column.columnstyle];\n                var key = column.name;\n                if (this.sortable) {\n                    classes.push(\"arrow\");\n                    /*if (this.sortKey === key) {\n                        classes.push(\"active\");\n                    }*/\n                    if (lodashfindindex(this.sortKey, function(o) { return o === key; }) !== -1) {\n                        classes.push(\"active\");\n                    }\n\n                    if (this.sortOrders[key] === \"ASC\") {\n                        classes.push(\"asc\");\n                    } else if (this.sortOrders[key] === \"DESC\") {\n                        classes.push(\"dsc\");\n                    }\n                }\n                return classes;\n            },\n            toggleColumn: function (column) {\n                column.visible = !column.visible;\n            },\n            closeDropdown: function () {\n                this.columnMenuOpen = false;\n            },\n        },\n        events: {\n        }\n    }\n</script>\n"],"sourceRoot":"webpack://"}]);
 	
 	// exports
 
@@ -430,55 +430,31 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _stringify2 = _interopRequireDefault(_stringify);
 	
-	var _axios = __webpack_require__(10);
+	var _es6Promise = __webpack_require__(10);
+	
+	var _axios = __webpack_require__(13);
 	
 	var _axios2 = _interopRequireDefault(_axios);
 	
-	var _qs = __webpack_require__(40);
+	var _qs = __webpack_require__(42);
 	
 	var _qs2 = _interopRequireDefault(_qs);
 	
-	var _lodash = __webpack_require__(45);
+	var _lodash = __webpack_require__(47);
 	
 	var _lodash2 = _interopRequireDefault(_lodash);
 	
-	var _lodash3 = __webpack_require__(47);
+	var _lodash3 = __webpack_require__(49);
 	
 	var _lodash4 = _interopRequireDefault(_lodash3);
 	
-	var _lodash5 = __webpack_require__(48);
+	var _lodash5 = __webpack_require__(50);
 	
 	var _lodash6 = _interopRequireDefault(_lodash5);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	/* Field Section used for displaying and editing value of cell */
-	var valueFieldSection = {
-	    template: '<span v-if="!enabled" @dblclick="toggleInput" class="editableField">{{this.entry[this.columnname]}}</span>' + '<div v-else-if="enabled" class="input-group">' + '  <input type="text" class="form-control" v-model="datavalue" @keyup.enter="saveThis" @keyup.esc="cancelThis">' + '  <span class="input-group-btn">' + '    <button class="btn btn-danger" type="button" @click="cancelThis" ><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>' + '    <button class="btn btn-primary" type="button" @click="saveThis" ><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>' + '  </span>' + '</div>',
-	    props: ['entry', 'columnname'],
-	    data: function data() {
-	        return {
-	            enabled: false,
-	            datavalue: ""
-	        };
-	    },
-	    methods: {
-	        saveThis: function saveThis() {
-	            var originalValue = this.entry[this.columnname];
-	            this.entry[this.columnname] = this.datavalue;
-	            this.$parent.$emit('cellDataModifiedEvent', originalValue, this.datavalue, this.columnname, this.entry);
-	            this.enabled = !this.enabled;
-	        },
-	        cancelThis: function cancelThis() {
-	            this.datavalue = this.entry[this.columnname];
-	            this.enabled = !this.enabled;
-	        },
-	        toggleInput: function toggleInput() {
-	            this.datavalue = this.entry[this.columnname];
-	            this.enabled = !this.enabled;
-	        }
-	    }
-	}; // <template>
+	(0, _es6Promise.polyfill)(); // <template>
 	//     <div id="maindiv" @click="closeDropdown" @keyup.esc="closeDropdown">
 	//         <!--<pre>{{columns}}</pre>-->
 	//         <!--<pre>{{$data}}</pre>-->
@@ -571,7 +547,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	//         table; width: 100%;
 	//     }
 	// */
-	//     .spinner {
+	//     .vue-table-loading .spinner {
 	//         border: 16px solid #f3f3f3; /* Light grey */
 	//         border-top: 16px solid #3498db; /* Blue */
 	//         border-radius: 50%;
@@ -660,6 +636,34 @@ return /******/ (function(modules) { // webpackBootstrap
 	//     }*/
 	// </style>
 	// <script>
+	
+	/* Field Section used for displaying and editing value of cell */
+	var valueFieldSection = {
+	    template: '<span v-if="!enabled" @dblclick="toggleInput" class="editableField">{{this.entry[this.columnname]}}</span>' + '<div v-else-if="enabled" class="input-group">' + '  <input type="text" class="form-control" v-model="datavalue" @keyup.enter="saveThis" @keyup.esc="cancelThis">' + '  <span class="input-group-btn">' + '    <button class="btn btn-danger" type="button" @click="cancelThis" ><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>' + '    <button class="btn btn-primary" type="button" @click="saveThis" ><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>' + '  </span>' + '</div>',
+	    props: ['entry', 'columnname'],
+	    data: function data() {
+	        return {
+	            enabled: false,
+	            datavalue: ""
+	        };
+	    },
+	    methods: {
+	        saveThis: function saveThis() {
+	            var originalValue = this.entry[this.columnname];
+	            this.entry[this.columnname] = this.datavalue;
+	            this.$parent.$emit('cellDataModifiedEvent', originalValue, this.datavalue, this.columnname, this.entry);
+	            this.enabled = !this.enabled;
+	        },
+	        cancelThis: function cancelThis() {
+	            this.datavalue = this.entry[this.columnname];
+	            this.enabled = !this.enabled;
+	        },
+	        toggleInput: function toggleInput() {
+	            this.datavalue = this.entry[this.columnname];
+	            this.enabled = !this.enabled;
+	        }
+	    }
+	};
 	
 	exports.default = {
 	    name: "VueBootstrapTable",
@@ -800,6 +804,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    },
 	    created: function created() {
 	        var self = this;
+	        console.log("created");
 	        this.$on('cellDataModifiedEvent', self.fireCellDataModifiedEvent);
 	    },
 	    beforeDestroy: function beforeDestroy() {
@@ -1099,6 +1104,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    },
 	    events: {}
 	    // </script>
+	
 	    /* generated by vue-loader */
 	
 	};
@@ -1130,18 +1136,1374 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(11);
+	var require;/* WEBPACK VAR INJECTION */(function(process, global) {/*!
+	 * @overview es6-promise - a tiny implementation of Promises/A+.
+	 * @copyright Copyright (c) 2014 Yehuda Katz, Tom Dale, Stefan Penner and contributors (Conversion to ES6 API by Jake Archibald)
+	 * @license   Licensed under MIT license
+	 *            See https://raw.githubusercontent.com/stefanpenner/es6-promise/master/LICENSE
+	 * @version   3.3.1
+	 */
+	
+	(function (global, factory) {
+	     true ? module.exports = factory() :
+	    typeof define === 'function' && define.amd ? define(factory) :
+	    (global.ES6Promise = factory());
+	}(this, (function () { 'use strict';
+	
+	function objectOrFunction(x) {
+	  return typeof x === 'function' || typeof x === 'object' && x !== null;
+	}
+	
+	function isFunction(x) {
+	  return typeof x === 'function';
+	}
+	
+	var _isArray = undefined;
+	if (!Array.isArray) {
+	  _isArray = function (x) {
+	    return Object.prototype.toString.call(x) === '[object Array]';
+	  };
+	} else {
+	  _isArray = Array.isArray;
+	}
+	
+	var isArray = _isArray;
+	
+	var len = 0;
+	var vertxNext = undefined;
+	var customSchedulerFn = undefined;
+	
+	var asap = function asap(callback, arg) {
+	  queue[len] = callback;
+	  queue[len + 1] = arg;
+	  len += 2;
+	  if (len === 2) {
+	    // If len is 2, that means that we need to schedule an async flush.
+	    // If additional callbacks are queued before the queue is flushed, they
+	    // will be processed by this flush that we are scheduling.
+	    if (customSchedulerFn) {
+	      customSchedulerFn(flush);
+	    } else {
+	      scheduleFlush();
+	    }
+	  }
+	};
+	
+	function setScheduler(scheduleFn) {
+	  customSchedulerFn = scheduleFn;
+	}
+	
+	function setAsap(asapFn) {
+	  asap = asapFn;
+	}
+	
+	var browserWindow = typeof window !== 'undefined' ? window : undefined;
+	var browserGlobal = browserWindow || {};
+	var BrowserMutationObserver = browserGlobal.MutationObserver || browserGlobal.WebKitMutationObserver;
+	var isNode = typeof self === 'undefined' && typeof process !== 'undefined' && ({}).toString.call(process) === '[object process]';
+	
+	// test for web worker but not in IE10
+	var isWorker = typeof Uint8ClampedArray !== 'undefined' && typeof importScripts !== 'undefined' && typeof MessageChannel !== 'undefined';
+	
+	// node
+	function useNextTick() {
+	  // node version 0.10.x displays a deprecation warning when nextTick is used recursively
+	  // see https://github.com/cujojs/when/issues/410 for details
+	  return function () {
+	    return process.nextTick(flush);
+	  };
+	}
+	
+	// vertx
+	function useVertxTimer() {
+	  return function () {
+	    vertxNext(flush);
+	  };
+	}
+	
+	function useMutationObserver() {
+	  var iterations = 0;
+	  var observer = new BrowserMutationObserver(flush);
+	  var node = document.createTextNode('');
+	  observer.observe(node, { characterData: true });
+	
+	  return function () {
+	    node.data = iterations = ++iterations % 2;
+	  };
+	}
+	
+	// web worker
+	function useMessageChannel() {
+	  var channel = new MessageChannel();
+	  channel.port1.onmessage = flush;
+	  return function () {
+	    return channel.port2.postMessage(0);
+	  };
+	}
+	
+	function useSetTimeout() {
+	  // Store setTimeout reference so es6-promise will be unaffected by
+	  // other code modifying setTimeout (like sinon.useFakeTimers())
+	  var globalSetTimeout = setTimeout;
+	  return function () {
+	    return globalSetTimeout(flush, 1);
+	  };
+	}
+	
+	var queue = new Array(1000);
+	function flush() {
+	  for (var i = 0; i < len; i += 2) {
+	    var callback = queue[i];
+	    var arg = queue[i + 1];
+	
+	    callback(arg);
+	
+	    queue[i] = undefined;
+	    queue[i + 1] = undefined;
+	  }
+	
+	  len = 0;
+	}
+	
+	function attemptVertx() {
+	  try {
+	    var r = require;
+	    var vertx = __webpack_require__(12);
+	    vertxNext = vertx.runOnLoop || vertx.runOnContext;
+	    return useVertxTimer();
+	  } catch (e) {
+	    return useSetTimeout();
+	  }
+	}
+	
+	var scheduleFlush = undefined;
+	// Decide what async method to use to triggering processing of queued callbacks:
+	if (isNode) {
+	  scheduleFlush = useNextTick();
+	} else if (BrowserMutationObserver) {
+	  scheduleFlush = useMutationObserver();
+	} else if (isWorker) {
+	  scheduleFlush = useMessageChannel();
+	} else if (browserWindow === undefined && "function" === 'function') {
+	  scheduleFlush = attemptVertx();
+	} else {
+	  scheduleFlush = useSetTimeout();
+	}
+	
+	function then(onFulfillment, onRejection) {
+	  var _arguments = arguments;
+	
+	  var parent = this;
+	
+	  var child = new this.constructor(noop);
+	
+	  if (child[PROMISE_ID] === undefined) {
+	    makePromise(child);
+	  }
+	
+	  var _state = parent._state;
+	
+	  if (_state) {
+	    (function () {
+	      var callback = _arguments[_state - 1];
+	      asap(function () {
+	        return invokeCallback(_state, child, callback, parent._result);
+	      });
+	    })();
+	  } else {
+	    subscribe(parent, child, onFulfillment, onRejection);
+	  }
+	
+	  return child;
+	}
+	
+	/**
+	  `Promise.resolve` returns a promise that will become resolved with the
+	  passed `value`. It is shorthand for the following:
+	
+	  ```javascript
+	  let promise = new Promise(function(resolve, reject){
+	    resolve(1);
+	  });
+	
+	  promise.then(function(value){
+	    // value === 1
+	  });
+	  ```
+	
+	  Instead of writing the above, your code now simply becomes the following:
+	
+	  ```javascript
+	  let promise = Promise.resolve(1);
+	
+	  promise.then(function(value){
+	    // value === 1
+	  });
+	  ```
+	
+	  @method resolve
+	  @static
+	  @param {Any} value value that the returned promise will be resolved with
+	  Useful for tooling.
+	  @return {Promise} a promise that will become fulfilled with the given
+	  `value`
+	*/
+	function resolve(object) {
+	  /*jshint validthis:true */
+	  var Constructor = this;
+	
+	  if (object && typeof object === 'object' && object.constructor === Constructor) {
+	    return object;
+	  }
+	
+	  var promise = new Constructor(noop);
+	  _resolve(promise, object);
+	  return promise;
+	}
+	
+	var PROMISE_ID = Math.random().toString(36).substring(16);
+	
+	function noop() {}
+	
+	var PENDING = void 0;
+	var FULFILLED = 1;
+	var REJECTED = 2;
+	
+	var GET_THEN_ERROR = new ErrorObject();
+	
+	function selfFulfillment() {
+	  return new TypeError("You cannot resolve a promise with itself");
+	}
+	
+	function cannotReturnOwn() {
+	  return new TypeError('A promises callback cannot return that same promise.');
+	}
+	
+	function getThen(promise) {
+	  try {
+	    return promise.then;
+	  } catch (error) {
+	    GET_THEN_ERROR.error = error;
+	    return GET_THEN_ERROR;
+	  }
+	}
+	
+	function tryThen(then, value, fulfillmentHandler, rejectionHandler) {
+	  try {
+	    then.call(value, fulfillmentHandler, rejectionHandler);
+	  } catch (e) {
+	    return e;
+	  }
+	}
+	
+	function handleForeignThenable(promise, thenable, then) {
+	  asap(function (promise) {
+	    var sealed = false;
+	    var error = tryThen(then, thenable, function (value) {
+	      if (sealed) {
+	        return;
+	      }
+	      sealed = true;
+	      if (thenable !== value) {
+	        _resolve(promise, value);
+	      } else {
+	        fulfill(promise, value);
+	      }
+	    }, function (reason) {
+	      if (sealed) {
+	        return;
+	      }
+	      sealed = true;
+	
+	      _reject(promise, reason);
+	    }, 'Settle: ' + (promise._label || ' unknown promise'));
+	
+	    if (!sealed && error) {
+	      sealed = true;
+	      _reject(promise, error);
+	    }
+	  }, promise);
+	}
+	
+	function handleOwnThenable(promise, thenable) {
+	  if (thenable._state === FULFILLED) {
+	    fulfill(promise, thenable._result);
+	  } else if (thenable._state === REJECTED) {
+	    _reject(promise, thenable._result);
+	  } else {
+	    subscribe(thenable, undefined, function (value) {
+	      return _resolve(promise, value);
+	    }, function (reason) {
+	      return _reject(promise, reason);
+	    });
+	  }
+	}
+	
+	function handleMaybeThenable(promise, maybeThenable, then$$) {
+	  if (maybeThenable.constructor === promise.constructor && then$$ === then && maybeThenable.constructor.resolve === resolve) {
+	    handleOwnThenable(promise, maybeThenable);
+	  } else {
+	    if (then$$ === GET_THEN_ERROR) {
+	      _reject(promise, GET_THEN_ERROR.error);
+	    } else if (then$$ === undefined) {
+	      fulfill(promise, maybeThenable);
+	    } else if (isFunction(then$$)) {
+	      handleForeignThenable(promise, maybeThenable, then$$);
+	    } else {
+	      fulfill(promise, maybeThenable);
+	    }
+	  }
+	}
+	
+	function _resolve(promise, value) {
+	  if (promise === value) {
+	    _reject(promise, selfFulfillment());
+	  } else if (objectOrFunction(value)) {
+	    handleMaybeThenable(promise, value, getThen(value));
+	  } else {
+	    fulfill(promise, value);
+	  }
+	}
+	
+	function publishRejection(promise) {
+	  if (promise._onerror) {
+	    promise._onerror(promise._result);
+	  }
+	
+	  publish(promise);
+	}
+	
+	function fulfill(promise, value) {
+	  if (promise._state !== PENDING) {
+	    return;
+	  }
+	
+	  promise._result = value;
+	  promise._state = FULFILLED;
+	
+	  if (promise._subscribers.length !== 0) {
+	    asap(publish, promise);
+	  }
+	}
+	
+	function _reject(promise, reason) {
+	  if (promise._state !== PENDING) {
+	    return;
+	  }
+	  promise._state = REJECTED;
+	  promise._result = reason;
+	
+	  asap(publishRejection, promise);
+	}
+	
+	function subscribe(parent, child, onFulfillment, onRejection) {
+	  var _subscribers = parent._subscribers;
+	  var length = _subscribers.length;
+	
+	  parent._onerror = null;
+	
+	  _subscribers[length] = child;
+	  _subscribers[length + FULFILLED] = onFulfillment;
+	  _subscribers[length + REJECTED] = onRejection;
+	
+	  if (length === 0 && parent._state) {
+	    asap(publish, parent);
+	  }
+	}
+	
+	function publish(promise) {
+	  var subscribers = promise._subscribers;
+	  var settled = promise._state;
+	
+	  if (subscribers.length === 0) {
+	    return;
+	  }
+	
+	  var child = undefined,
+	      callback = undefined,
+	      detail = promise._result;
+	
+	  for (var i = 0; i < subscribers.length; i += 3) {
+	    child = subscribers[i];
+	    callback = subscribers[i + settled];
+	
+	    if (child) {
+	      invokeCallback(settled, child, callback, detail);
+	    } else {
+	      callback(detail);
+	    }
+	  }
+	
+	  promise._subscribers.length = 0;
+	}
+	
+	function ErrorObject() {
+	  this.error = null;
+	}
+	
+	var TRY_CATCH_ERROR = new ErrorObject();
+	
+	function tryCatch(callback, detail) {
+	  try {
+	    return callback(detail);
+	  } catch (e) {
+	    TRY_CATCH_ERROR.error = e;
+	    return TRY_CATCH_ERROR;
+	  }
+	}
+	
+	function invokeCallback(settled, promise, callback, detail) {
+	  var hasCallback = isFunction(callback),
+	      value = undefined,
+	      error = undefined,
+	      succeeded = undefined,
+	      failed = undefined;
+	
+	  if (hasCallback) {
+	    value = tryCatch(callback, detail);
+	
+	    if (value === TRY_CATCH_ERROR) {
+	      failed = true;
+	      error = value.error;
+	      value = null;
+	    } else {
+	      succeeded = true;
+	    }
+	
+	    if (promise === value) {
+	      _reject(promise, cannotReturnOwn());
+	      return;
+	    }
+	  } else {
+	    value = detail;
+	    succeeded = true;
+	  }
+	
+	  if (promise._state !== PENDING) {
+	    // noop
+	  } else if (hasCallback && succeeded) {
+	      _resolve(promise, value);
+	    } else if (failed) {
+	      _reject(promise, error);
+	    } else if (settled === FULFILLED) {
+	      fulfill(promise, value);
+	    } else if (settled === REJECTED) {
+	      _reject(promise, value);
+	    }
+	}
+	
+	function initializePromise(promise, resolver) {
+	  try {
+	    resolver(function resolvePromise(value) {
+	      _resolve(promise, value);
+	    }, function rejectPromise(reason) {
+	      _reject(promise, reason);
+	    });
+	  } catch (e) {
+	    _reject(promise, e);
+	  }
+	}
+	
+	var id = 0;
+	function nextId() {
+	  return id++;
+	}
+	
+	function makePromise(promise) {
+	  promise[PROMISE_ID] = id++;
+	  promise._state = undefined;
+	  promise._result = undefined;
+	  promise._subscribers = [];
+	}
+	
+	function Enumerator(Constructor, input) {
+	  this._instanceConstructor = Constructor;
+	  this.promise = new Constructor(noop);
+	
+	  if (!this.promise[PROMISE_ID]) {
+	    makePromise(this.promise);
+	  }
+	
+	  if (isArray(input)) {
+	    this._input = input;
+	    this.length = input.length;
+	    this._remaining = input.length;
+	
+	    this._result = new Array(this.length);
+	
+	    if (this.length === 0) {
+	      fulfill(this.promise, this._result);
+	    } else {
+	      this.length = this.length || 0;
+	      this._enumerate();
+	      if (this._remaining === 0) {
+	        fulfill(this.promise, this._result);
+	      }
+	    }
+	  } else {
+	    _reject(this.promise, validationError());
+	  }
+	}
+	
+	function validationError() {
+	  return new Error('Array Methods must be provided an Array');
+	};
+	
+	Enumerator.prototype._enumerate = function () {
+	  var length = this.length;
+	  var _input = this._input;
+	
+	  for (var i = 0; this._state === PENDING && i < length; i++) {
+	    this._eachEntry(_input[i], i);
+	  }
+	};
+	
+	Enumerator.prototype._eachEntry = function (entry, i) {
+	  var c = this._instanceConstructor;
+	  var resolve$$ = c.resolve;
+	
+	  if (resolve$$ === resolve) {
+	    var _then = getThen(entry);
+	
+	    if (_then === then && entry._state !== PENDING) {
+	      this._settledAt(entry._state, i, entry._result);
+	    } else if (typeof _then !== 'function') {
+	      this._remaining--;
+	      this._result[i] = entry;
+	    } else if (c === Promise) {
+	      var promise = new c(noop);
+	      handleMaybeThenable(promise, entry, _then);
+	      this._willSettleAt(promise, i);
+	    } else {
+	      this._willSettleAt(new c(function (resolve$$) {
+	        return resolve$$(entry);
+	      }), i);
+	    }
+	  } else {
+	    this._willSettleAt(resolve$$(entry), i);
+	  }
+	};
+	
+	Enumerator.prototype._settledAt = function (state, i, value) {
+	  var promise = this.promise;
+	
+	  if (promise._state === PENDING) {
+	    this._remaining--;
+	
+	    if (state === REJECTED) {
+	      _reject(promise, value);
+	    } else {
+	      this._result[i] = value;
+	    }
+	  }
+	
+	  if (this._remaining === 0) {
+	    fulfill(promise, this._result);
+	  }
+	};
+	
+	Enumerator.prototype._willSettleAt = function (promise, i) {
+	  var enumerator = this;
+	
+	  subscribe(promise, undefined, function (value) {
+	    return enumerator._settledAt(FULFILLED, i, value);
+	  }, function (reason) {
+	    return enumerator._settledAt(REJECTED, i, reason);
+	  });
+	};
+	
+	/**
+	  `Promise.all` accepts an array of promises, and returns a new promise which
+	  is fulfilled with an array of fulfillment values for the passed promises, or
+	  rejected with the reason of the first passed promise to be rejected. It casts all
+	  elements of the passed iterable to promises as it runs this algorithm.
+	
+	  Example:
+	
+	  ```javascript
+	  let promise1 = resolve(1);
+	  let promise2 = resolve(2);
+	  let promise3 = resolve(3);
+	  let promises = [ promise1, promise2, promise3 ];
+	
+	  Promise.all(promises).then(function(array){
+	    // The array here would be [ 1, 2, 3 ];
+	  });
+	  ```
+	
+	  If any of the `promises` given to `all` are rejected, the first promise
+	  that is rejected will be given as an argument to the returned promises's
+	  rejection handler. For example:
+	
+	  Example:
+	
+	  ```javascript
+	  let promise1 = resolve(1);
+	  let promise2 = reject(new Error("2"));
+	  let promise3 = reject(new Error("3"));
+	  let promises = [ promise1, promise2, promise3 ];
+	
+	  Promise.all(promises).then(function(array){
+	    // Code here never runs because there are rejected promises!
+	  }, function(error) {
+	    // error.message === "2"
+	  });
+	  ```
+	
+	  @method all
+	  @static
+	  @param {Array} entries array of promises
+	  @param {String} label optional string for labeling the promise.
+	  Useful for tooling.
+	  @return {Promise} promise that is fulfilled when all `promises` have been
+	  fulfilled, or rejected if any of them become rejected.
+	  @static
+	*/
+	function all(entries) {
+	  return new Enumerator(this, entries).promise;
+	}
+	
+	/**
+	  `Promise.race` returns a new promise which is settled in the same way as the
+	  first passed promise to settle.
+	
+	  Example:
+	
+	  ```javascript
+	  let promise1 = new Promise(function(resolve, reject){
+	    setTimeout(function(){
+	      resolve('promise 1');
+	    }, 200);
+	  });
+	
+	  let promise2 = new Promise(function(resolve, reject){
+	    setTimeout(function(){
+	      resolve('promise 2');
+	    }, 100);
+	  });
+	
+	  Promise.race([promise1, promise2]).then(function(result){
+	    // result === 'promise 2' because it was resolved before promise1
+	    // was resolved.
+	  });
+	  ```
+	
+	  `Promise.race` is deterministic in that only the state of the first
+	  settled promise matters. For example, even if other promises given to the
+	  `promises` array argument are resolved, but the first settled promise has
+	  become rejected before the other promises became fulfilled, the returned
+	  promise will become rejected:
+	
+	  ```javascript
+	  let promise1 = new Promise(function(resolve, reject){
+	    setTimeout(function(){
+	      resolve('promise 1');
+	    }, 200);
+	  });
+	
+	  let promise2 = new Promise(function(resolve, reject){
+	    setTimeout(function(){
+	      reject(new Error('promise 2'));
+	    }, 100);
+	  });
+	
+	  Promise.race([promise1, promise2]).then(function(result){
+	    // Code here never runs
+	  }, function(reason){
+	    // reason.message === 'promise 2' because promise 2 became rejected before
+	    // promise 1 became fulfilled
+	  });
+	  ```
+	
+	  An example real-world use case is implementing timeouts:
+	
+	  ```javascript
+	  Promise.race([ajax('foo.json'), timeout(5000)])
+	  ```
+	
+	  @method race
+	  @static
+	  @param {Array} promises array of promises to observe
+	  Useful for tooling.
+	  @return {Promise} a promise which settles in the same way as the first passed
+	  promise to settle.
+	*/
+	function race(entries) {
+	  /*jshint validthis:true */
+	  var Constructor = this;
+	
+	  if (!isArray(entries)) {
+	    return new Constructor(function (_, reject) {
+	      return reject(new TypeError('You must pass an array to race.'));
+	    });
+	  } else {
+	    return new Constructor(function (resolve, reject) {
+	      var length = entries.length;
+	      for (var i = 0; i < length; i++) {
+	        Constructor.resolve(entries[i]).then(resolve, reject);
+	      }
+	    });
+	  }
+	}
+	
+	/**
+	  `Promise.reject` returns a promise rejected with the passed `reason`.
+	  It is shorthand for the following:
+	
+	  ```javascript
+	  let promise = new Promise(function(resolve, reject){
+	    reject(new Error('WHOOPS'));
+	  });
+	
+	  promise.then(function(value){
+	    // Code here doesn't run because the promise is rejected!
+	  }, function(reason){
+	    // reason.message === 'WHOOPS'
+	  });
+	  ```
+	
+	  Instead of writing the above, your code now simply becomes the following:
+	
+	  ```javascript
+	  let promise = Promise.reject(new Error('WHOOPS'));
+	
+	  promise.then(function(value){
+	    // Code here doesn't run because the promise is rejected!
+	  }, function(reason){
+	    // reason.message === 'WHOOPS'
+	  });
+	  ```
+	
+	  @method reject
+	  @static
+	  @param {Any} reason value that the returned promise will be rejected with.
+	  Useful for tooling.
+	  @return {Promise} a promise rejected with the given `reason`.
+	*/
+	function reject(reason) {
+	  /*jshint validthis:true */
+	  var Constructor = this;
+	  var promise = new Constructor(noop);
+	  _reject(promise, reason);
+	  return promise;
+	}
+	
+	function needsResolver() {
+	  throw new TypeError('You must pass a resolver function as the first argument to the promise constructor');
+	}
+	
+	function needsNew() {
+	  throw new TypeError("Failed to construct 'Promise': Please use the 'new' operator, this object constructor cannot be called as a function.");
+	}
+	
+	/**
+	  Promise objects represent the eventual result of an asynchronous operation. The
+	  primary way of interacting with a promise is through its `then` method, which
+	  registers callbacks to receive either a promise's eventual value or the reason
+	  why the promise cannot be fulfilled.
+	
+	  Terminology
+	  -----------
+	
+	  - `promise` is an object or function with a `then` method whose behavior conforms to this specification.
+	  - `thenable` is an object or function that defines a `then` method.
+	  - `value` is any legal JavaScript value (including undefined, a thenable, or a promise).
+	  - `exception` is a value that is thrown using the throw statement.
+	  - `reason` is a value that indicates why a promise was rejected.
+	  - `settled` the final resting state of a promise, fulfilled or rejected.
+	
+	  A promise can be in one of three states: pending, fulfilled, or rejected.
+	
+	  Promises that are fulfilled have a fulfillment value and are in the fulfilled
+	  state.  Promises that are rejected have a rejection reason and are in the
+	  rejected state.  A fulfillment value is never a thenable.
+	
+	  Promises can also be said to *resolve* a value.  If this value is also a
+	  promise, then the original promise's settled state will match the value's
+	  settled state.  So a promise that *resolves* a promise that rejects will
+	  itself reject, and a promise that *resolves* a promise that fulfills will
+	  itself fulfill.
+	
+	
+	  Basic Usage:
+	  ------------
+	
+	  ```js
+	  let promise = new Promise(function(resolve, reject) {
+	    // on success
+	    resolve(value);
+	
+	    // on failure
+	    reject(reason);
+	  });
+	
+	  promise.then(function(value) {
+	    // on fulfillment
+	  }, function(reason) {
+	    // on rejection
+	  });
+	  ```
+	
+	  Advanced Usage:
+	  ---------------
+	
+	  Promises shine when abstracting away asynchronous interactions such as
+	  `XMLHttpRequest`s.
+	
+	  ```js
+	  function getJSON(url) {
+	    return new Promise(function(resolve, reject){
+	      let xhr = new XMLHttpRequest();
+	
+	      xhr.open('GET', url);
+	      xhr.onreadystatechange = handler;
+	      xhr.responseType = 'json';
+	      xhr.setRequestHeader('Accept', 'application/json');
+	      xhr.send();
+	
+	      function handler() {
+	        if (this.readyState === this.DONE) {
+	          if (this.status === 200) {
+	            resolve(this.response);
+	          } else {
+	            reject(new Error('getJSON: `' + url + '` failed with status: [' + this.status + ']'));
+	          }
+	        }
+	      };
+	    });
+	  }
+	
+	  getJSON('/posts.json').then(function(json) {
+	    // on fulfillment
+	  }, function(reason) {
+	    // on rejection
+	  });
+	  ```
+	
+	  Unlike callbacks, promises are great composable primitives.
+	
+	  ```js
+	  Promise.all([
+	    getJSON('/posts'),
+	    getJSON('/comments')
+	  ]).then(function(values){
+	    values[0] // => postsJSON
+	    values[1] // => commentsJSON
+	
+	    return values;
+	  });
+	  ```
+	
+	  @class Promise
+	  @param {function} resolver
+	  Useful for tooling.
+	  @constructor
+	*/
+	function Promise(resolver) {
+	  this[PROMISE_ID] = nextId();
+	  this._result = this._state = undefined;
+	  this._subscribers = [];
+	
+	  if (noop !== resolver) {
+	    typeof resolver !== 'function' && needsResolver();
+	    this instanceof Promise ? initializePromise(this, resolver) : needsNew();
+	  }
+	}
+	
+	Promise.all = all;
+	Promise.race = race;
+	Promise.resolve = resolve;
+	Promise.reject = reject;
+	Promise._setScheduler = setScheduler;
+	Promise._setAsap = setAsap;
+	Promise._asap = asap;
+	
+	Promise.prototype = {
+	  constructor: Promise,
+	
+	  /**
+	    The primary way of interacting with a promise is through its `then` method,
+	    which registers callbacks to receive either a promise's eventual value or the
+	    reason why the promise cannot be fulfilled.
+	  
+	    ```js
+	    findUser().then(function(user){
+	      // user is available
+	    }, function(reason){
+	      // user is unavailable, and you are given the reason why
+	    });
+	    ```
+	  
+	    Chaining
+	    --------
+	  
+	    The return value of `then` is itself a promise.  This second, 'downstream'
+	    promise is resolved with the return value of the first promise's fulfillment
+	    or rejection handler, or rejected if the handler throws an exception.
+	  
+	    ```js
+	    findUser().then(function (user) {
+	      return user.name;
+	    }, function (reason) {
+	      return 'default name';
+	    }).then(function (userName) {
+	      // If `findUser` fulfilled, `userName` will be the user's name, otherwise it
+	      // will be `'default name'`
+	    });
+	  
+	    findUser().then(function (user) {
+	      throw new Error('Found user, but still unhappy');
+	    }, function (reason) {
+	      throw new Error('`findUser` rejected and we're unhappy');
+	    }).then(function (value) {
+	      // never reached
+	    }, function (reason) {
+	      // if `findUser` fulfilled, `reason` will be 'Found user, but still unhappy'.
+	      // If `findUser` rejected, `reason` will be '`findUser` rejected and we're unhappy'.
+	    });
+	    ```
+	    If the downstream promise does not specify a rejection handler, rejection reasons will be propagated further downstream.
+	  
+	    ```js
+	    findUser().then(function (user) {
+	      throw new PedagogicalException('Upstream error');
+	    }).then(function (value) {
+	      // never reached
+	    }).then(function (value) {
+	      // never reached
+	    }, function (reason) {
+	      // The `PedgagocialException` is propagated all the way down to here
+	    });
+	    ```
+	  
+	    Assimilation
+	    ------------
+	  
+	    Sometimes the value you want to propagate to a downstream promise can only be
+	    retrieved asynchronously. This can be achieved by returning a promise in the
+	    fulfillment or rejection handler. The downstream promise will then be pending
+	    until the returned promise is settled. This is called *assimilation*.
+	  
+	    ```js
+	    findUser().then(function (user) {
+	      return findCommentsByAuthor(user);
+	    }).then(function (comments) {
+	      // The user's comments are now available
+	    });
+	    ```
+	  
+	    If the assimliated promise rejects, then the downstream promise will also reject.
+	  
+	    ```js
+	    findUser().then(function (user) {
+	      return findCommentsByAuthor(user);
+	    }).then(function (comments) {
+	      // If `findCommentsByAuthor` fulfills, we'll have the value here
+	    }, function (reason) {
+	      // If `findCommentsByAuthor` rejects, we'll have the reason here
+	    });
+	    ```
+	  
+	    Simple Example
+	    --------------
+	  
+	    Synchronous Example
+	  
+	    ```javascript
+	    let result;
+	  
+	    try {
+	      result = findResult();
+	      // success
+	    } catch(reason) {
+	      // failure
+	    }
+	    ```
+	  
+	    Errback Example
+	  
+	    ```js
+	    findResult(function(result, err){
+	      if (err) {
+	        // failure
+	      } else {
+	        // success
+	      }
+	    });
+	    ```
+	  
+	    Promise Example;
+	  
+	    ```javascript
+	    findResult().then(function(result){
+	      // success
+	    }, function(reason){
+	      // failure
+	    });
+	    ```
+	  
+	    Advanced Example
+	    --------------
+	  
+	    Synchronous Example
+	  
+	    ```javascript
+	    let author, books;
+	  
+	    try {
+	      author = findAuthor();
+	      books  = findBooksByAuthor(author);
+	      // success
+	    } catch(reason) {
+	      // failure
+	    }
+	    ```
+	  
+	    Errback Example
+	  
+	    ```js
+	  
+	    function foundBooks(books) {
+	  
+	    }
+	  
+	    function failure(reason) {
+	  
+	    }
+	  
+	    findAuthor(function(author, err){
+	      if (err) {
+	        failure(err);
+	        // failure
+	      } else {
+	        try {
+	          findBoooksByAuthor(author, function(books, err) {
+	            if (err) {
+	              failure(err);
+	            } else {
+	              try {
+	                foundBooks(books);
+	              } catch(reason) {
+	                failure(reason);
+	              }
+	            }
+	          });
+	        } catch(error) {
+	          failure(err);
+	        }
+	        // success
+	      }
+	    });
+	    ```
+	  
+	    Promise Example;
+	  
+	    ```javascript
+	    findAuthor().
+	      then(findBooksByAuthor).
+	      then(function(books){
+	        // found books
+	    }).catch(function(reason){
+	      // something went wrong
+	    });
+	    ```
+	  
+	    @method then
+	    @param {Function} onFulfilled
+	    @param {Function} onRejected
+	    Useful for tooling.
+	    @return {Promise}
+	  */
+	  then: then,
+	
+	  /**
+	    `catch` is simply sugar for `then(undefined, onRejection)` which makes it the same
+	    as the catch block of a try/catch statement.
+	  
+	    ```js
+	    function findAuthor(){
+	      throw new Error('couldn't find that author');
+	    }
+	  
+	    // synchronous
+	    try {
+	      findAuthor();
+	    } catch(reason) {
+	      // something went wrong
+	    }
+	  
+	    // async with promises
+	    findAuthor().catch(function(reason){
+	      // something went wrong
+	    });
+	    ```
+	  
+	    @method catch
+	    @param {Function} onRejection
+	    Useful for tooling.
+	    @return {Promise}
+	  */
+	  'catch': function _catch(onRejection) {
+	    return this.then(null, onRejection);
+	  }
+	};
+	
+	function polyfill() {
+	    var local = undefined;
+	
+	    if (typeof global !== 'undefined') {
+	        local = global;
+	    } else if (typeof self !== 'undefined') {
+	        local = self;
+	    } else {
+	        try {
+	            local = Function('return this')();
+	        } catch (e) {
+	            throw new Error('polyfill failed because global object is unavailable in this environment');
+	        }
+	    }
+	
+	    var P = local.Promise;
+	
+	    if (P) {
+	        var promiseToString = null;
+	        try {
+	            promiseToString = Object.prototype.toString.call(P.resolve());
+	        } catch (e) {
+	            // silently ignored
+	        }
+	
+	        if (promiseToString === '[object Promise]' && !P.cast) {
+	            return;
+	        }
+	    }
+	
+	    local.Promise = Promise;
+	}
+	
+	polyfill();
+	// Strange compat..
+	Promise.polyfill = polyfill;
+	Promise.Promise = Promise;
+	
+	return Promise;
+	
+	})));
+	//# sourceMappingURL=es6-promise.map
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11), (function() { return this; }())))
 
 /***/ }),
 /* 11 */
+/***/ (function(module, exports) {
+
+	// shim for using process in browser
+	var process = module.exports = {};
+	
+	// cached from whatever global is present so that test runners that stub it
+	// don't break things.  But we need to wrap it in a try catch in case it is
+	// wrapped in strict mode code which doesn't define any globals.  It's inside a
+	// function because try/catches deoptimize in certain engines.
+	
+	var cachedSetTimeout;
+	var cachedClearTimeout;
+	
+	function defaultSetTimout() {
+	    throw new Error('setTimeout has not been defined');
+	}
+	function defaultClearTimeout () {
+	    throw new Error('clearTimeout has not been defined');
+	}
+	(function () {
+	    try {
+	        if (typeof setTimeout === 'function') {
+	            cachedSetTimeout = setTimeout;
+	        } else {
+	            cachedSetTimeout = defaultSetTimout;
+	        }
+	    } catch (e) {
+	        cachedSetTimeout = defaultSetTimout;
+	    }
+	    try {
+	        if (typeof clearTimeout === 'function') {
+	            cachedClearTimeout = clearTimeout;
+	        } else {
+	            cachedClearTimeout = defaultClearTimeout;
+	        }
+	    } catch (e) {
+	        cachedClearTimeout = defaultClearTimeout;
+	    }
+	} ())
+	function runTimeout(fun) {
+	    if (cachedSetTimeout === setTimeout) {
+	        //normal enviroments in sane situations
+	        return setTimeout(fun, 0);
+	    }
+	    // if setTimeout wasn't available but was latter defined
+	    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+	        cachedSetTimeout = setTimeout;
+	        return setTimeout(fun, 0);
+	    }
+	    try {
+	        // when when somebody has screwed with setTimeout but no I.E. maddness
+	        return cachedSetTimeout(fun, 0);
+	    } catch(e){
+	        try {
+	            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+	            return cachedSetTimeout.call(null, fun, 0);
+	        } catch(e){
+	            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+	            return cachedSetTimeout.call(this, fun, 0);
+	        }
+	    }
+	
+	
+	}
+	function runClearTimeout(marker) {
+	    if (cachedClearTimeout === clearTimeout) {
+	        //normal enviroments in sane situations
+	        return clearTimeout(marker);
+	    }
+	    // if clearTimeout wasn't available but was latter defined
+	    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+	        cachedClearTimeout = clearTimeout;
+	        return clearTimeout(marker);
+	    }
+	    try {
+	        // when when somebody has screwed with setTimeout but no I.E. maddness
+	        return cachedClearTimeout(marker);
+	    } catch (e){
+	        try {
+	            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+	            return cachedClearTimeout.call(null, marker);
+	        } catch (e){
+	            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+	            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+	            return cachedClearTimeout.call(this, marker);
+	        }
+	    }
+	
+	
+	
+	}
+	var queue = [];
+	var draining = false;
+	var currentQueue;
+	var queueIndex = -1;
+	
+	function cleanUpNextTick() {
+	    if (!draining || !currentQueue) {
+	        return;
+	    }
+	    draining = false;
+	    if (currentQueue.length) {
+	        queue = currentQueue.concat(queue);
+	    } else {
+	        queueIndex = -1;
+	    }
+	    if (queue.length) {
+	        drainQueue();
+	    }
+	}
+	
+	function drainQueue() {
+	    if (draining) {
+	        return;
+	    }
+	    var timeout = runTimeout(cleanUpNextTick);
+	    draining = true;
+	
+	    var len = queue.length;
+	    while(len) {
+	        currentQueue = queue;
+	        queue = [];
+	        while (++queueIndex < len) {
+	            if (currentQueue) {
+	                currentQueue[queueIndex].run();
+	            }
+	        }
+	        queueIndex = -1;
+	        len = queue.length;
+	    }
+	    currentQueue = null;
+	    draining = false;
+	    runClearTimeout(timeout);
+	}
+	
+	process.nextTick = function (fun) {
+	    var args = new Array(arguments.length - 1);
+	    if (arguments.length > 1) {
+	        for (var i = 1; i < arguments.length; i++) {
+	            args[i - 1] = arguments[i];
+	        }
+	    }
+	    queue.push(new Item(fun, args));
+	    if (queue.length === 1 && !draining) {
+	        runTimeout(drainQueue);
+	    }
+	};
+	
+	// v8 likes predictible objects
+	function Item(fun, array) {
+	    this.fun = fun;
+	    this.array = array;
+	}
+	Item.prototype.run = function () {
+	    this.fun.apply(null, this.array);
+	};
+	process.title = 'browser';
+	process.browser = true;
+	process.env = {};
+	process.argv = [];
+	process.version = ''; // empty string to avoid regexp issues
+	process.versions = {};
+	
+	function noop() {}
+	
+	process.on = noop;
+	process.addListener = noop;
+	process.once = noop;
+	process.off = noop;
+	process.removeListener = noop;
+	process.removeAllListeners = noop;
+	process.emit = noop;
+	process.prependListener = noop;
+	process.prependOnceListener = noop;
+	
+	process.listeners = function (name) { return [] }
+	
+	process.binding = function (name) {
+	    throw new Error('process.binding is not supported');
+	};
+	
+	process.cwd = function () { return '/' };
+	process.chdir = function (dir) {
+	    throw new Error('process.chdir is not supported');
+	};
+	process.umask = function() { return 0; };
+
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports) {
+
+	/* (ignored) */
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(14);
+
+/***/ }),
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(12);
-	var bind = __webpack_require__(17);
-	var Axios = __webpack_require__(18);
-	var defaults = __webpack_require__(19);
+	var utils = __webpack_require__(15);
+	var bind = __webpack_require__(20);
+	var Axios = __webpack_require__(21);
+	var defaults = __webpack_require__(22);
 	
 	/**
 	 * Create an instance of Axios
@@ -1174,15 +2536,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	
 	// Expose Cancel & CancelToken
-	axios.Cancel = __webpack_require__(37);
-	axios.CancelToken = __webpack_require__(38);
-	axios.isCancel = __webpack_require__(34);
+	axios.Cancel = __webpack_require__(39);
+	axios.CancelToken = __webpack_require__(40);
+	axios.isCancel = __webpack_require__(36);
 	
 	// Expose all/spread
 	axios.all = function all(promises) {
 	  return Promise.all(promises);
 	};
-	axios.spread = __webpack_require__(39);
+	axios.spread = __webpack_require__(41);
 	
 	module.exports = axios;
 	
@@ -1191,12 +2553,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 12 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(Buffer) {'use strict';
 	
-	var bind = __webpack_require__(17);
+	var bind = __webpack_require__(20);
 	
 	/*global toString:true*/
 	
@@ -1507,10 +2869,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  trim: trim
 	};
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(13).Buffer))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(16).Buffer))
 
 /***/ }),
-/* 13 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/*!
@@ -1523,9 +2885,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	'use strict'
 	
-	var base64 = __webpack_require__(14)
-	var ieee754 = __webpack_require__(15)
-	var isArray = __webpack_require__(16)
+	var base64 = __webpack_require__(17)
+	var ieee754 = __webpack_require__(18)
+	var isArray = __webpack_require__(19)
 	
 	exports.Buffer = Buffer
 	exports.SlowBuffer = SlowBuffer
@@ -3306,7 +4668,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ }),
-/* 14 */
+/* 17 */
 /***/ (function(module, exports) {
 
 	'use strict'
@@ -3325,68 +4687,102 @@ return /******/ (function(modules) { // webpackBootstrap
 	  revLookup[code.charCodeAt(i)] = i
 	}
 	
+	// Support decoding URL-safe base64 strings, as Node.js does.
+	// See: https://en.wikipedia.org/wiki/Base64#URL_applications
 	revLookup['-'.charCodeAt(0)] = 62
 	revLookup['_'.charCodeAt(0)] = 63
 	
-	function placeHoldersCount (b64) {
+	function getLens (b64) {
 	  var len = b64.length
+	
 	  if (len % 4 > 0) {
 	    throw new Error('Invalid string. Length must be a multiple of 4')
 	  }
 	
-	  // the number of equal signs (place holders)
-	  // if there are two placeholders, than the two characters before it
-	  // represent one byte
-	  // if there is only one, then the three characters before it represent 2 bytes
-	  // this is just a cheap hack to not do indexOf twice
-	  return b64[len - 2] === '=' ? 2 : b64[len - 1] === '=' ? 1 : 0
+	  // Trim off extra bytes after placeholder bytes are found
+	  // See: https://github.com/beatgammit/base64-js/issues/42
+	  var validLen = b64.indexOf('=')
+	  if (validLen === -1) validLen = len
+	
+	  var placeHoldersLen = validLen === len
+	    ? 0
+	    : 4 - (validLen % 4)
+	
+	  return [validLen, placeHoldersLen]
 	}
 	
+	// base64 is 4/3 + up to two characters of the original data
 	function byteLength (b64) {
-	  // base64 is 4/3 + up to two characters of the original data
-	  return b64.length * 3 / 4 - placeHoldersCount(b64)
+	  var lens = getLens(b64)
+	  var validLen = lens[0]
+	  var placeHoldersLen = lens[1]
+	  return ((validLen + placeHoldersLen) * 3 / 4) - placeHoldersLen
+	}
+	
+	function _byteLength (b64, validLen, placeHoldersLen) {
+	  return ((validLen + placeHoldersLen) * 3 / 4) - placeHoldersLen
 	}
 	
 	function toByteArray (b64) {
-	  var i, j, l, tmp, placeHolders, arr
-	  var len = b64.length
-	  placeHolders = placeHoldersCount(b64)
+	  var tmp
+	  var lens = getLens(b64)
+	  var validLen = lens[0]
+	  var placeHoldersLen = lens[1]
 	
-	  arr = new Arr(len * 3 / 4 - placeHolders)
+	  var arr = new Arr(_byteLength(b64, validLen, placeHoldersLen))
+	
+	  var curByte = 0
 	
 	  // if there are placeholders, only get up to the last complete 4 chars
-	  l = placeHolders > 0 ? len - 4 : len
+	  var len = placeHoldersLen > 0
+	    ? validLen - 4
+	    : validLen
 	
-	  var L = 0
-	
-	  for (i = 0, j = 0; i < l; i += 4, j += 3) {
-	    tmp = (revLookup[b64.charCodeAt(i)] << 18) | (revLookup[b64.charCodeAt(i + 1)] << 12) | (revLookup[b64.charCodeAt(i + 2)] << 6) | revLookup[b64.charCodeAt(i + 3)]
-	    arr[L++] = (tmp >> 16) & 0xFF
-	    arr[L++] = (tmp >> 8) & 0xFF
-	    arr[L++] = tmp & 0xFF
+	  for (var i = 0; i < len; i += 4) {
+	    tmp =
+	      (revLookup[b64.charCodeAt(i)] << 18) |
+	      (revLookup[b64.charCodeAt(i + 1)] << 12) |
+	      (revLookup[b64.charCodeAt(i + 2)] << 6) |
+	      revLookup[b64.charCodeAt(i + 3)]
+	    arr[curByte++] = (tmp >> 16) & 0xFF
+	    arr[curByte++] = (tmp >> 8) & 0xFF
+	    arr[curByte++] = tmp & 0xFF
 	  }
 	
-	  if (placeHolders === 2) {
-	    tmp = (revLookup[b64.charCodeAt(i)] << 2) | (revLookup[b64.charCodeAt(i + 1)] >> 4)
-	    arr[L++] = tmp & 0xFF
-	  } else if (placeHolders === 1) {
-	    tmp = (revLookup[b64.charCodeAt(i)] << 10) | (revLookup[b64.charCodeAt(i + 1)] << 4) | (revLookup[b64.charCodeAt(i + 2)] >> 2)
-	    arr[L++] = (tmp >> 8) & 0xFF
-	    arr[L++] = tmp & 0xFF
+	  if (placeHoldersLen === 2) {
+	    tmp =
+	      (revLookup[b64.charCodeAt(i)] << 2) |
+	      (revLookup[b64.charCodeAt(i + 1)] >> 4)
+	    arr[curByte++] = tmp & 0xFF
+	  }
+	
+	  if (placeHoldersLen === 1) {
+	    tmp =
+	      (revLookup[b64.charCodeAt(i)] << 10) |
+	      (revLookup[b64.charCodeAt(i + 1)] << 4) |
+	      (revLookup[b64.charCodeAt(i + 2)] >> 2)
+	    arr[curByte++] = (tmp >> 8) & 0xFF
+	    arr[curByte++] = tmp & 0xFF
 	  }
 	
 	  return arr
 	}
 	
 	function tripletToBase64 (num) {
-	  return lookup[num >> 18 & 0x3F] + lookup[num >> 12 & 0x3F] + lookup[num >> 6 & 0x3F] + lookup[num & 0x3F]
+	  return lookup[num >> 18 & 0x3F] +
+	    lookup[num >> 12 & 0x3F] +
+	    lookup[num >> 6 & 0x3F] +
+	    lookup[num & 0x3F]
 	}
 	
 	function encodeChunk (uint8, start, end) {
 	  var tmp
 	  var output = []
 	  for (var i = start; i < end; i += 3) {
-	    tmp = (uint8[i] << 16) + (uint8[i + 1] << 8) + (uint8[i + 2])
+	    tmp =
+	      ((uint8[i] << 16) & 0xFF0000) +
+	      ((uint8[i + 1] << 8) & 0xFF00) +
+	      (uint8[i + 2] & 0xFF)
 	    output.push(tripletToBase64(tmp))
 	  }
 	  return output.join('')
@@ -3396,42 +4792,45 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var tmp
 	  var len = uint8.length
 	  var extraBytes = len % 3 // if we have 1 byte left, pad 2 bytes
-	  var output = ''
 	  var parts = []
 	  var maxChunkLength = 16383 // must be multiple of 3
 	
 	  // go through the array every three bytes, we'll deal with trailing stuff later
 	  for (var i = 0, len2 = len - extraBytes; i < len2; i += maxChunkLength) {
-	    parts.push(encodeChunk(uint8, i, (i + maxChunkLength) > len2 ? len2 : (i + maxChunkLength)))
+	    parts.push(encodeChunk(
+	      uint8, i, (i + maxChunkLength) > len2 ? len2 : (i + maxChunkLength)
+	    ))
 	  }
 	
 	  // pad the end with zeros, but make sure to not forget the extra bytes
 	  if (extraBytes === 1) {
 	    tmp = uint8[len - 1]
-	    output += lookup[tmp >> 2]
-	    output += lookup[(tmp << 4) & 0x3F]
-	    output += '=='
+	    parts.push(
+	      lookup[tmp >> 2] +
+	      lookup[(tmp << 4) & 0x3F] +
+	      '=='
+	    )
 	  } else if (extraBytes === 2) {
-	    tmp = (uint8[len - 2] << 8) + (uint8[len - 1])
-	    output += lookup[tmp >> 10]
-	    output += lookup[(tmp >> 4) & 0x3F]
-	    output += lookup[(tmp << 2) & 0x3F]
-	    output += '='
+	    tmp = (uint8[len - 2] << 8) + uint8[len - 1]
+	    parts.push(
+	      lookup[tmp >> 10] +
+	      lookup[(tmp >> 4) & 0x3F] +
+	      lookup[(tmp << 2) & 0x3F] +
+	      '='
+	    )
 	  }
-	
-	  parts.push(output)
 	
 	  return parts.join('')
 	}
 
 
 /***/ }),
-/* 15 */
+/* 18 */
 /***/ (function(module, exports) {
 
 	exports.read = function (buffer, offset, isLE, mLen, nBytes) {
 	  var e, m
-	  var eLen = nBytes * 8 - mLen - 1
+	  var eLen = (nBytes * 8) - mLen - 1
 	  var eMax = (1 << eLen) - 1
 	  var eBias = eMax >> 1
 	  var nBits = -7
@@ -3444,12 +4843,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	  e = s & ((1 << (-nBits)) - 1)
 	  s >>= (-nBits)
 	  nBits += eLen
-	  for (; nBits > 0; e = e * 256 + buffer[offset + i], i += d, nBits -= 8) {}
+	  for (; nBits > 0; e = (e * 256) + buffer[offset + i], i += d, nBits -= 8) {}
 	
 	  m = e & ((1 << (-nBits)) - 1)
 	  e >>= (-nBits)
 	  nBits += mLen
-	  for (; nBits > 0; m = m * 256 + buffer[offset + i], i += d, nBits -= 8) {}
+	  for (; nBits > 0; m = (m * 256) + buffer[offset + i], i += d, nBits -= 8) {}
 	
 	  if (e === 0) {
 	    e = 1 - eBias
@@ -3464,7 +4863,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 	  var e, m, c
-	  var eLen = nBytes * 8 - mLen - 1
+	  var eLen = (nBytes * 8) - mLen - 1
 	  var eMax = (1 << eLen) - 1
 	  var eBias = eMax >> 1
 	  var rt = (mLen === 23 ? Math.pow(2, -24) - Math.pow(2, -77) : 0)
@@ -3497,7 +4896,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      m = 0
 	      e = eMax
 	    } else if (e + eBias >= 1) {
-	      m = (value * c - 1) * Math.pow(2, mLen)
+	      m = ((value * c) - 1) * Math.pow(2, mLen)
 	      e = e + eBias
 	    } else {
 	      m = value * Math.pow(2, eBias - 1) * Math.pow(2, mLen)
@@ -3516,7 +4915,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 16 */
+/* 19 */
 /***/ (function(module, exports) {
 
 	var toString = {}.toString;
@@ -3527,7 +4926,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 17 */
+/* 20 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -3544,17 +4943,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 18 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var defaults = __webpack_require__(19);
-	var utils = __webpack_require__(12);
-	var InterceptorManager = __webpack_require__(31);
-	var dispatchRequest = __webpack_require__(32);
-	var isAbsoluteURL = __webpack_require__(35);
-	var combineURLs = __webpack_require__(36);
+	var defaults = __webpack_require__(22);
+	var utils = __webpack_require__(15);
+	var InterceptorManager = __webpack_require__(33);
+	var dispatchRequest = __webpack_require__(34);
+	var isAbsoluteURL = __webpack_require__(37);
+	var combineURLs = __webpack_require__(38);
 	
 	/**
 	 * Create a new instance of Axios
@@ -3635,13 +5034,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 19 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 	
-	var utils = __webpack_require__(12);
-	var normalizeHeaderName = __webpack_require__(21);
+	var utils = __webpack_require__(15);
+	var normalizeHeaderName = __webpack_require__(23);
 	
 	var DEFAULT_CONTENT_TYPE = {
 	  'Content-Type': 'application/x-www-form-urlencoded'
@@ -3657,10 +5056,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var adapter;
 	  if (typeof XMLHttpRequest !== 'undefined') {
 	    // For browsers use XHR adapter
-	    adapter = __webpack_require__(22);
+	    adapter = __webpack_require__(24);
 	  } else if (typeof process !== 'undefined') {
 	    // For node use HTTP adapter
-	    adapter = __webpack_require__(22);
+	    adapter = __webpack_require__(24);
 	  }
 	  return adapter;
 	}
@@ -3731,205 +5130,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	module.exports = defaults;
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(20)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
 
 /***/ }),
-/* 20 */
-/***/ (function(module, exports) {
-
-	// shim for using process in browser
-	var process = module.exports = {};
-	
-	// cached from whatever global is present so that test runners that stub it
-	// don't break things.  But we need to wrap it in a try catch in case it is
-	// wrapped in strict mode code which doesn't define any globals.  It's inside a
-	// function because try/catches deoptimize in certain engines.
-	
-	var cachedSetTimeout;
-	var cachedClearTimeout;
-	
-	function defaultSetTimout() {
-	    throw new Error('setTimeout has not been defined');
-	}
-	function defaultClearTimeout () {
-	    throw new Error('clearTimeout has not been defined');
-	}
-	(function () {
-	    try {
-	        if (typeof setTimeout === 'function') {
-	            cachedSetTimeout = setTimeout;
-	        } else {
-	            cachedSetTimeout = defaultSetTimout;
-	        }
-	    } catch (e) {
-	        cachedSetTimeout = defaultSetTimout;
-	    }
-	    try {
-	        if (typeof clearTimeout === 'function') {
-	            cachedClearTimeout = clearTimeout;
-	        } else {
-	            cachedClearTimeout = defaultClearTimeout;
-	        }
-	    } catch (e) {
-	        cachedClearTimeout = defaultClearTimeout;
-	    }
-	} ())
-	function runTimeout(fun) {
-	    if (cachedSetTimeout === setTimeout) {
-	        //normal enviroments in sane situations
-	        return setTimeout(fun, 0);
-	    }
-	    // if setTimeout wasn't available but was latter defined
-	    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
-	        cachedSetTimeout = setTimeout;
-	        return setTimeout(fun, 0);
-	    }
-	    try {
-	        // when when somebody has screwed with setTimeout but no I.E. maddness
-	        return cachedSetTimeout(fun, 0);
-	    } catch(e){
-	        try {
-	            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
-	            return cachedSetTimeout.call(null, fun, 0);
-	        } catch(e){
-	            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
-	            return cachedSetTimeout.call(this, fun, 0);
-	        }
-	    }
-	
-	
-	}
-	function runClearTimeout(marker) {
-	    if (cachedClearTimeout === clearTimeout) {
-	        //normal enviroments in sane situations
-	        return clearTimeout(marker);
-	    }
-	    // if clearTimeout wasn't available but was latter defined
-	    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
-	        cachedClearTimeout = clearTimeout;
-	        return clearTimeout(marker);
-	    }
-	    try {
-	        // when when somebody has screwed with setTimeout but no I.E. maddness
-	        return cachedClearTimeout(marker);
-	    } catch (e){
-	        try {
-	            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
-	            return cachedClearTimeout.call(null, marker);
-	        } catch (e){
-	            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
-	            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
-	            return cachedClearTimeout.call(this, marker);
-	        }
-	    }
-	
-	
-	
-	}
-	var queue = [];
-	var draining = false;
-	var currentQueue;
-	var queueIndex = -1;
-	
-	function cleanUpNextTick() {
-	    if (!draining || !currentQueue) {
-	        return;
-	    }
-	    draining = false;
-	    if (currentQueue.length) {
-	        queue = currentQueue.concat(queue);
-	    } else {
-	        queueIndex = -1;
-	    }
-	    if (queue.length) {
-	        drainQueue();
-	    }
-	}
-	
-	function drainQueue() {
-	    if (draining) {
-	        return;
-	    }
-	    var timeout = runTimeout(cleanUpNextTick);
-	    draining = true;
-	
-	    var len = queue.length;
-	    while(len) {
-	        currentQueue = queue;
-	        queue = [];
-	        while (++queueIndex < len) {
-	            if (currentQueue) {
-	                currentQueue[queueIndex].run();
-	            }
-	        }
-	        queueIndex = -1;
-	        len = queue.length;
-	    }
-	    currentQueue = null;
-	    draining = false;
-	    runClearTimeout(timeout);
-	}
-	
-	process.nextTick = function (fun) {
-	    var args = new Array(arguments.length - 1);
-	    if (arguments.length > 1) {
-	        for (var i = 1; i < arguments.length; i++) {
-	            args[i - 1] = arguments[i];
-	        }
-	    }
-	    queue.push(new Item(fun, args));
-	    if (queue.length === 1 && !draining) {
-	        runTimeout(drainQueue);
-	    }
-	};
-	
-	// v8 likes predictible objects
-	function Item(fun, array) {
-	    this.fun = fun;
-	    this.array = array;
-	}
-	Item.prototype.run = function () {
-	    this.fun.apply(null, this.array);
-	};
-	process.title = 'browser';
-	process.browser = true;
-	process.env = {};
-	process.argv = [];
-	process.version = ''; // empty string to avoid regexp issues
-	process.versions = {};
-	
-	function noop() {}
-	
-	process.on = noop;
-	process.addListener = noop;
-	process.once = noop;
-	process.off = noop;
-	process.removeListener = noop;
-	process.removeAllListeners = noop;
-	process.emit = noop;
-	process.prependListener = noop;
-	process.prependOnceListener = noop;
-	
-	process.listeners = function (name) { return [] }
-	
-	process.binding = function (name) {
-	    throw new Error('process.binding is not supported');
-	};
-	
-	process.cwd = function () { return '/' };
-	process.chdir = function (dir) {
-	    throw new Error('process.chdir is not supported');
-	};
-	process.umask = function() { return 0; };
-
-
-/***/ }),
-/* 21 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(12);
+	var utils = __webpack_require__(15);
 	
 	module.exports = function normalizeHeaderName(headers, normalizedName) {
 	  utils.forEach(headers, function processHeader(value, name) {
@@ -3942,18 +5151,18 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 22 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 	
-	var utils = __webpack_require__(12);
-	var settle = __webpack_require__(23);
-	var buildURL = __webpack_require__(26);
-	var parseHeaders = __webpack_require__(27);
-	var isURLSameOrigin = __webpack_require__(28);
-	var createError = __webpack_require__(24);
-	var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(29);
+	var utils = __webpack_require__(15);
+	var settle = __webpack_require__(25);
+	var buildURL = __webpack_require__(28);
+	var parseHeaders = __webpack_require__(29);
+	var isURLSameOrigin = __webpack_require__(30);
+	var createError = __webpack_require__(26);
+	var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(31);
 	
 	module.exports = function xhrAdapter(config) {
 	  return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -4049,7 +5258,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    // This is only done if running in a standard browser environment.
 	    // Specifically not if we're in a web worker, or react-native.
 	    if (utils.isStandardBrowserEnv()) {
-	      var cookies = __webpack_require__(30);
+	      var cookies = __webpack_require__(32);
 	
 	      // Add xsrf header
 	      var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -4125,15 +5334,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	  });
 	};
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(20)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
 
 /***/ }),
-/* 23 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var createError = __webpack_require__(24);
+	var createError = __webpack_require__(26);
 	
 	/**
 	 * Resolve or reject a Promise based on response status.
@@ -4159,12 +5368,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 24 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var enhanceError = __webpack_require__(25);
+	var enhanceError = __webpack_require__(27);
 	
 	/**
 	 * Create an Error with the specified message, config, error code, and response.
@@ -4182,7 +5391,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 25 */
+/* 27 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -4207,12 +5416,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 26 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(12);
+	var utils = __webpack_require__(15);
 	
 	function encode(val) {
 	  return encodeURIComponent(val).
@@ -4281,12 +5490,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 27 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(12);
+	var utils = __webpack_require__(15);
 	
 	/**
 	 * Parse headers into an object
@@ -4324,12 +5533,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 28 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(12);
+	var utils = __webpack_require__(15);
 	
 	module.exports = (
 	  utils.isStandardBrowserEnv() ?
@@ -4398,7 +5607,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 29 */
+/* 31 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -4440,12 +5649,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 30 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(12);
+	var utils = __webpack_require__(15);
 	
 	module.exports = (
 	  utils.isStandardBrowserEnv() ?
@@ -4499,12 +5708,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 31 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(12);
+	var utils = __webpack_require__(15);
 	
 	function InterceptorManager() {
 	  this.handlers = [];
@@ -4557,15 +5766,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 32 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(12);
-	var transformData = __webpack_require__(33);
-	var isCancel = __webpack_require__(34);
-	var defaults = __webpack_require__(19);
+	var utils = __webpack_require__(15);
+	var transformData = __webpack_require__(35);
+	var isCancel = __webpack_require__(36);
+	var defaults = __webpack_require__(22);
 	
 	/**
 	 * Throws a `Cancel` if cancellation has been requested.
@@ -4642,12 +5851,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 33 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(12);
+	var utils = __webpack_require__(15);
 	
 	/**
 	 * Transform the data for a request or a response
@@ -4668,7 +5877,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 34 */
+/* 36 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -4679,7 +5888,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 35 */
+/* 37 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -4699,7 +5908,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 36 */
+/* 38 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -4719,7 +5928,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 37 */
+/* 39 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -4744,12 +5953,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 38 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var Cancel = __webpack_require__(37);
+	var Cancel = __webpack_require__(39);
 	
 	/**
 	 * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -4807,7 +6016,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 39 */
+/* 41 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -4840,14 +6049,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 40 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var stringify = __webpack_require__(41);
-	var parse = __webpack_require__(44);
-	var formats = __webpack_require__(43);
+	var stringify = __webpack_require__(43);
+	var parse = __webpack_require__(46);
+	var formats = __webpack_require__(45);
 	
 	module.exports = {
 	    formats: formats,
@@ -4857,13 +6066,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 41 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(42);
-	var formats = __webpack_require__(43);
+	var utils = __webpack_require__(44);
+	var formats = __webpack_require__(45);
 	
 	var arrayPrefixGenerators = {
 	    brackets: function brackets(prefix) { // eslint-disable-line func-name-matching
@@ -5070,7 +6279,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 42 */
+/* 44 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -5258,7 +6467,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 43 */
+/* 45 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -5282,12 +6491,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 44 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var utils = __webpack_require__(42);
+	var utils = __webpack_require__(44);
 	
 	var has = Object.prototype.hasOwnProperty;
 	
@@ -5455,7 +6664,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 45 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global, module) {/**
@@ -7945,10 +9154,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	module.exports = orderBy;
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(46)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(48)(module)))
 
 /***/ }),
-/* 46 */
+/* 48 */
 /***/ (function(module, exports) {
 
 	module.exports = function(module) {
@@ -7964,7 +9173,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 47 */
+/* 49 */
 /***/ (function(module, exports) {
 
 	/**
@@ -8715,7 +9924,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ }),
-/* 48 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global, module) {/**
@@ -11113,10 +12322,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	module.exports = findIndex;
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(46)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(48)(module)))
 
 /***/ }),
-/* 49 */
+/* 51 */
 /***/ (function(module, exports) {
 
 	module.exports = "\n<div id=\"maindiv\" @click=\"closeDropdown\" @keyup.esc=\"closeDropdown\">\n    <!--<pre>{{columns}}</pre>-->\n    <!--<pre>{{$data}}</pre>-->\n    <div class=\"col-sm-6\">\n        <div v-if=\"showFilter\" style=\"padding-top: 10px;padding-bottom: 10px;\">\n            <div class=\"input-group\">\n                <input type=\"text\" class=\"form-control\" placeholder=\"Filter\" v-model=\"filterKey\">\n                <div class=\"input-group-addon\">\n                    <i class=\"glyphicon glyphicon-search\"></i>\n                </div>\n            </div>\n        </div>\n    </div>\n    <div class=\"col-sm-6\">\n        <div v-if=\"showColumnPicker\" style=\"padding-top: 10px;padding-bottom: 10px;float:right;\">\n            <div class=\"btn-group\" :class=\"{'open' : columnMenuOpen}\">\n                <button @click.stop.prevent=\"columnMenuOpen = !columnMenuOpen\" @keyup.esc=\"columnMenuOpen = false\"\n                        type=\"button\" class=\"btn btn-default dropdown-toggle\" data-toggle=\"dropdown\"\n                        aria-haspopup=\"true\">\n                    Columns <span class=\"caret\"></span>\n                </button>\n                <ul class=\"dropdown-menu\">\n                    <li v-for=\"column in displayCols\">\n                        <a href=\"#\" @click.stop.prevent=\"toggleColumn(column)\">\n                            <i v-if=\"column.visible\" class=\"glyphicon glyphicon-ok\"></i> {{column.title}}\n                        </a>\n                    </li>\n                </ul>\n            </div>\n        </div>\n    </div>\n    <div class=\"col-sm-12\">\n        <div id=\"loadingdiv\" :class=\"{'vue-table-loading': this.loading , 'vue-table-loading-hidden': !this.loading}\">\n            <div class=\"spinner\"></div>\n        </div>\n        <table class=\"table table-bordered table-hover table-condensed table-striped vue-table\">\n            <thead>\n                <tr>\n                    <th v-for=\"column in displayColsVisible\" @click=\"sortBy($event, column.name)\"\n                        track-by=\"column\"\n                        :class=\"getClasses(column)\">\n                        {{ column.title }}\n                    </th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr v-for=\"entry in filteredValuesSorted \" track-by=\"entry\" @click=\"rowClickHandler($event, entry)\">\n                    <td v-for=\"column in displayColsVisible\" track-by=\"column\"\n                        v-show=\"column.visible\" :class=\"column.cellstyle\">\n                        <span v-if=\"column.renderfunction!==false\" v-html=\"column.renderfunction( column.name, entry )\"></span>\n                        <span v-else-if=\"!column.editable\"> {{ entry[column.name] }} </span>\n                        <value-field-section v-else\n                            :entry=\"entry\"\n                            :columnname=\"column.name\"></value-field-section>\n                    </td>\n                </tr>\n            </tbody>\n        </table>\n    </div>\n    <div v-if=\"paginated\" class=\"col-sm-12\">\n        <div class=\"btn-toolbar\" role=\"toolbar\" aria-label=\"pagination bar\">\n          <div class=\"btn-group\" role=\"group\" aria-label=\"first page\">\n            <button type=\"button\" class=\"btn btn-default\" @click=\"page=1\">&laquo;</button>\n          </div>\n          <div class=\"btn-group\" role=\"group\" aria-label=\"pages\">\n            <button v-for=\"index in validPageNumbers\"\n                type=\"button\" class=\"btn btn-default\"\n                :class=\"{ active: page===index }\"\n                @click=\"page=index\">\n                    {{index}}\n            </button>\n          </div>\n          <div class=\"btn-group\" v-if=\"showPaginationEtc\">...</div>\n          <div class=\"btn-group\" role=\"group\" aria-label=\"last page\">\n            <button type=\"button\" class=\"btn btn-default\" @click=\"page=maxPage\">&raquo;</button>\n          </div>\n        </div>\n    </div>\n</div>\n";
