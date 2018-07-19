@@ -336,6 +336,7 @@
                 columnMenuOpen: false,
                 displayCols: [],
                 filteredValues: [],
+                rawValues: [],
                 page: 1,
                 echo: 0,
                 loading: false,
@@ -354,18 +355,19 @@
                   if (!this.ajax.delegate) {
                       this.loading= true;
                       this.fetchData(function (data) {
-                          self.values = data.data;
+                          self.rawValues = data.data;
                           self.processFilter();
                       });
                   }else
                       this.processFilter();
-              }else
+              }else {
+                  self.rawValues = self.values;
                   this.processFilter();
+              }
           })
         },
         created: function () {
             var self = this ;
-            console.log("created");
             this.$on('cellDataModifiedEvent', self.fireCellDataModifiedEvent);
         },
         beforeDestroy: function(){
@@ -373,7 +375,7 @@
             this.$off('cellDataModifiedEvent', self.fireCellDataModifiedEvent);
         },
         watch: {
-            values: function () {
+            rawValues: function () {
                 this.processFilter();
             },
             columns: function () {
@@ -469,7 +471,7 @@
                        self.loading = false;
                    });
                 } else {
-                    var result = this.values.filter(item => {
+                    var result = this.rawValues.filter(item => {
                                 var good = false;
                                 for (var col in self.displayColsVisible) {
                                     if (self.filterCaseSensitive) {
@@ -510,6 +512,7 @@
                 }
             },
             fetchData: function ( dataCallBackFunction ) {
+                console.log("fetching data");
                 var self = this;
                 var ajaxParameters = {
                     params: {}

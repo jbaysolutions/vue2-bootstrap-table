@@ -27,7 +27,7 @@ new Vue({
             enabled: true,
             url: "http://172.16.213.1:9430/data/test",
             method: "POST",
-            delegate: true,
+            delegate: false,
             axiosConfig:{
                 headers: {
                     'Authorization': 'Bearer TESTTESTTESTTESTTEST'
@@ -64,7 +64,30 @@ new Vue({
               name: 'postal_code'
             }
           ],
-        values: []
+        values: [
+            {
+              "id": "111",
+              "name": "Casper Cliff",
+              "description": "Id est rem aliquam animi libero minima. Praesentium ad cum autem quo voluptatum autem ea. Non rerum aliquam atque minima et. Omnis maiores debitis odio consequatur officiis.",
+              "created_by": 3,
+              "street_address": "90947 Schaefer Ramp",
+              "city": "Lake Jammiemouth",
+              "state_province": "Alaska",
+              "postal_code": "35070",
+              "status": "open"
+            },
+            {
+              "id": "0D7D9DB64C7946E0B3FBDDFC",
+              "name": "Alfredo Shore",
+              "description": "Beatae deserunt aut voluptas modi repudiandae sit animi. Minima sit quam eligendi non aliquid et excepturi. Fugit reiciendis illo illum eum quidem minus.",
+              "created_by": 4,
+              "street_address": "1943 Ericka Shoal Suite 196",
+              "city": "Johnathanshire",
+              "state_province": "Georgia",
+              "postal_code": "87106",
+              "status": "open"
+            }
+          ]
     },
     created: function () {
         var self = this;
