@@ -23,11 +23,12 @@ new Vue({
         paginated: true,
         multiColumnSortable: true,
         handleRowFunction: handleRow,
+        columnToSortBy:"name",
         ajax: {
             enabled: true,
             url: "http://172.16.213.1:9430/data/test",
             method: "POST",
-            delegate: false,
+            delegate: true,
             axiosConfig:{
                 headers: {
                     'Authorization': 'Bearer TESTTESTTESTTESTTEST'

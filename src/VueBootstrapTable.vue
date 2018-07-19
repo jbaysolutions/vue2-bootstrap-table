@@ -181,6 +181,7 @@
 </style>
 <script>
 
+    /* used for fixing IE problems*/
     import { polyfill } from 'es6-promise'; polyfill();
     import axios from 'axios';
     import qs from 'qs';
@@ -302,6 +303,22 @@
                 default: 10,
             },
             /**
+             * Setting default order column. Expected name of the column
+             */
+            defaultOrderColumn: {
+                type: String,
+                required: false,
+                default: null,
+            },
+            /**
+             * Setting default order direction. Boolean: true = ASC , false = DESC
+             */
+            defaultOrderDirection: {
+                type: Boolean,
+                required: false,
+                default: true,
+            },
+            /**
              * If loading of table is to be done through ajax, then this object must be set
              */
             ajax: {
@@ -342,34 +359,59 @@
                 loading: false,
             };
         },
+        /**
+         * Once mounted and ready to start
+         */
         mounted: function () {
-          this.$nextTick(function () {
-              this.loading= true;
-              this.setSortOrders();
-              var self = this;
-              this.columns.forEach(function (column) {
-                  var obj = self.buildColumnObject(column);
-                  self.displayCols.push(obj);
-              });
-              if (this.ajax.enabled) {
-                  if (!this.ajax.delegate) {
-                      this.loading= true;
-                      this.fetchData(function (data) {
-                          self.rawValues = data.data;
-                          self.processFilter();
-                      });
-                  }else
-                      this.processFilter();
-              }else {
-                  self.rawValues = self.values;
-                  this.processFilter();
-              }
-          })
+            this.$nextTick(function () {
+                this.loading = true;
+                this.setSortOrders();
+                var self = this;
+                //
+                if (this.defaultOrderColumn !== null) {
+                    console.log("setting order default");
+                    self.sortKey[0] = this.defaultOrderColumn;
+                    if (this.defaultOrderDirection)
+                        self.sortOrders[this.defaultOrderColumn] = "ASC";
+                    else
+                        self.sortOrders[this.defaultOrderColumn] = "DESC";
+                }
+                // Build columns
+                this.columns.forEach(function (column) {
+                    var obj = self.buildColumnObject(column);
+                    self.displayCols.push(obj);
+                });
+                // Work the data
+                if (this.ajax.enabled) {
+                    if (!this.ajax.delegate) {
+                        // If ajax but NOT delegate
+                        // Perform the fetch of data now and set the raw values
+                        this.loading = true;
+                        this.fetchData(function (data) {
+                            self.rawValues = data.data;
+                        });
+                    } else {
+                        // If ajax and also delegate
+                        // Simply call processFilter, which will take care of the fetching
+                        //this.processFilter();
+                    }
+                } else {
+                    // Not ajax, therefore working with given elements
+                    // Pass the Prop values to rawValues data object.
+                    self.rawValues = self.values;
+                }
+            })
         },
+        /**
+         * On created register on CellDataModified event
+         */
         created: function () {
             var self = this ;
             this.$on('cellDataModifiedEvent', self.fireCellDataModifiedEvent);
         },
+        /**
+         * On destroy unregister the event
+         */
         beforeDestroy: function(){
             var self = this ;
             this.$off('cellDataModifiedEvent', self.fireCellDataModifiedEvent);
@@ -458,6 +500,9 @@
             },
         },
         methods: {
+            /**
+             * Used to fire off events when something happens to a cell
+             */
             fireCellDataModifiedEvent:function ( originalValue, newValue, columnTitle, entry) {
                 this.$parent.$emit('cellDataModifiedEvent',originalValue, newValue, columnTitle, entry);
             },
@@ -512,7 +557,6 @@
                 }
             },
             fetchData: function ( dataCallBackFunction ) {
-                console.log("fetching data");
                 var self = this;
                 var ajaxParameters = {
                     params: {}
