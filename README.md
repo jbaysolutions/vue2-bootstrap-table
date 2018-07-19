@@ -209,6 +209,22 @@ Or add the js script to your html (download from [releases](https://github.com/j
             default: 10,
         },
         /**
+         * Setting default order column. Expected name of the column
+         */
+        defaultOrderColumn: {
+            type: String,
+            required: false,
+            default: null,
+        },
+        /**
+         * Setting default order direction. Boolean: true = ASC , false = DESC
+         */
+        defaultOrderDirection: {
+            type: Boolean,
+            required: false,
+            default: true,
+        },
+        /**
          * If loading of table is to be done through ajax, then this object must be set
          */
         ajax: {
@@ -328,6 +344,33 @@ var handleRow = function (event, entry) {
 ````
 
 Where event in the `MouseEvent` and `entry` e the complete entry corresponding to the row.
+
+
+### DEFAULT Ordering
+
+To setup your default ordering for the table:
+
+````html
+
+    <vue-bootstrap-table
+            [...]
+            :default-order-column="columnToSortBy"
+            :default-order-direction=true
+    >
+    </vue-bootstrap-table>
+````
+
+On your Vue instance :
+
+````javascript
+data: {
+        columnToSortBy: "name",
+}
+````
+
+This will make the default column order be :  
+ * column: name  
+ * order: ascending
 
 ### AJAX Configuration
 
@@ -487,6 +530,13 @@ If you have a feature request, please add it as an issue or make a pull request.
 
 
 ## Changelog
+
+### 1.1.10
+
+* Bug fix - Delegate true and false behaviours leading to not loading data
+* Bug fix - Ajax redundant fetch when not needed
+* Enhancement - #14 - Adding support for default ordering
+* Enhancement - Documentation of code
 
 ### 1.1.9
 
