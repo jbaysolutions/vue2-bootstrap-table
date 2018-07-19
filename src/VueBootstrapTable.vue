@@ -569,7 +569,11 @@
                     }
                     if ( this.ajax.method=== "GET" ) {
                         //COPY
-                        ajaxParameters = JSON.parse(JSON.stringify(this.ajax.axiosConfig));
+                        if (this.ajax !== null && this.ajax.axiosConfig!==null && this.ajax.axiosConfig!== undefined) {
+                            ajaxParameters = JSON.parse(
+                                JSON.stringify(this.ajax.axiosConfig)
+                            );
+                        }
                         ajaxParameters.params = {};
                         ajaxParameters.params.sortcol = this.sortKey;
                         ajaxParameters.params.sortdir = tColsDir;
@@ -601,7 +605,9 @@
                 if( this.ajax.enabled && !this.ajax.delegate ) {
                     if ( this.ajax.method=== "GET" ) {
                         //COPY
-                        ajaxParameters = JSON.parse(JSON.stringify(this.ajax.axiosConfig));
+                        if (this.ajax !== null && this.ajax.axiosConfig!==null && this.ajax.axiosConfig!== undefined) {
+                            ajaxParameters = JSON.parse(JSON.stringify(this.ajax.axiosConfig));
+                        }
                         ajaxParameters.params = {};
                     }
                     if ( this.ajax.method=== "POST" ) {
@@ -624,7 +630,11 @@
                         });
                 }
                 if (this.ajax.enabled && this.ajax.method === "POST") {
-                    axios.post(self.ajax.url, qs.stringify(ajaxParameters) , this.ajax.axiosConfig )
+                    var tempAxiosConf = {};
+                    if (this.ajax !== null && this.ajax.axiosConfig!==null && this.ajax.axiosConfig!== undefined) {
+                        tempAxiosConf = this.ajax.axiosConfig
+                    }
+                    axios.post(self.ajax.url, qs.stringify(ajaxParameters) , tempAxiosConf )
                         .then(response => {
                             if (this.ajax.delegate) {
                                 if (response.data.echo !== self.echo) {

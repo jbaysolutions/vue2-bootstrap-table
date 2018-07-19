@@ -28,12 +28,7 @@ new Vue({
             enabled: true,
             url: "http://172.16.213.1:9430/data/test",
             method: "POST",
-            delegate: true,
-            axiosConfig:{
-                headers: {
-                    'Authorization': 'Bearer TESTTESTTESTTESTTEST'
-                }
-            }
+            delegate: false
         },
         columns: [
             {
