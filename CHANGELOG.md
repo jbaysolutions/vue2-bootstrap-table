@@ -1,5 +1,14 @@
 # Changelog
 
+### 1.1.11  - dev build
+
+* Enhancement - #11 - Dynamic Page Size
+* Enhancement - Started creating public methods to simplify stuff.
+
+### 1.1.10.1 (July 19, 2018)
+
+* Bug fix - axios problem with passing axios config object
+
 ### 1.1.10 (July 19, 2018)
 
 * Bug fix - Delegate true and false behaviours leading to not loading data

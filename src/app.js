@@ -28,7 +28,7 @@ new Vue({
             enabled: true,
             url: "http://172.16.213.1:9430/data/test",
             method: "POST",
-            delegate: false
+            delegate: true
         },
         columns: [
             {
@@ -107,6 +107,12 @@ new Vue({
         );
     },
     methods: {
+        refreshTable: function(){
+            this.$refs.exampleTable.refresh();
+        },
+        setNewPageSize:function(){
+            this.$refs.exampleTable.setPageSize(1);
+        },
         addItem: function () {
             var self = this;
             var item = {

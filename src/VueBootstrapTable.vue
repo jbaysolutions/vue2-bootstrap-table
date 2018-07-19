@@ -355,6 +355,7 @@
                 filteredValues: [],
                 rawValues: [],
                 page: 1,
+                definedPageSize: 10,
                 echo: 0,
                 loading: false,
             };
@@ -366,6 +367,7 @@
             this.$nextTick(function () {
                 this.loading = true;
                 this.setSortOrders();
+                this.definedPageSize = this.pageSize;
                 var self = this;
                 //
                 if (this.defaultOrderColumn !== null) {
@@ -490,7 +492,7 @@
                 return result;
             },
             maxPage: function () {
-                return Math.ceil(this.filteredSize / this.pageSize);
+                return Math.ceil(this.filteredSize / this.definedPageSize);
             },
             showPaginationEtc: function () {
                 var temp = 1;
@@ -500,6 +502,13 @@
             },
         },
         methods: {
+            refresh: function(){
+                this.processFilter();
+            },
+            setPageSize: function(newPageSize){
+                this.definedPageSize = newPageSize;
+                this.processFilter();
+            },
             /**
              * Used to fire off events when something happens to a cell
              */
@@ -542,10 +551,10 @@
 
                     this.filteredSize = result.length;
                     if (this.paginated) {
-                        var startIndex = (this.page - 1) * this.pageSize;
+                        var startIndex = (this.page - 1) * this.definedPageSize;
                         var tIndex = 0;
                         var tempResult = [];
-                        while (tIndex < this.pageSize) {
+                        while (tIndex < this.definedPageSize) {
                             if (typeof result[startIndex + tIndex] !== "undefined")
                                 tempResult.push(result[startIndex + tIndex]);
                             tIndex++;
@@ -580,7 +589,7 @@
                         ajaxParameters.params.filter = this.filterKey;
                         if (self.paginated ) {
                             ajaxParameters.params.page = this.page;
-                            ajaxParameters.params.pagesize = this.pageSize;
+                            ajaxParameters.params.pagesize = this.definedPageSize;
                         } else {
                             ajaxParameters.params.page = 1;
                             ajaxParameters.params.pagesize = null;
@@ -593,7 +602,7 @@
                         ajaxParameters.filter = this.filterKey;
                         if (self.paginated ) {
                             ajaxParameters.page = this.page;
-                            ajaxParameters.pagesize = this.pageSize;
+                            ajaxParameters.pagesize = this.definedPageSize;
                         } else {
                             ajaxParameters.page = 1;
                             ajaxParameters.pagesize = null;

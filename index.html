@@ -27,9 +27,11 @@
                 <button @click="toggleFilter" class="btn btn-default">Toggle Filter</button>
                 <button @click="togglePicker" class="btn btn-default">Toggle Column Picker</button>
                 <button @click="togglePagination" class="btn btn-default">Toggle Pagination</button>
+                <button @click="refreshTable" class="btn btn-default">Refresh</button>
+                <button @click="setNewPageSize" class="btn btn-default">Page Size = 1 </button>
             </div>
             <br/><br/>
-            <vue-bootstrap-table
+            <vue-bootstrap-table      ref="exampleTable"
                     :columns="columns"
                     :values="values"
                     :show-filter="showFilter"
