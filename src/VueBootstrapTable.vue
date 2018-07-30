@@ -477,7 +477,11 @@
                 for(var i=0, len=this.sortKey.length; i < len; i++){
                     tColsDir.push(this.sortOrders[this.sortKey[i]].toLowerCase());
                 }
-                return lodashorderby(this.filteredValues, this.sortKey , tColsDir);
+                if (typeof this.ajax !== 'undefined' && this.ajax.enabled && this.ajax.delegate) {
+                    return this.filteredValues;
+                } else {
+                    return lodashorderby(this.filteredValues, this.sortKey, tColsDir);
+                }
             },
             validPageNumbers: function () {
                 // 5 page max
@@ -547,7 +551,10 @@
                         tColsDir.push(this.sortOrders[this.sortKey[i]].toLowerCase());
                     }
 
-                    result = lodashorderby(result, this.sortKey, tColsDir);
+                    if (typeof this.ajax !== 'undefined' && this.ajax.enabled && this.ajax.delegate) {}
+                    else {
+                        result = lodashorderby(result, this.sortKey, tColsDir);
+                    }
 
                     this.filteredSize = result.length;
                     if (this.paginated) {
