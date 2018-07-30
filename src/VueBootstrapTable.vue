@@ -37,7 +37,7 @@
             <table class="table table-bordered table-hover table-condensed table-striped vue-table">
                 <thead>
                     <tr>
-                        <th v-for="column in displayColsVisible" @click="sortBy($event, column.name)"
+                        <th v-for="column in displayColsVisible" @click="sortBy($event, column.name, column.sortable)"
                             track-by="column"
                             :class="getClasses(column)">
                             {{ column.title }}
@@ -687,6 +687,10 @@
                     obj.cellstyle = column.cellstyle;
                 else
                     obj.cellstyle = "";
+                if ( typeof column.sortable !== "undefined")
+                    obj.sortable = column.sortable;
+                else
+                    obj.sortable = true;
 
                 return obj;
             },
@@ -699,7 +703,9 @@
                 this.sortOrders = sortOrders;
 
             },
-            sortBy: function (event, key) {
+            sortBy: function (event, key, enabled) {
+                if (!enabled)
+                    return;
                 if (this.sortable) {
                     var self = this;
 
@@ -729,7 +735,7 @@
             getClasses: function (column) {
                 var classes = [column.columnstyle];
                 var key = column.name;
-                if (this.sortable) {
+                if (this.sortable && column.sortable) {
                     classes.push("arrow");
                     /*if (this.sortKey === key) {
                         classes.push("active");

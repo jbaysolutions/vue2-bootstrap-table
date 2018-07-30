@@ -89,6 +89,7 @@ Or add the js script to your html (download from [releases](https://github.com/j
                     title:"country",
                     visible: true,
                     editable: true,
+                    sortable: false
                 }
             ],
             values: [
@@ -265,6 +266,7 @@ The `columns` array takes object of type:
     columnstyle: String         // Optional: styles to be applied to the Column Header
     cellstyle: String           // Optional: styles to be applied to the Cells of this column
     renderfunction: Function    // Optional: Function that receives as input the column name and entry, and returns an HTML String for drawing cell
+    sortable: Boolean           // Optional, by default it is true!  Used to set particular columns as not sortable, in case the table is sortable itself. - From 1.1.12
 }
 ```
 
