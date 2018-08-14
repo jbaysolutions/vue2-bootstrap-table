@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.1.12
+
+* Enhancement - exposed methods.
+
 ### 1.1.11  - dev build
 
 * Enhancement - #11 - Dynamic Page Size
