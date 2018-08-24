@@ -25,7 +25,7 @@ new Vue({
         handleRowFunction: handleRow,
         columnToSortBy:"name",
         ajax: {
-            enabled: true,
+            enabled: false,
             url: "http://172.16.213.1:9430/data/test",
             method: "POST",
             delegate: true
@@ -37,7 +37,8 @@ new Vue({
             },
             {
               title: 'Name',
-              name: 'name'
+              name: 'name' ,
+              filterable: false
             },
             {
               title: 'Description',

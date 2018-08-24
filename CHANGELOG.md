@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.1.13 (August 24, 2018)
+
+* #19 - Disable filter for specific columns
+
 ### 1.1.12
 
 * Enhancement - exposed methods.

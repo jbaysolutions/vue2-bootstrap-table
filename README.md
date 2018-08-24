@@ -79,6 +79,7 @@ Or add the js script to your html (download from [releases](https://github.com/j
                     title:"name",
                     visible: true,
                     editable: true,
+                    filterable: false
                 },
                 {
                     title:"age",
@@ -267,6 +268,7 @@ The `columns` array takes object of type:
     cellstyle: String           // Optional: styles to be applied to the Cells of this column
     renderfunction: Function    // Optional: Function that receives as input the column name and entry, and returns an HTML String for drawing cell
     sortable: Boolean           // Optional, by default it is true!  Used to set particular columns as not sortable, in case the table is sortable itself. - From 1.1.12
+    filterable: Boolean         // Optional, by default it is true!  Used to exclude columns from the filtering process. - From 1.1.13
 }
 ```
 
@@ -532,6 +534,10 @@ If you have a feature request, please add it as an issue or make a pull request.
 
 
 ## Changelog
+
+### 1.1.13
+
+* #19 - Disable filter for specific columns
 
 ### 1.1.12
 

@@ -530,20 +530,20 @@
                    });
                 } else {
                     var result = this.rawValues.filter(item => {
-                                var good = false;
                                 for (var col in self.displayColsVisible) {
-                                    if (self.filterCaseSensitive) {
-                                        if (lodashincludes(item[self.displayColsVisible[col].name] + "", self.filterKey + "")) {
-                                            good = true;
-                                        }
-                                    } else {
-                                        if (lodashincludes((item[self.displayColsVisible[col].name] + "").toLowerCase(), (self.filterKey + "").toLowerCase())) {
-                                            good = true;
+                                    if (self.displayColsVisible[col].filterable) {
+                                        if (self.filterCaseSensitive) {
+                                            if (lodashincludes(item[self.displayColsVisible[col].name] + "", self.filterKey + "")) {
+                                                return true;
+                                            }
+                                        } else {
+                                            if (lodashincludes((item[self.displayColsVisible[col].name] + "").toLowerCase(), (self.filterKey + "").toLowerCase())) {
+                                                return true;
+                                            }
                                         }
                                     }
-
                                 }
-                                return good;
+                                return false;
                     });
 
                     var tColsDir = [];
@@ -698,6 +698,10 @@
                     obj.sortable = column.sortable;
                 else
                     obj.sortable = true;
+                if ( typeof column.filterable !== "undefined")
+                    obj.filterable = column.filterable;
+                else
+                    obj.filterable = true;
 
                 return obj;
             },
