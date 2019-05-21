@@ -20,6 +20,7 @@ new Vue({
         logging: [],
         showFilter: true,
         showPicker: true,
+        showSelect: true,
         paginated: true,
         multiColumnSortable: true,
         handleRowFunction: handleRow,
@@ -38,7 +39,8 @@ new Vue({
             {
               title: 'Name',
               name: 'name' ,
-              filterable: false
+              filterable: false,
+              editable: true,
             },
             {
               title: 'Description',
@@ -127,6 +129,9 @@ new Vue({
         },
         togglePicker: function () {
             this.showPicker = !this.showPicker;
+        },
+        toggleSelect: function () {
+            this.showSelect = !this.showSelect;
         },
         togglePagination: function () {
             this.paginated = !this.paginated;

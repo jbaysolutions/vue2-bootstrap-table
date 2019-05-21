@@ -2,7 +2,9 @@
 
 vue-bootstrap-table is a sortable and searchable table, with Bootstrap styling, for Vue.js.
 
-### VUE 2 : 1.1.12 
+### VUE 2.6.0 : 1.2.0 (column slots support, Bootstrap v4.3.1) 
+
+### VUE < 2.6.0: 1.1.13 (Bootstrap v3) 
 
 ### Vue 1 : [jbaysolutions/vue-bootstrap-table](https://github.com/jbaysolutions/vue-bootstrap-table)
 
@@ -45,8 +47,9 @@ TODO UPDATE CHANGELOG
 
 ## Requirements
 
-* Vue 2.* (tested with 2.3.3)
-* Bootstrap 3 css
+* Vue 2.6.0+ (tested with 2.6.10)
+* Bootstrap 4 css (for Bootstrap 3 css use 1.1.x)
+* Fontawesome 5
 
 
 ## Installation
@@ -131,6 +134,12 @@ Or add the js script to your html (download from [releases](https://github.com/j
             :filter-case-sensitive=false
 
     >
+        <template v-slot:name="slotProps">
+            {{slotProps.value.name}}
+        </template>
+        <template v-slot:description="slotProps">
+            {{slotProps.value.description}}
+        </template>
     </vue-bootstrap-table>
 ```` 
 
@@ -152,6 +161,15 @@ Or add the js script to your html (download from [releases](https://github.com/j
         values: {
             type: Array,
             required: true,
+        },
+        /**
+         * Enable/disable table row selection, optional, default false.
+         * When true, it will add a checkbox column on the left side and use the value.selected field
+         */
+        selectable: {
+            type: Boolean,
+            required: false,
+            default: true,
         },
         /**
          * Enable/disable table sorting, optional, default true
@@ -290,6 +308,36 @@ Column with Title "Name" , which is visible and editable:
     editable: true,
 }
 ```
+
+#### Column slots example
+
+````html
+
+    <vue-bootstrap-table
+            :columns="columns"
+            :values="values"
+            :show-filter="true"
+            :show-column-picker="true"
+            :sortable="true"
+            :paginated="true"
+            :multi-column-sortable=true
+            :filter-case-sensitive=false
+
+    >
+        <template v-slot:name="slotProps">
+            {{slotProps.value.name}}
+        </template>
+        <template v-slot:description="slotProps">
+            {{slotProps.value.description}}
+        </template>
+    </vue-bootstrap-table>
+```` 
+
+A slot will be created for each column, named with column.name. It has two props available:
+ * "column" - the column object
+ * "value" - the value object for the corresponding row
+
+
 
 #### Render Function Example
 

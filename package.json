@@ -1,7 +1,7 @@
 {
   "name": "vue2-bootstrap-table2",
-  "version": "1.1.13",
-  "description": "A sortable and searchable vue table, as a Vue component, using bootstrap styling.",
+  "version": "1.2.0",
+  "description": "A sortable and searchable table, as a Vue component, using Bootstrap and Fontawesome styling.",
   "keywords": [
     "table",
     "vuejs",
@@ -15,7 +15,7 @@
   ],
   "main": "dist/vue-bootstrap-table.min.js",
   "scripts": {
-    "dev": "webpack-dev-server --host 0.0.0.0 --public 172.16.213.1:8080 --inline --hot",
+    "dev": "webpack-dev-server --host 0.0.0.0 --port 8080 --inline --hot",
     "build": "cross-env NODE_ENV=production && webpack --progress --hide-modules",
     "dist": "webpack --progress --hide-modules --config webpack.build.js && cross-env NODE_ENV=production webpack --progress --hide-modules --config  webpack.build.min.js"
   },
@@ -25,15 +25,15 @@
   },
   "author": "Gustavo Santos (JBay Solutions) <gustavo.santos@jbaysolutions.com> (http://www.jbaysolutions.com)",
   "dependencies": {
-    "babel-runtime": "^6.0.0",
-    "es6-promise-promise" : "1.0.0",
-    "axios": "^0.16.1",
+    "axios": "^0.18.0",
     "qs": "^6.0.0",
     "lodash.orderby": "^4.6.0",
     "lodash.findindex": "^4.6.0",
     "lodash.includes": "^4.3.0"
   },
   "devDependencies": {
+    "babel-runtime": "^6.0.0",
+    "es6-promise-promise" : "1.0.0",
     "babel-cli": "^6.5.1",
     "babel-core": "^6.x",
     "babel-eslint": "^4.1.8",
@@ -44,7 +44,9 @@
     "babel-preset-es2015": "^6.5.0",
     "babel-preset-es2015-loose": "^7.0.0",
     "babel-preset-stage-1": "^6.5.0",
-    "bootstrap": "3.3.7",
+    "bootstrap": "^4.3.1",
+    "@fortawesome/fontawesome-free": "^5.8.2",
+    "jquery": "^3.4.1",
     "cross-env": "^2.0.0",
     "css-loader": "^0.23.1",
     "ejs": "^2.4.1",
@@ -54,7 +56,7 @@
     "imports-loader": "^0.6.5",
     "style-loader": "^0.13.1",
     "stylus-loader": "^1.2.1",
-    "vue": "^2.3.3",
+    "vue": "^2.6.10",
     "vue-hot-reload-api": "^1.3.3",
     "vue-html-loader": "^1.0.0",
     "vue-loader": "^8.5.2",

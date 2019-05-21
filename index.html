@@ -6,16 +6,10 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="stylesheet" href="examples/app.css">
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./node_modules/@fortawesome/fontawesome-free/css/all.min.css">
 </head>
 <body>
 <style>
-    .colstyletest {
-        background-color: #000066;
-    }
-
-    .cellstyletest {
-        background-color: #a94442;
-    }
 </style>
 
 <div class="container-fluid">
@@ -24,14 +18,16 @@
         <div class="row">
             <div class="col-sm-12">
                 <button @click="addItem" class="btn btn-primary"><i class="glyphicon glyphicon-plus-sign"></i> Add an item</button>
-                <button @click="toggleFilter" class="btn btn-default">Toggle Filter</button>
-                <button @click="togglePicker" class="btn btn-default">Toggle Column Picker</button>
-                <button @click="togglePagination" class="btn btn-default">Toggle Pagination</button>
-                <button @click="refreshTable" class="btn btn-default">Refresh</button>
-                <button @click="setNewPageSize" class="btn btn-default">Page Size = 1 </button>
+                <button @click="toggleFilter" class="btn btn-outline-primary">Toggle Filter</button>
+                <button @click="togglePicker" class="btn btn-outline-primary">Toggle Column Picker</button>
+                <button @click="toggleSelect" class="btn btn-outline-primary">Toggle Select column</button>
+                <button @click="togglePagination" class="btn btn-outline-primary">Toggle Pagination</button>
+                <button @click="refreshTable" class="btn btn-outline-primary">Refresh</button>
+                <button @click="setNewPageSize" class="btn btn-outline-primary">Page Size = 1 </button>
             </div>
             <br/><br/>
-            <vue-bootstrap-table      ref="exampleTable"
+            <vue-bootstrap-table
+                    ref="exampleTable"
                     :columns="columns"
                     :values="values"
                     :show-filter="showFilter"
@@ -41,7 +37,14 @@
                     :ajax="ajax"
                     :row-click-handler=handleRowFunction
                     :filter-case-sensitive=false
+                    :selectable="showSelect"
             >
+                <!--<template v-slot:name="slotProps">
+                    <b>NAME:</b> {{slotProps.value.name}}
+                </template>
+                <template v-slot:description="slotProps">
+                    <b>DESC:</b> {{slotProps.value.description}}
+                </template>-->
             </vue-bootstrap-table>
         </div>
         <h2>Events Received</h2>
@@ -51,7 +54,9 @@
     </div>
 
 </div>
-<script src="node_modules/vue/dist/vue.js"></script>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script src="./node_modules/jquery/dist/jquery.min.js"></script>
+<script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="build/bundle.js"></script>
 </body>
 </html>

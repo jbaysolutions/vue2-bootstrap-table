@@ -1,5 +1,13 @@
 # Changelog
 
+### 1.2.0 (May 21, 2019)
+
+* Support for column slots
+* Selectable rows
+* Update to Bootstrap v4.3.1
+* Update to Vue v2.6.10
+
+
 ### 1.1.13 (August 24, 2018)
 
 * #19 - Disable filter for specific columns
