@@ -1,80 +1,105 @@
 <template>
-    <div id="maindiv" @click="closeDropdown" @keyup.esc="closeDropdown">
+    <div class="container-fluid">
         <!--<pre>{{columns}}</pre>-->
         <!--<pre>{{$data}}</pre>-->
-        <div class="col-sm-6">
-            <div v-if="showFilter" style="padding-top: 10px;padding-bottom: 10px;">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Filter" v-model="filterKey">
-                    <div class="input-group-addon">
-                        <i class="glyphicon glyphicon-search"></i>
+        <div class="row">
+            <div class="col-6">
+                <div v-if="showFilter" style="padding-top: 10px;padding-bottom: 10px;">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Filter" v-model="filterKey">
+                        <!--<div class="input-group-append">
+                            <span class="input-group-text fa fa-search"></span>
+                        </div>-->
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div v-if="showColumnPicker" style="padding-top: 10px;padding-bottom: 10px;float:right;">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown"
+                                aria-haspopup="true">
+                            Columns <span class="caret"></span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <button v-for="column in displayCols"
+                               class="dropdown-item"
+                               @click.stop.prevent="toggleColumn(column)"
+                            >
+                                <i v-if="column.visible" class="fa fa-check"></i> {{column.title}}
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-sm-6">
-            <div v-if="showColumnPicker" style="padding-top: 10px;padding-bottom: 10px;float:right;">
-                <div class="btn-group" :class="{'open' : columnMenuOpen}">
-                    <button @click.stop.prevent="columnMenuOpen = !columnMenuOpen" @keyup.esc="columnMenuOpen = false"
-                            type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
-                            aria-haspopup="true">
-                        Columns <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li v-for="column in displayCols">
-                            <a href="#" @click.stop.prevent="toggleColumn(column)">
-                                <i v-if="column.visible" class="glyphicon glyphicon-ok"></i> {{column.title}}
-                            </a>
-                        </li>
-                    </ul>
+        <div class="row">
+            <div class="col-sm-12">
+                <div id="loadingdiv" :class="{'vue-table-loading': this.loading , 'vue-table-loading-hidden': !this.loading}">
+                    <div class="spinner"></div>
                 </div>
-            </div>
-        </div>
-        <div class="col-sm-12">
-            <div id="loadingdiv" :class="{'vue-table-loading': this.loading , 'vue-table-loading-hidden': !this.loading}">
-                <div class="spinner"></div>
-            </div>
-            <table class="table table-bordered table-hover table-condensed table-striped vue-table">
-                <thead>
+                <table class="table table-bordered table-hover table-condensed table-striped vue-table">
+                    <thead>
                     <tr>
+                        <th v-if="selectable">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="checkAll" aria-label="Select All" v-model="allSelected">
+                                <label class="custom-control-label" for="checkAll"></label>
+                            </div>
+                            <!--<div class="form-check">
+                                <input class="form-check-input position-static" type="checkbox" aria-label="Select All" v-model="allSelected">
+                            </div>-->
+                        </th>
                         <th v-for="column in displayColsVisible" @click="sortBy($event, column.name, column.sortable)"
                             track-by="column"
+                            class="icon"
                             :class="getClasses(column)">
                             {{ column.title }}
                         </th>
                     </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="entry in filteredValuesSorted " track-by="entry" @click="rowClickHandler($event, entry)">
+                    </thead>
+                    <tbody>
+                    <tr v-for="(entry, index) in filteredValuesSorted " track-by="entry" @click="rowClickHandler($event, entry)">
+                        <td v-if="selectable">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" :id="'check'+index" v-model="entry.selected">
+                                <label class="custom-control-label" :for="'check'+index"></label>
+                            </div>
+                            <!--<div class="form-check">
+                                <input class="form-check-input position-static" type="checkbox" aria-label="Select All" v-model="entry.selected">
+                            </div>-->
+                        </td>
                         <td v-for="column in displayColsVisible" track-by="column"
                             v-show="column.visible" :class="column.cellstyle">
-                            <span v-if="column.renderfunction!==false" v-html="column.renderfunction( column.name, entry )"></span>
-                            <span v-else-if="!column.editable"> {{ entry[column.name] }} </span>
-                            <value-field-section v-else
-                                :entry="entry"
-                                :columnname="column.name"></value-field-section>
+                            <slot :name="column.name" :column="column" :value="entry">
+                                <span v-if="column.renderfunction!==false" v-html="column.renderfunction( column.name, entry )"></span>
+                                <span v-else-if="!column.editable">{{ entry[column.name] }}</span>
+                                <value-field-section v-else
+                                                     :entry="entry"
+                                                     :columnname="column.name"></value-field-section>
+                            </slot>
                         </td>
                     </tr>
-                </tbody>
-            </table>
-        </div>
-        <div v-if="paginated" class="col-sm-12">
-            <div class="btn-toolbar" role="toolbar" aria-label="pagination bar">
-              <div class="btn-group" role="group" aria-label="first page">
-                <button type="button" class="btn btn-default" @click="page=1">&laquo;</button>
-              </div>
-              <div class="btn-group" role="group" aria-label="pages">
-                <button v-for="index in validPageNumbers"
-                    type="button" class="btn btn-default"
-                    :class="{ active: page===index }"
-                    @click="page=index">
-                        {{index}}
-                </button>
-              </div>
-              <div class="btn-group" v-if="showPaginationEtc">...</div>
-              <div class="btn-group" role="group" aria-label="last page">
-                <button type="button" class="btn btn-default" @click="page=maxPage">&raquo;</button>
-              </div>
+                    </tbody>
+                </table>
+            </div>
+            <div v-if="paginated" class="col-sm-12">
+                <div class="btn-toolbar" role="toolbar" aria-label="pagination bar">
+                    <div class="btn-group mr-2" role="group" aria-label="first page">
+                        <button type="button" class="btn btn-outline-primary" @click="page=1">&laquo;</button>
+                    </div>
+                    <div class="btn-group mr-2" role="group" aria-label="pages">
+                        <button v-for="index in validPageNumbers"
+                                type="button" class="btn btn-outline-primary"
+                                :class="{ active: page===index }"
+                                @click="page=index">
+                            {{index}}
+                        </button>
+                    </div>
+                    <div class="btn-group mr-2" v-if="showPaginationEtc">...</div>
+                    <div class="btn-group" role="group" aria-label="last page">
+                        <button type="button" class="btn btn-outline-primary" @click="page=maxPage">&raquo;</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -132,18 +157,27 @@
         color: red;
     }*/
 
+    .vue-table .icon::before {
+        display: inline-block;
+        font-style: normal;
+        font-variant: normal;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+    }
+
     .vue-table .arrow {
         opacity: 1;
         position: relative;
     }
 
-    .vue-table .arrow:after {
+    .vue-table .arrow:before {
         position: absolute;
         bottom: 8px;
         right: 8px;
         display: block;
-        font-family: 'Glyphicons Halflings';
-        content: "\e150";
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        content: "\f0dc";
         /*
         display: inline-block;
         vertical-align: middle;
@@ -153,8 +187,8 @@
         opacity: 0.66;*/
     }
 
-    .vue-table .arrow.asc:after {
-        content: "\e155";
+    .vue-table .arrow.asc:before {
+        content: "\f0de";
         /*
         border-left: 4px solid transparent;
         border-right: 4px solid transparent;
@@ -162,8 +196,8 @@
         */
     }
 
-    .vue-table .arrow.dsc:after {
-        content: "\e156";
+    .vue-table .arrow.dsc:before {
+        content: "\f0dd";
     }
 
 
@@ -196,8 +230,8 @@
           '<div v-else-if="enabled" class="input-group">'+
           '  <input type="text" class="form-control" v-model="datavalue" @keyup.enter="saveThis" @keyup.esc="cancelThis">'+
           '  <span class="input-group-btn">'+
-          '    <button class="btn btn-danger" type="button" @click="cancelThis" ><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>'+
-          '    <button class="btn btn-primary" type="button" @click="saveThis" ><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>'+
+          '    <button class="btn btn-danger" type="button" @click="cancelThis" ><span class="fa fa-trash-alt" aria-hidden="true"></span></button>'+
+          '    <button class="btn btn-primary" type="button" @click="saveThis" ><span class="fa fa-check" aria-hidden="true"></span></button>'+
           '  </span>'+
           '</div>',
       props: ['entry','columnname'],
@@ -244,6 +278,15 @@
             values: {
                 type: Array,
                 required: false,
+            },
+            /**
+             * Enable/disable table row selection, optional, default false.
+             * When true, it will add a checkbox column on the left side and use the value.selected field
+             */
+            selectable: {
+                type: Boolean,
+                required: false,
+                default: true,
             },
             /**
              * Enable/disable table sorting, optional, default true
@@ -350,14 +393,16 @@
                 sortKey: [],
                 sortOrders: {},
                 sortChanged: 1,
-                columnMenuOpen: false,
+                // columnMenuOpen: false,
                 displayCols: [],
                 filteredValues: [],
                 rawValues: [],
                 page: 1,
                 definedPageSize: 10,
                 echo: 0,
-                loading: false,
+                loading: true,
+
+                allSelected: false,
             };
         },
         /**
@@ -435,7 +480,7 @@
                 this.filterKey = "";
             },
             showColumnPicker: function () {
-                this.columnMenuOpen = false;
+                // this.columnMenuOpen = false;
 
                 this.displayCols.forEach(function (column) {
                     column.visible = true;
@@ -461,6 +506,15 @@
             loading: function () {
                 /*document.getElementById("loadingdiv").style.width = document.getElementById("maindiv").getBoundingClientRect().width + "px";
                 document.getElementById("loadingdiv").style.height = document.getElementById("maindiv").getBoundingClientRect().height+"px";*/
+            },
+            allSelected() {
+                const val = this.allSelected;
+                this.values.forEach(value => {
+                    value.selected = false;
+                })
+                this.filteredValuesSorted.forEach(value => {
+                    value.selected = val;
+                })
             }
         },
         computed: {
@@ -766,9 +820,9 @@
             toggleColumn: function (column) {
                 column.visible = !column.visible;
             },
-            closeDropdown: function () {
-                this.columnMenuOpen = false;
-            },
+            // closeDropdown: function () {
+            //     this.columnMenuOpen = false;
+            // },
         },
         events: {
         }
