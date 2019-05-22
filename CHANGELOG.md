@@ -1,5 +1,10 @@
 # Changelog
 
+### 1.2.1 (May 22, 2019)
+
+* changed project structure and build using Vue CLI
+* bugfix when multiple tables were on the same page
+
 ### 1.2.0 (May 21, 2019)
 
 * Support for column slots

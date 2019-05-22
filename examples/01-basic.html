@@ -6,6 +6,7 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="stylesheet" href="app.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/fontawesome-all.min.css">
 </head>
 <body>
     <div class="container-fluid">
@@ -14,31 +15,41 @@
             <div class="row">
                 <div class="col-sm-12">
                     <button @click="addItem" class="btn btn-primary"><i class="glyphicon glyphicon-plus-sign"></i> Add an item</button>
-                    <button @click="toggleFilter" class="btn btn-default">Toggle Filter</button>
-                    <button @click="togglePicker" class="btn btn-default">Toggle Column Picker</button>
-                    <button @click="togglePagination" class="btn btn-default">Toggle Pagination</button>
+                    <button @click="toggleFilter" class="btn btn-outline-primary">Toggle Filter</button>
+                    <button @click="togglePicker" class="btn btn-outline-primary">Toggle Column Picker</button>
+                    <button @click="togglePagination" class="btn btn-outline-primary">Toggle Pagination</button>
                 </div>
                 <br/><br/>
-                <vue-bootstrap-table
-                        :columns="columns"
-                        :values="values"
-                        :show-filter="showFilter"
-                        :show-column-picker="showPicker"
-                        :paginated="paginated"
-                        :multi-column-sortable="multiColumnSortable"
-                        :ajax="ajax"
-                >
-                </vue-bootstrap-table>
             </div>
-            <h2>Events Received</h2>
-            <div>
-                {{ logging }}
+            <div class="row">
+                <div class="col-12">
+                    <vue-bootstrap-table
+                            :columns="columns"
+                            :values="values"
+                            :show-filter="showFilter"
+                            :show-column-picker="showPicker"
+                            :paginated="paginated"
+                            :multi-column-sortable="multiColumnSortable"
+                            :ajax="ajax"
+                    >
+                    </vue-bootstrap-table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                <h2>Events Received</h2>
+                    <div>
+                        {{ logging }}
+                    </div>
+                </div>
             </div>
         </div>
 
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.3/vue.js"></script>
-    <script src="../dist/vue-bootstrap-table.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="../dist/vue2-bootstrap-table2.umd.js"></script>
     <script src="01-basic.js"></script>
 </body>
 </html>

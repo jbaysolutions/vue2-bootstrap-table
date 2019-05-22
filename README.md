@@ -2,9 +2,9 @@
 
 vue-bootstrap-table is a sortable and searchable table, with Bootstrap styling, for Vue.js.
 
-### VUE 2.6.0 : 1.2.0 (column slots support, Bootstrap v4.3.1) 
+### Vue 2.6.0 : 1.2.1 (column slots support, Bootstrap v4.3.1) 
 
-### VUE < 2.6.0: 1.1.13 (Bootstrap v3) 
+### Vue < 2.6.0: 1.1.13 (Bootstrap v3) 
 
 ### Vue 1 : [jbaysolutions/vue-bootstrap-table](https://github.com/jbaysolutions/vue-bootstrap-table)
 
@@ -54,14 +54,40 @@ TODO UPDATE CHANGELOG
 
 ## Installation
 
-Install the vue-bootstrap-table [package](https://www.npmjs.org/package/vue2-bootstrap-table2) package using [npm](https://www.npmjs.com/):
+#### [npm](https://www.npmjs.org/package/vue2-bootstrap-table2)
 
-	npm install vue2-bootstrap-table2
+    # install with npm    
+	npm install vue2-bootstrap-table2 --save
+    
+    # install with yarn    
+    yarn add vue2-bootstrap-table2
 
 
-Or add the js script to your html (download from [releases](https://github.com/jbaysolutions/vue2-bootstrap-table/releases)):
- 
-    <script src="vue-bootstrap-table.js"></script>
+Import the library
+
+```javascript
+    import VueBootstrapTable from "vue2-bootstrap-table2";
+```
+
+Add to other Vue components 
+
+ ```javascript
+    export default {
+        components: {
+            VueBootstrapTable: VueBootstrapTable,
+        },
+    // ... data, methods, mounted (), etc.
+    }
+    
+``` 
+
+#### browser
+
+Include the browser-ready bundle (download from [releases](https://github.com/jbaysolutions/vue2-bootstrap-table/releases)) in your page. The components will be automatically available.
+
+```html
+    <script src="vue2-bootstrap-table2.umd.min.js"></script>
+```
 
 
 ## Usage
