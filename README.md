@@ -9,6 +9,7 @@ vue-bootstrap-table is a sortable and searchable table, with Bootstrap styling, 
 ### Vue 1 : [jbaysolutions/vue-bootstrap-table](https://github.com/jbaysolutions/vue-bootstrap-table)
 
 ### [Demo](https://jbaysolutions.github.io/vue2-bootstrap-table/examples/01-basic.html)
+### [Changelog](/CHANGELOG.MD)
 
 <!--
 ## Table of Contents
