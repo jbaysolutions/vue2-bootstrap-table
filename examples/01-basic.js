@@ -10,6 +10,7 @@ new Vue({
         logging: [],
         showFilter: true,
         showPicker: true,
+        showSelect: true,
         paginated: true,
         multiColumnSortable: true,
         ajax: {
@@ -104,6 +105,9 @@ new Vue({
         },
         togglePagination: function () {
             this.paginated = !this.paginated;
-        }
+        },
+        toggleSelect: function () {
+            this.showSelect = !this.showSelect;
+        },
     },
 });

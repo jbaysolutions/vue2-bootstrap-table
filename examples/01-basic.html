@@ -17,6 +17,7 @@
                     <button @click="addItem" class="btn btn-primary"><i class="glyphicon glyphicon-plus-sign"></i> Add an item</button>
                     <button @click="toggleFilter" class="btn btn-outline-primary">Toggle Filter</button>
                     <button @click="togglePicker" class="btn btn-outline-primary">Toggle Column Picker</button>
+                    <button @click="toggleSelect" class="btn btn-outline-primary">Toggle Select column</button>
                     <button @click="togglePagination" class="btn btn-outline-primary">Toggle Pagination</button>
                 </div>
                 <br/><br/>
@@ -28,6 +29,7 @@
                             :values="values"
                             :show-filter="showFilter"
                             :show-column-picker="showPicker"
+                            :selectable="showSelect"
                             :paginated="paginated"
                             :multi-column-sortable="multiColumnSortable"
                             :ajax="ajax"
