@@ -1,5 +1,13 @@
 # Changelog
 
+### 1.2.2 (March 31, 2022)
+
+* dependencies update, 
+* added right buttons slot 
+* added filter placeholder prop
+* added column picker button label prop
+* added table classes prop
+
 ### 1.2.1 (May 22, 2019)
 
 * changed project structure and build using Vue CLI
