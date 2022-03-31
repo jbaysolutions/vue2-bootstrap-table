@@ -228,8 +228,8 @@
 
     /* used for fixing IE problems*/
     import { polyfill } from 'es6-promise'; polyfill();
-    import 'popper.js'
-    import 'bootstrap'
+    // import 'popper.js'
+    // import 'bootstrap'
     import axios from 'axios';
     import qs from 'qs';
     import lodashorderby from 'lodash.orderby';
