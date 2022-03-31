@@ -18,12 +18,18 @@
                   :show-filter="showFilter"
                   :show-column-picker="showPicker"
                   :paginated="paginated"
+                  filter-placeholder="Filtrar!!!"
+                  column-picker-label="Colunas..."
+                  table-classes="table-hover table-bordered table-striped"
                   :multi-column-sortable="multiColumnSortable"
                   :ajax="ajax"
                   :row-click-handler=handleRowFunction
                   :filter-case-sensitive=false
                   :selectable="showSelect"
           >
+<!--              <template v-slot:header-right>
+                  OLAAA
+              </template>-->
               <!--<template v-slot:name="slotProps">
                   <b>NAME:</b> {{slotProps.value.name}}
               </template>

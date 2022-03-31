@@ -6,7 +6,7 @@
             <div class="col-6">
                 <div v-if="showFilter" style="padding-top: 10px;padding-bottom: 10px;">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Filter" v-model="filterKey">
+                        <input type="text" class="form-control" :placeholder="filterPlaceholder" v-model="filterKey">
                         <!--<div class="input-group-append">
                             <span class="input-group-text fa fa-search"></span>
                         </div>-->
@@ -14,22 +14,25 @@
                 </div>
             </div>
             <div class="col-6">
-                <div v-if="showColumnPicker" style="padding-top: 10px;padding-bottom: 10px;float:right;">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown"
-                                aria-haspopup="true">
-                            Columns <span class="caret"></span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <button v-for="column in displayCols"
-                               class="dropdown-item"
-                               @click.stop.prevent="toggleColumn(column)"
-                            >
-                                <i v-if="column.visible" class="fa fa-check"></i> {{column.title}}
+                <slot name="header-right">
+                    <div v-if="showColumnPicker" style="padding-top: 10px;padding-bottom: 10px;float:right;">
+                        <div class="dropdown">
+                            <button type="button" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown"
+                                    aria-haspopup="true">
+                                {{columnPickerLabel}} <span class="caret"></span>
                             </button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <button v-for="(column, index) in displayCols"
+                                        :key="index"
+                                        class="dropdown-item"
+                                        @click.stop.prevent="toggleColumn(column)"
+                                >
+                                    <i v-if="column.visible" class="fa fa-check"></i> {{column.title}}
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </slot>
             </div>
         </div>
         <div class="row">
@@ -37,7 +40,7 @@
                 <div :class="{'vue-table-loading': this.loading , 'vue-table-loading-hidden': !this.loading}">
                     <div class="spinner"></div>
                 </div>
-                <table class="table table-bordered table-hover table-condensed table-striped vue-table">
+                <table class="vue-table" :class="tableClasses">
                     <thead>
                     <tr>
                         <th v-if="selectable" style="width:40px;">
@@ -49,8 +52,9 @@
                                 <input class="form-check-input position-static" type="checkbox" aria-label="Select All" v-model="allSelected">
                             </div>-->
                         </th>
-                        <th v-for="column in displayColsVisible" @click="sortBy($event, column.name, column.sortable)"
-                            track-by="column"
+                        <th v-for="(column, index) in displayColsVisible"
+                            :key="index"
+                            @click="sortBy($event, column.name, column.sortable)"
                             class="icon"
                             :class="getClasses(column)">
                             {{ column.title }}
@@ -58,7 +62,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="(entry, index) in filteredValuesSorted " track-by="entry" @click="rowClickHandler($event, entry)">
+                    <tr v-for="(entry, index) in filteredValuesSorted" :key="index" @click="rowClickHandler($event, entry)">
                         <td v-if="selectable">
                             <div class="custom-control custom-checkbox">
                                 <input type="checkbox" class="custom-control-input" :id="'check'+instanceId+index" v-model="entry.selected">
@@ -68,7 +72,7 @@
                                 <input class="form-check-input position-static" type="checkbox" aria-label="Select All" v-model="entry.selected">
                             </div>-->
                         </td>
-                        <td v-for="column in displayColsVisible" track-by="column"
+                        <td v-for="(column, index) in displayColsVisible" :key="index"
                             v-show="column.visible" :class="column.cellstyle">
                             <slot :name="column.name" :column="column" :value="entry">
                                 <span v-if="column.renderfunction!==false" v-html="column.renderfunction( column.name, entry )"></span>
@@ -88,7 +92,7 @@
                         <button type="button" class="btn btn-outline-primary" @click="page=1">&laquo;</button>
                     </div>
                     <div class="btn-group mr-2" role="group" aria-label="pages">
-                        <button v-for="index in validPageNumbers"
+                        <button v-for="index in validPageNumbers" :key="index"
                                 type="button" class="btn btn-outline-primary"
                                 :class="{ active: page===index }"
                                 @click="page=index">
@@ -135,7 +139,7 @@
     }
 
 
-    .vue-table-loading{
+    .vue-table-loading {
         position: absolute;
         z-index: 99;
         background-color: #ddd;
@@ -153,6 +157,13 @@
         padding-right: 30px !important;
     }
 
+    table.vue-table thead > tr > th {
+        position: sticky;
+        top: 0;
+        background-color: white;
+        z-index: 1;
+    }
+
     /*.vue-table th.active {
         color: red;
     }*/
@@ -167,7 +178,7 @@
 
     .vue-table .arrow {
         opacity: 1;
-        position: relative;
+        /*position: relative;*/
     }
 
     .vue-table .arrow:before {
@@ -217,6 +228,8 @@
 
     /* used for fixing IE problems*/
     import { polyfill } from 'es6-promise'; polyfill();
+    import 'popper.js'
+    import 'bootstrap'
     import axios from 'axios';
     import qs from 'qs';
     import lodashorderby from 'lodash.orderby';
@@ -351,6 +364,30 @@
                 required: false,
                 default: function () {}
             },
+            /**
+             * Placeholder for filter input field
+             */
+            filterPlaceholder: {
+                type: String,
+                required: false,
+                default() {
+                    return "Filter";
+                }
+            },
+            columnPickerLabel: {
+                type: String,
+                required: false,
+                default() {
+                    return "Columns";
+                }
+            },
+            tableClasses: {
+                type: String,
+                required: false,
+                default() {
+                    return "table table-bordered table-hover table-condensed table-striped";
+                }
+            }
         },
         data: function () {
             return {
@@ -380,10 +417,10 @@
                 this.loading = true;
                 this.setSortOrders();
                 this.definedPageSize = this.pageSize;
-                var self = this;
+                const self = this;
                 //
                 if (this.defaultOrderColumn !== null) {
-                    console.log("setting order default");
+                    //console.log("setting order default");
                     self.sortKey[0] = this.defaultOrderColumn;
                     if (this.defaultOrderDirection)
                         self.sortOrders[this.defaultOrderColumn] = "ASC";
@@ -392,7 +429,7 @@
                 }
                 // Build columns
                 this.columns.forEach(function (column) {
-                    var obj = self.buildColumnObject(column);
+                    let obj = self.buildColumnObject(column);
                     self.displayCols.push(obj);
                 });
                 // Work the data
@@ -420,14 +457,14 @@
          * On created register on CellDataModified event
          */
         created: function () {
-            var self = this ;
+            const self = this;
             this.$on('cellDataModifiedEvent', self.fireCellDataModifiedEvent);
         },
         /**
          * On destroy unregister the event
          */
         beforeDestroy: function(){
-            var self = this ;
+            const self = this;
             this.$off('cellDataModifiedEvent', self.fireCellDataModifiedEvent);
         },
         watch: {
@@ -439,9 +476,9 @@
             },
             columns: function () {
                 this.displayCols = [];
-                var self = this;
+                const self = this;
                 this.columns.forEach(function (column) {
-                    var obj = self.buildColumnObject(column);
+                    let obj = self.buildColumnObject(column);
                     self.displayCols.push(obj);
                 });
                 this.setSortOrders();
@@ -489,16 +526,16 @@
         },
         computed: {
             displayColsVisible: function () {
-                var displayColsVisible = [];
-                for (var a in this.displayCols) {
+                let displayColsVisible = [];
+                for (let a in this.displayCols) {
                     if (this.displayCols[a].visible)
                         displayColsVisible.push(this.displayCols[a]);
                 }
                 return displayColsVisible;
             },
             filteredValuesSorted: function () {
-                var tColsDir = [];
-                for(var i=0, len=this.sortKey.length; i < len; i++){
+                let tColsDir = [];
+                for(let i=0, len=this.sortKey.length; i < len; i++){
                     tColsDir.push(this.sortOrders[this.sortKey[i]].toLowerCase());
                 }
                 if (typeof this.ajax !== 'undefined' && this.ajax.enabled && this.ajax.delegate) {
@@ -509,11 +546,11 @@
             },
             validPageNumbers: function () {
                 // 5 page max
-                var result = [];
-                var start = 1;
+                let result = [];
+                let start = 1;
                 if (this.page > 3)
                     start = this.page-2;
-                for ( var i = 0 ; start <= this.maxPage && i<5; start++ ) {
+                for ( let i = 0 ; start <= this.maxPage && i<5; start++ ) {
                     result.push(start);
                     i++;
                 }
@@ -523,7 +560,7 @@
                 return Math.ceil(this.filteredSize / this.definedPageSize);
             },
             showPaginationEtc: function () {
-                var temp = 1;
+                let temp = 1;
                 if (this.page > 3)
                     temp = this.page-2;
                 return ( (temp+4) < this.maxPage  );
@@ -544,7 +581,7 @@
                 this.$parent.$emit('cellDataModifiedEvent',originalValue, newValue, columnTitle, entry);
             },
             processFilter: function () {
-                var self = this;
+                const self = this;
                 this.loading = true;
                 if ( this.ajax.enabled && this.ajax.delegate ) {
                    this.fetchData(function (data) {
@@ -553,8 +590,8 @@
                        self.loading = false;
                    });
                 } else {
-                    var result = this.rawValues.filter(item => {
-                                for (var col in self.displayColsVisible) {
+                    let result = this.rawValues.filter(item => {
+                                for (let col in self.displayColsVisible) {
                                     if (self.displayColsVisible[col].filterable) {
                                         if (self.filterCaseSensitive) {
                                             if (lodashincludes(item[self.displayColsVisible[col].name] + "", self.filterKey + "")) {
@@ -570,21 +607,20 @@
                                 return false;
                     });
 
-                    var tColsDir = [];
-                    for(var i=0, len=this.sortKey.length; i < len; i++){
+                    let tColsDir = [];
+                    for(let i=0, len=this.sortKey.length; i < len; i++){
                         tColsDir.push(this.sortOrders[this.sortKey[i]].toLowerCase());
                     }
 
-                    if (typeof this.ajax !== 'undefined' && this.ajax.enabled && this.ajax.delegate) {}
-                    else {
+                    if (!(typeof this.ajax !== 'undefined' && this.ajax.enabled && this.ajax.delegate)) {
                         result = lodashorderby(result, this.sortKey, tColsDir);
                     }
 
                     this.filteredSize = result.length;
                     if (this.paginated) {
-                        var startIndex = (this.page - 1) * this.definedPageSize;
-                        var tIndex = 0;
-                        var tempResult = [];
+                        let startIndex = (this.page - 1) * this.definedPageSize;
+                        let tIndex = 0;
+                        let tempResult = [];
                         while (tIndex < this.definedPageSize) {
                             if (typeof result[startIndex + tIndex] !== "undefined")
                                 tempResult.push(result[startIndex + tIndex]);
@@ -597,14 +633,14 @@
                 }
             },
             fetchData: function ( dataCallBackFunction ) {
-                var self = this;
-                var ajaxParameters = {
+                let self = this;
+                let ajaxParameters = {
                     params: {}
                 };
                 this.echo++;
                 if (this.ajax.enabled && this.ajax.delegate) {
-                    var tColsDir = [];
-                    for(var i=0, len=this.sortKey.length; i < len; i++){
+                    let tColsDir = [];
+                    for(let i=0, len=this.sortKey.length; i < len; i++){
                         tColsDir.push(this.sortOrders[this.sortKey[i]].toLowerCase());
                     }
                     if ( this.ajax.method=== "GET" ) {
@@ -670,7 +706,7 @@
                         });
                 }
                 if (this.ajax.enabled && this.ajax.method === "POST") {
-                    var tempAxiosConf = {};
+                    let tempAxiosConf = {};
                     if (this.ajax !== null && this.ajax.axiosConfig!==null && this.ajax.axiosConfig!== undefined) {
                         tempAxiosConf = this.ajax.axiosConfig
                     }
@@ -692,7 +728,7 @@
                 }
             },
             buildColumnObject: function (column) {
-                var obj = {};
+                let obj = {};
                 obj.title = column.title;
                 if ( typeof column.name !== "undefined")
                     obj.name = column.name;
@@ -731,7 +767,7 @@
             },
             setSortOrders: function () {
                 this.sortKey = [];
-                var sortOrders = {};
+                let sortOrders = {};
                 this.columns.forEach(function (column) {
                     sortOrders[column.name] = "";
                 });
@@ -742,7 +778,7 @@
                 if (!enabled)
                     return;
                 if (this.sortable) {
-                    var self = this;
+                    const self = this;
 
                     if (!this.multiColumnSortable || ( this.multiColumnSortable && !event.shiftKey)) {
                         this.sortKey = [key];
@@ -768,8 +804,8 @@
                 }
             },
             getClasses: function (column) {
-                var classes = [column.columnstyle];
-                var key = column.name;
+                let classes = [column.columnstyle];
+                let key = column.name;
                 if (this.sortable && column.sortable) {
                     classes.push("arrow");
                     /*if (this.sortKey === key) {
