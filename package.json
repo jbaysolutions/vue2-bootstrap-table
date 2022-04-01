@@ -1,6 +1,6 @@
 {
   "name": "vue2-bootstrap-table2",
-  "version": "1.2.2",
+  "version": "1.2.4",
   "description": "A sortable and searchable table, as a Vue component, using Bootstrap and Fontawesome styling.",
   "keywords": [
     "table",

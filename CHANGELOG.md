@@ -1,12 +1,12 @@
 # Changelog
 
-### 1.2.2 (March 31, 2022)
+### 1.2.4 (April 1, 2022)
 
 * dependencies update, 
-* added right buttons slot 
 * added filter placeholder prop
 * added column picker button label prop
 * added table classes prop
+* added filter prop
 
 ### 1.2.1 (May 22, 2019)
 

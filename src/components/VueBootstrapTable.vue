@@ -14,25 +14,23 @@
                 </div>
             </div>
             <div class="col-6">
-                <slot name="header-right">
-                    <div v-if="showColumnPicker" style="padding-top: 10px;padding-bottom: 10px;float:right;">
-                        <div class="dropdown">
-                            <button type="button" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown"
-                                    aria-haspopup="true">
-                                {{columnPickerLabel}} <span class="caret"></span>
+                <div v-if="showColumnPicker" style="padding-top: 10px;padding-bottom: 10px;float:right;">
+                    <div class="dropdown">
+                        <button type="button" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown"
+                                aria-haspopup="true">
+                            {{columnPickerLabel}} <span class="caret"></span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <button v-for="(column, index) in displayCols"
+                                    :key="index"
+                                    class="dropdown-item"
+                                    @click.stop.prevent="toggleColumn(column)"
+                            >
+                                <i v-if="column.visible" class="fa fa-check"></i> {{column.title}}
                             </button>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <button v-for="(column, index) in displayCols"
-                                        :key="index"
-                                        class="dropdown-item"
-                                        @click.stop.prevent="toggleColumn(column)"
-                                >
-                                    <i v-if="column.visible" class="fa fa-check"></i> {{column.title}}
-                                </button>
-                            </div>
                         </div>
                     </div>
-                </slot>
+                </div>
             </div>
         </div>
         <div class="row">
@@ -40,7 +38,7 @@
                 <div :class="{'vue-table-loading': this.loading , 'vue-table-loading-hidden': !this.loading}">
                     <div class="spinner"></div>
                 </div>
-                <table class="vue-table" :class="tableClasses">
+                <table class="vue-table table" :class="tableClasses">
                     <thead>
                     <tr>
                         <th v-if="selectable" style="width:40px;">
@@ -72,10 +70,9 @@
                                 <input class="form-check-input position-static" type="checkbox" aria-label="Select All" v-model="entry.selected">
                             </div>-->
                         </td>
-                        <td v-for="(column, index) in displayColsVisible" :key="index"
-                            v-show="column.visible" :class="column.cellstyle">
+                        <td v-for="(column, index) in displayColsVisible" :key="index" :class="column.cellstyle">
                             <slot :name="column.name" :column="column" :value="entry">
-                                <span v-if="column.renderfunction!==false" v-html="column.renderfunction( column.name, entry )"></span>
+                                <span v-if="column.renderFunction && column.renderfunction!==false" v-html="column.renderfunction( column.name, entry )"></span>
                                 <span v-else-if="!column.editable">{{ entry[column.name] }}</span>
                                 <value-field-section v-else
                                                      :entry="entry"
@@ -157,12 +154,12 @@
         padding-right: 30px !important;
     }
 
-    table.vue-table thead > tr > th {
+    /*table.vue-table thead > tr > th {
         position: sticky;
         top: 0;
         background-color: white;
         z-index: 1;
-    }
+    }*/
 
     /*.vue-table th.active {
         color: red;
@@ -178,7 +175,7 @@
 
     .vue-table .arrow {
         opacity: 1;
-        /*position: relative;*/
+        position: relative;
     }
 
     .vue-table .arrow:before {
@@ -228,8 +225,6 @@
 
     /* used for fixing IE problems*/
     import { polyfill } from 'es6-promise'; polyfill();
-    // import 'popper.js'
-    // import 'bootstrap'
     import axios from 'axios';
     import qs from 'qs';
     import lodashorderby from 'lodash.orderby';
@@ -374,6 +369,13 @@
                     return "Filter";
                 }
             },
+            filter: {
+                type: String,
+                required: false,
+                default() {
+                    return null;
+                }
+            },
             columnPickerLabel: {
                 type: String,
                 required: false,
@@ -387,7 +389,7 @@
                 default() {
                     return "table table-bordered table-hover table-condensed table-striped";
                 }
-            }
+            },
         },
         data: function () {
             return {
@@ -413,45 +415,45 @@
          * Once mounted and ready to start
          */
         mounted: function () {
-            this.$nextTick(function () {
-                this.loading = true;
-                this.setSortOrders();
-                this.definedPageSize = this.pageSize;
-                const self = this;
-                //
-                if (this.defaultOrderColumn !== null) {
-                    //console.log("setting order default");
-                    self.sortKey[0] = this.defaultOrderColumn;
-                    if (this.defaultOrderDirection)
-                        self.sortOrders[this.defaultOrderColumn] = "ASC";
-                    else
-                        self.sortOrders[this.defaultOrderColumn] = "DESC";
-                }
-                // Build columns
-                this.columns.forEach(function (column) {
-                    let obj = self.buildColumnObject(column);
-                    self.displayCols.push(obj);
-                });
-                // Work the data
-                if (this.ajax.enabled) {
-                    if (!this.ajax.delegate) {
-                        // If ajax but NOT delegate
-                        // Perform the fetch of data now and set the raw values
-                        this.loading = true;
-                        this.fetchData(function (data) {
-                            self.rawValues = data.data;
-                        });
-                    } else {
-                        // If ajax and also delegate
-                        // Simply call processFilter, which will take care of the fetching
-                        //this.processFilter();
-                    }
+            // this.$nextTick(function () {
+            this.loading = true;
+            this.setSortOrders();
+            this.definedPageSize = this.pageSize;
+            const self = this;
+            //
+            if (this.defaultOrderColumn !== null) {
+                //console.log("setting order default");
+                self.sortKey[0] = this.defaultOrderColumn;
+                if (this.defaultOrderDirection)
+                    self.sortOrders[this.defaultOrderColumn] = "ASC";
+                else
+                    self.sortOrders[this.defaultOrderColumn] = "DESC";
+            }
+            // Build columns
+            this.columns.forEach(function (column) {
+                let obj = self.buildColumnObject(column);
+                self.displayCols.push(obj);
+            });
+            // Work the data
+            if (this.ajax.enabled) {
+                if (!this.ajax.delegate) {
+                    // If ajax but NOT delegate
+                    // Perform the fetch of data now and set the raw values
+                    this.loading = true;
+                    this.fetchData(function (data) {
+                        self.rawValues = data.data;
+                    });
                 } else {
-                    // Not ajax, therefore working with given elements
-                    // Pass the Prop values to rawValues data object.
-                    self.rawValues = self.values;
+                    // If ajax and also delegate
+                    // Simply call processFilter, which will take care of the fetching
+                    //this.processFilter();
                 }
-            })
+            } else {
+                // Not ajax, therefore working with given elements
+                // Pass the Prop values to rawValues data object.
+                self.rawValues = self.values;
+            }
+            //})
         },
         /**
          * On created register on CellDataModified event
@@ -468,6 +470,9 @@
             this.$off('cellDataModifiedEvent', self.fireCellDataModifiedEvent);
         },
         watch: {
+            filter() {
+                this.filterKey = this.filter;
+            },
             values() {
                 this.rawValues = this.values;
             },

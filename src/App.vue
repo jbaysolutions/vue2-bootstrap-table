@@ -10,26 +10,29 @@
               <button @click="refreshTable" class="btn btn-outline-primary">Refresh</button>
               <button @click="setNewPageSize" class="btn btn-outline-primary">Page Size = 1 </button>
           </div>
+<!--          <input class="form-control" v-model="filter"/>-->
           <br/><br/>
           <vue-bootstrap-table
-                  ref="exampleTable"
-                  :columns="columns"
-                  :values="values"
-                  :show-filter="showFilter"
-                  :show-column-picker="showPicker"
-                  :paginated="paginated"
-                  filter-placeholder="Filtrar!!!"
-                  column-picker-label="Colunas..."
-                  table-classes="table-hover table-bordered table-striped"
-                  :multi-column-sortable="multiColumnSortable"
-                  :ajax="ajax"
-                  :row-click-handler=handleRowFunction
-                  :filter-case-sensitive=false
-                  :selectable="showSelect"
+              ref="exampleTable"
+              :columns="columns"
+              :values="values"
+              :show-filter="showFilter"
+              :filter="filter"
+              :show-column-picker="showPicker"
+              :paginated="paginated"
+              :responsive="true"
+              filter-placeholder="Filtrar!!!"
+              column-picker-label="Colunas..."
+              table-classes="table-hover table-bordered table-striped"
+              :multi-column-sortable="multiColumnSortable"
+              :ajax="ajax"
+              :row-click-handler=handleRowFunction
+              :filter-case-sensitive=false
+              :selectable="showSelect"
           >
-<!--              <template v-slot:header-right>
-                  OLAAA
-              </template>-->
+              <!--              <template v-slot:header-right>
+                                OLAAA
+                            </template>-->
               <!--<template v-slot:name="slotProps">
                   <b>NAME:</b> {{slotProps.value.name}}
               </template>
@@ -64,6 +67,8 @@
 
 <script>
 
+import 'popper.js'
+import 'bootstrap'
 import VueBootstrapTable from "./components/VueBootstrapTable";
 
 export default {
@@ -74,6 +79,7 @@ export default {
     data: function () {
         return {
             logging: [],
+            filter: null,
             showFilter: true,
             showPicker: true,
             showSelect: true,
@@ -119,6 +125,74 @@ export default {
                 },
                 {
                     title: 'State',
+                    name: 'state_province'
+                },
+                {
+                    title: 'State 2',
+                    name: 'state_province'
+                },
+                {
+                    title: 'State 3',
+                    name: 'state_province'
+                },
+                {
+                    title: 'State 4',
+                    name: 'state_province'
+                },
+                {
+                    title: 'State 4',
+                    name: 'state_province'
+                },
+                {
+                    title: 'State 4',
+                    name: 'state_province'
+                },
+                {
+                    title: 'State 4',
+                    name: 'state_province'
+                },
+                {
+                    title: 'State 4',
+                    name: 'state_province'
+                },
+                {
+                    title: 'State 4',
+                    name: 'state_province'
+                },
+                {
+                    title: 'State 4',
+                    name: 'state_province'
+                },
+                {
+                    title: 'State 4',
+                    name: 'state_province'
+                },
+                {
+                    title: 'State 4',
+                    name: 'state_province'
+                },
+                {
+                    title: 'State 4',
+                    name: 'state_province'
+                },
+                {
+                    title: 'State 4',
+                    name: 'state_province'
+                },
+                {
+                    title: 'State 4',
+                    name: 'state_province'
+                },
+                {
+                    title: 'State 4',
+                    name: 'state_province'
+                },
+                {
+                    title: 'State 4',
+                    name: 'state_province'
+                },
+                {
+                    title: 'State 4',
                     name: 'state_province'
                 },
                 {
