@@ -72,7 +72,7 @@
                         </td>
                         <td v-for="(column, index) in displayColsVisible" :key="index" :class="column.cellstyle">
                             <slot :name="column.name" :column="column" :value="entry">
-                                <span v-if="column.renderFunction && column.renderfunction!==false" v-html="column.renderfunction( column.name, entry )"></span>
+                                <span v-if="column.renderfunction && column.renderfunction!==false" v-html="column.renderfunction( column.name, entry )"></span>
                                 <span v-else-if="!column.editable">{{ entry[column.name] }}</span>
                                 <value-field-section v-else
                                                      :entry="entry"

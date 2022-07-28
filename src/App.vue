@@ -140,62 +140,6 @@ export default {
                     name: 'state_province'
                 },
                 {
-                    title: 'State 4',
-                    name: 'state_province'
-                },
-                {
-                    title: 'State 4',
-                    name: 'state_province'
-                },
-                {
-                    title: 'State 4',
-                    name: 'state_province'
-                },
-                {
-                    title: 'State 4',
-                    name: 'state_province'
-                },
-                {
-                    title: 'State 4',
-                    name: 'state_province'
-                },
-                {
-                    title: 'State 4',
-                    name: 'state_province'
-                },
-                {
-                    title: 'State 4',
-                    name: 'state_province'
-                },
-                {
-                    title: 'State 4',
-                    name: 'state_province'
-                },
-                {
-                    title: 'State 4',
-                    name: 'state_province'
-                },
-                {
-                    title: 'State 4',
-                    name: 'state_province'
-                },
-                {
-                    title: 'State 4',
-                    name: 'state_province'
-                },
-                {
-                    title: 'State 4',
-                    name: 'state_province'
-                },
-                {
-                    title: 'State 4',
-                    name: 'state_province'
-                },
-                {
-                    title: 'State 4',
-                    name: 'state_province'
-                },
-                {
                     title: 'Postal Code',
                     name: 'postal_code'
                 }

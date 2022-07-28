@@ -1,6 +1,6 @@
 {
   "name": "vue2-bootstrap-table2",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "A sortable and searchable table, as a Vue component, using Bootstrap and Fontawesome styling.",
   "keywords": [
     "table",
@@ -46,9 +46,9 @@
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.2.3",
     "rimraf": "^2.6.3",
-    "vue-template-compiler": "^2.6.14",
+    "vue-template-compiler": "^2.7.8",
     "core-js": "^2.6.5",
-    "vue": "^2.6.14"
+    "vue": "^2.7.8"
   },
   "eslintConfig": {
     "root": true,

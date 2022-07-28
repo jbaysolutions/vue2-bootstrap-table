@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.2.5 (July 28, 2022)
+
+* fixed renderfunction typo bug (#35)
+
 ### 1.2.4 (April 1, 2022)
 
 * dependencies update, 
